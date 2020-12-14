@@ -1,0 +1,44 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [-1, 3],
+        "type": "point"
+      },
+      {
+        "coords": [-3, -3],
+        "type": "point"
+      },
+      {
+        "coords": [1, -3],
+        "type": "point"
+      },
+      {
+        "coords": [3, 3],
+        "type": "point"
+      }
+    ],
+    "circle": {
+      "idx": [0, 2, 3],
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "circle_sides_index"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/circle"
+      },
+      "radius": true,
+      "type": "circle"
+    }
+  ]
+}

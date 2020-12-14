@@ -1,0 +1,64 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 10],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      }
+    ],
+    "points": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [2, 7],
+        "type": "point"
+      },
+      {
+        "coords": [10, 3],
+        "type": "point"
+      },
+      {
+        "coords": [
+          11,
+          {
+            "frac": [22, 7],
+            "type": "rational_number"
+          }
+        ],
+        "type": "point"
+      }
+    ],
+    "answer": [true, true, false]
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "input": {
+        "$ref": "#/elements/points"
+      },
+      "output": {
+        "$ref": "#/elements/answer"
+      },
+      "type": "paints"
+    }
+  ]
+}

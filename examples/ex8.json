@@ -1,0 +1,64 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [6, 8],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [18, 10],
+        "type": "point"
+      },
+      {
+        "coords": [15, 15],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 4],
+        "type": "point"
+      }
+    ],
+    "vectors": [
+      {
+        "begin": [0, 0],
+        "end": [1, 0],
+        "type": "vector"
+      },
+      {
+        "begin": [0, 0],
+        "end": [0, 1],
+        "type": "vector"
+      }
+    ],
+    "answer": [true, false]
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "input": {
+        "$ref": "#/elements/vectors"
+      },
+      "output": {
+        "$ref": "#/elements/answer"
+      },
+      "type": "paints"
+    }
+  ]
+}

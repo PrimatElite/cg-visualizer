@@ -1,0 +1,49 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [10, 1],
+        "type": "point"
+      },
+      {
+        "coords": [15, 4],
+        "type": "point"
+      },
+      {
+        "coords": [14, 7],
+        "type": "point"
+      },
+      {
+        "coords": [11, 9],
+        "type": "point"
+      },
+      {
+        "coords": [8, 5],
+        "type": "point"
+      }
+    ],
+    "triangle": {
+      "idx": [0, 1, 3],
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "index"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/triangle"
+      },
+      "perimeter": true,
+      "area": true,
+      "type": "polygon"
+    }
+  ]
+}

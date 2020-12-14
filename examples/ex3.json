@@ -1,0 +1,48 @@
+{
+  "elements": {
+    "points": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [5, 5],
+        "type": "point"
+      },
+      {
+        "coords": [10, 10],
+        "type": "point"
+      },
+      {
+        "coords": [15, 15],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      }
+    ],
+    "convex_hull": {
+      "idx": [0, 1, 4, 5],
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "index"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/points"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/convex_hull"
+      },
+      "type": "polygon"
+    }
+  ]
+}

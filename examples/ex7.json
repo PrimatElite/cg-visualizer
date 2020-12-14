@@ -1,0 +1,52 @@
+{
+  "elements": {
+    "points": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [15, 15],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      },
+      {
+        "coords": [6, 8],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 4],
+        "type": "point"
+      },
+      {
+        "coords": [18, 10],
+        "type": "point"
+      }
+    ],
+    "polygon": {
+      "idx": [0, 4, 1, 6, 2, 3, 5],
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "index"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/points"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/polygon"
+      },
+      "type": "polygon"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 10],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      }
+    ],
+    "diameter": {
+      "idx": [0, 2],
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "segment_index"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/diameter"
+      },
+      "length": true,
+      "type": "segment"
+    }
+  ]
+}

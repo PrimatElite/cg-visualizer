@@ -1,0 +1,80 @@
+{
+  "elements": {
+    "vertexes1": [
+      {
+        "coords": [1, 2],
+        "type": "point"
+      },
+      {
+        "coords": [5, 3],
+        "type": "point"
+      },
+      {
+        "coords": [2, 5],
+        "type": "point"
+      }
+    ],
+    "vertexes2": [
+      {
+        "coords": [10, 1],
+        "type": "point"
+      },
+      {
+        "coords": [15, 4],
+        "type": "point"
+      },
+      {
+        "coords": [14, 7],
+        "type": "point"
+      },
+      {
+        "coords": [11, 9],
+        "type": "point"
+      },
+      {
+        "coords": [8, 5],
+        "type": "point"
+      }
+    ],
+    "sum": {
+      "idx": [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [1, 2],
+        [2, 3],
+        [2, 4],
+        [0, 4]
+      ],
+      "src": [
+        {
+          "$ref": "#/elements/vertexes1"
+        },
+        {
+          "$ref": "#/elements/vertexes2"
+        }
+      ],
+      "type": "index_pair"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes1"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/vertexes2"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/sum"
+      },
+      "type": "polygon"
+    }
+  ]
+}

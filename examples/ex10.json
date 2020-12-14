@@ -1,0 +1,39 @@
+{
+  "elements": {
+    "half-planes": [
+      {
+        "coefficients": [1, 1, 0],
+        "type": "half-plane_equation"
+      },
+      {
+        "coefficients": [-1, 0, -1],
+        "type": "half-plane_equation"
+      },
+      {
+        "coefficients": [1, -1, 0],
+        "type": "half-plane_equation"
+      },
+      {
+        "coefficients": [2, -1, 0],
+        "type": "half-plane_equation"
+      },
+      {
+        "coefficients": [1, 0, -1],
+        "type": "half-plane_equation"
+      }
+    ],
+    "intersection": {
+      "idx": [0, 1, 2],
+      "src": {
+        "$ref": "#/elements/half-planes"
+      },
+      "intersection_type": "bounded",
+      "type": "half-plane_intersection"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/intersection"
+    }
+  ]
+}

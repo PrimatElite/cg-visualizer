@@ -1,0 +1,56 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [0, 0],
+        "type": "point"
+      },
+      {
+        "coords": [10, 0],
+        "type": "point"
+      },
+      {
+        "coords": [15, 15],
+        "type": "point"
+      },
+      {
+        "coords": [0, 10],
+        "type": "point"
+      }
+    ],
+    "line": {
+      "idx": [1, 2],
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "line_index"
+    },
+    "point": {
+      "idx": 0,
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "index"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "$ref": "#/elements/point"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/line"
+      },
+      "distance_to_point": {
+        "$ref": "#/elements/point"
+      },
+      "type": "line"
+    }
+  ]
+}
