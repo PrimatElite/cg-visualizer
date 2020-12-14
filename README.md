@@ -1,2 +1,2 @@
 # cg-visualizer
-Computation geometry data visualizer
+Computational geometry data visualizer
