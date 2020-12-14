@@ -1,0 +1,714 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Data",
+  "description": "Format for data visualization",
+  "type": "object",
+  "properties": {
+    "elements": {
+      "$ref": "#/definitions/elements"
+    },
+    "visualizations": {
+      "$ref": "#/definitions/visualizations"
+    }
+  },
+  "required": ["elements", "visualizations"],
+  "additionalProperties": false,
+  "definitions": {
+    "rational_fraction": {
+      "type": "array",
+      "items": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer",
+          "minimum": 1
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "rational_number": {
+      "type": "object",
+      "properties": {
+        "frac": {
+          "$ref": "#/definitions/rational_fraction"
+        },
+        "type": {
+          "const": "rational_number"
+        }
+      },
+      "required": ["frac", "type"],
+      "additionalProperties": false
+    },
+    "number": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/definitions/rational_number"
+        }
+      ]
+    },
+    "numbers_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/number"
+      }
+    },
+    "index_number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "index_numbers_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/index_number"
+      }
+    },
+    "index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/index_numbers_array"
+            },
+            {
+              "$ref": "#/definitions/index_number"
+            }
+          ]
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "two_indices": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/index_numbers_array"
+        },
+        {
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "index_multiple": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/two_indices"
+          },
+          "minItems": 2
+        },
+        "src": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_ref"
+          },
+          "minItems": 2
+        },
+        "type": {
+          "const": "index_multiple"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "index_pair": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/two_indices"
+          }
+        },
+        "src": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_ref"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "type": {
+          "const": "index_pair"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "coords": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/numbers_array"
+        },
+        {
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "point": {
+      "type": "object",
+      "properties": {
+        "coords": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "point"
+        }
+      },
+      "required": ["coords", "type"],
+      "additionalProperties": false
+    },
+    "vector": {
+      "type": "object",
+      "properties": {
+        "begin": {
+          "$ref": "#/definitions/coords"
+        },
+        "end": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "vector"
+        }
+      },
+      "required": ["begin", "end", "type"],
+      "additionalProperties": false
+    },
+    "segment_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "segment_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "segment_index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "$ref": "#/definitions/two_indices"
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "segment_index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "segment": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/segment_coords"
+        },
+        {
+          "$ref": "#/definitions/segment_index"
+        }
+      ]
+    },
+    "line_equation_coefficients": {
+      "$comment": "If equation is ax + by + c = 0 the array is [a, b, c]",
+      "allOf": [
+        {
+          "$ref": "#/definitions/numbers_array"
+        },
+        {
+          "minItems": 3,
+          "maxItems": 3
+        }
+      ]
+    },
+    "line_equation_direction": {
+      "$comment": "If equation is ax + by + c = 0 the forward direction is (-b, a)",
+      "enum": ["forward", "reverse"],
+      "default": "forward"
+    },
+    "line_equation": {
+      "type": "object",
+      "properties": {
+        "coefficients": {
+          "$ref": "#/definitions/line_equation_coefficients"
+        },
+        "direction": {
+          "$ref": "#/definitions/line_equation_direction"
+        },
+        "type": {
+          "const": "line_equation"
+        }
+      },
+      "required": ["coefficients", "type"],
+      "additionalProperties": false
+    },
+    "line_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "line_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "line_index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "$ref": "#/definitions/two_indices"
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "line_index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "line": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/line_coords"
+        },
+        {
+          "$ref": "#/definitions/line_index"
+        },
+        {
+          "$ref": "#/definitions/line_equation"
+        }
+      ]
+    },
+    "half-plane_equation": {
+      "type": "object",
+      "properties": {
+        "coefficients": {
+          "$ref": "#/definitions/line_equation_coefficients"
+        },
+        "direction": {
+          "$ref": "#/definitions/line_equation_direction"
+        },
+        "type": {
+          "const": "half-plane_equation"
+        }
+      },
+      "required": ["coefficients", "type"],
+      "additionalProperties": false
+    },
+    "half-plane_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "half-plane_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "half-plane_index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "$ref": "#/definitions/two_indices"
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "half-plane_index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "half-plane": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/half-plane_coords"
+        },
+        {
+          "$ref": "#/definitions/half-plane_index"
+        },
+        {
+          "$ref": "#/definitions/half-plane_equation"
+        }
+      ]
+    },
+    "circle_center_radius": {
+      "type": "object",
+      "properties": {
+        "center": {
+          "$ref": "#/definitions/coords"
+        },
+        "radius": {
+          "$ref": "#/definitions/number"
+        },
+        "type": {
+          "const": "circle_center_radius"
+        }
+      },
+      "required": ["center", "radius", "type"],
+      "additionalProperties": false
+    },
+    "circle_points_coords": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coords"
+          },
+          "maxItems": 3
+        },
+        "type": {
+          "const": "circle_points_coords"
+        }
+      },
+      "required": ["points", "type"],
+      "additionalProperties": false
+    },
+    "circle_points_index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/index_numbers_array"
+            },
+            {
+              "maxItems": 3
+            }
+          ]
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "circle_points_index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "circle_sides_index": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/index_numbers_array"
+            },
+            {
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ]
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "circle_sides_index"
+        }
+      },
+      "required": ["idx", "src", "type"],
+      "additionalProperties": false
+    },
+    "circle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/circle_center_radius"
+        },
+        {
+          "$ref": "#/definitions/circle_points_coords"
+        },
+        {
+          "$ref": "#/definitions/circle_points_index"
+        },
+        {
+          "$ref": "#/definitions/circle_sides_index"
+        }
+      ]
+    },
+    "half-plane_intersection": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "$ref": "#/definitions/index_numbers_array"
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "intersection_type": {
+          "enum": ["empty", "layer", "unbounded", "bounded"]
+        },
+        "type": {
+          "const": "half-plane_intersection"
+        }
+      },
+      "required": ["intersection_type", "type"],
+      "additionalProperties": false
+    },
+    "elements_array": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/point"
+          },
+          {
+            "$ref": "#/definitions/vector"
+          },
+          {
+            "$ref": "#/definitions/segment"
+          },
+          {
+            "$ref": "#/definitions/line"
+          },
+          {
+            "$ref": "#/definitions/half-plane"
+          },
+          {
+            "$ref": "#/definitions/circle"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "element": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/elements_array"
+        },
+        {
+          "$ref": "#/definitions/index"
+        },
+        {
+          "$ref": "#/definitions/index_multiple"
+        },
+        {
+          "$ref": "#/definitions/index_pair"
+        },
+        {
+          "$ref": "#/definitions/point"
+        },
+        {
+          "$ref": "#/definitions/vector"
+        },
+        {
+          "$ref": "#/definitions/segment"
+        },
+        {
+          "$ref": "#/definitions/line"
+        },
+        {
+          "$ref": "#/definitions/half-plane"
+        },
+        {
+          "$ref": "#/definitions/circle"
+        },
+        {
+          "$ref": "#/definitions/half-plane_intersection"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "elements": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Za-z_][A-Za-z0-9_-]*$": {
+          "$ref": "#/definitions/element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "element_ref": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string",
+          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*$"
+        }
+      },
+      "required": ["$ref"],
+      "additionalProperties": false
+    },
+    "polygon_visualization": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "perimeter": {
+          "type": "boolean",
+          "default": false
+        },
+        "area": {
+          "type": "boolean",
+          "default": false
+        },
+        "type": {
+          "const": "polygon"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "paints_visualization": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "output": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "paints"
+        }
+      },
+      "required": ["input", "output", "type"],
+      "additionalProperties": false
+    },
+    "segment_visualization": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "length": {
+          "type": "boolean",
+          "default": false
+        },
+        "type": {
+          "const": "segment"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "line_visualization": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "distance_to_point": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "distance_to_points": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "line"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "circle_visualization": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "radius": {
+          "type": "boolean",
+          "default": false
+        },
+        "type": {
+          "const": "circle"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "polyline_visualization": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "is_polygon": {
+          "type": "boolean"
+        },
+        "type": {
+          "const": "polyline"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "visualization": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/element_ref"
+        },
+        {
+          "$ref": "#/definitions/polygon_visualization"
+        },
+        {
+          "$ref": "#/definitions/paints_visualization"
+        },
+        {
+          "$ref": "#/definitions/segment_visualization"
+        },
+        {
+          "$ref": "#/definitions/line_visualization"
+        },
+        {
+          "$ref": "#/definitions/circle_visualization"
+        },
+        {
+          "$ref": "#/definitions/polyline_visualization"
+        }
+      ]
+    },
+    "visualizations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/visualization"
+      }
+    }
+  }
+}
