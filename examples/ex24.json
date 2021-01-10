@@ -1,0 +1,92 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [-5, -1],
+        "type": "point"
+      },
+      {
+        "coords": [-1, -2],
+        "type": "point"
+      },
+      {
+        "coords": [1, -1],
+        "type": "point"
+      },
+      {
+        "coords": [4, -4],
+        "type": "point"
+      },
+      {
+        "coords": [6, 3],
+        "type": "point"
+      },
+      {
+        "coords": [1, 1],
+        "type": "point"
+      },
+      {
+        "coords": [2, 5],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 2],
+        "type": "point"
+      },
+      {
+        "coords": [-4, 5],
+        "type": "point"
+      },
+      {
+        "coords": [-7, 1],
+        "type": "point"
+      }
+    ],
+    "triangulation": {
+      "vertexes": [
+        {
+          "idx": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          "src": {
+            "$ref": "#/elements/vertexes"
+          },
+          "type": "index"
+        }
+      ],
+      "edges": [
+        [0, 1],
+        [1, 2],
+        [0, 2],
+        [2, 3],
+        [3, 4],
+        [2, 4],
+        [4, 5],
+        [2, 5],
+        [5, 6],
+        [6, 7],
+        [5, 7],
+        [7, 8],
+        [8, 9],
+        [7, 9],
+        [9, 0],
+        [7, 0],
+        [7, 2]
+      ],
+      "type": "graph"
+    },
+    "answer": true
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "$ref": "#/elements/triangulation"
+    },
+    {
+      "$ref": "#/elements/answer"
+    }
+  ]
+}

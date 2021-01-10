@@ -1,0 +1,122 @@
+{
+  "elements": {
+    "points": [
+      {
+        "coords": [-1, 3],
+        "type": "point"
+      },
+      {
+        "coords": [-5, 1],
+        "type": "point"
+      },
+      {
+        "coords": [3, 1],
+        "type": "point"
+      },
+      {
+        "coords": [1, -2],
+        "type": "point"
+      },
+      {
+        "coords": [-1, 1],
+        "type": "point"
+      },
+      {
+        "coords": [3, 3],
+        "type": "point"
+      },
+      {
+        "coords": [3, -2],
+        "type": "point"
+      },
+      {
+        "coords": [1, -3],
+        "type": "point"
+      },
+      {
+        "coords": [2, -2],
+        "type": "point"
+      },
+      {
+        "coords": [-2, 0],
+        "type": "point"
+      }
+    ],
+    "pslg": {
+      "vertexes": [
+        {
+          "coords": [-5, -1],
+          "type": "point"
+        },
+        {
+          "coords": [-1, -2],
+          "type": "point"
+        },
+        {
+          "coords": [1, -1],
+          "type": "point"
+        },
+        {
+          "coords": [4, -4],
+          "type": "point"
+        },
+        {
+          "coords": [6, 3],
+          "type": "point"
+        },
+        {
+          "coords": [1, 1],
+          "type": "point"
+        },
+        {
+          "coords": [2, 5],
+          "type": "point"
+        },
+        {
+          "coords": [-3, 2],
+          "type": "point"
+        },
+        {
+          "coords": [-4, 5],
+          "type": "point"
+        },
+        {
+          "coords": [-7, 1],
+          "type": "point"
+        }
+      ],
+      "edges": [
+        [0, 3],
+        [3, 1],
+        [1, 7],
+        [7, 8],
+        [8, 9],
+        [9, 0],
+        [3, 2],
+        [2, 1],
+        [2, 4],
+        [4, 5],
+        [5, 2],
+        [5, 6],
+        [6, 8],
+        [7, 5]
+      ],
+      "type": "graph"
+    },
+    "answer": [4, 0, 2, 1, 3, -1, -1, 0, 1, 3]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/pslg"
+    },
+    {
+      "input": {
+        "$ref": "#/elements/points"
+      },
+      "output": {
+        "$ref": "#/elements/answer"
+      },
+      "type": "paints"
+    }
+  ]
+}

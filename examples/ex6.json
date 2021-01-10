@@ -1,0 +1,72 @@
+{
+  "elements": {
+    "vertexes1": [
+      {
+        "coords": [-5, -5],
+        "type": "point"
+      },
+      {
+        "coords": [-2, -5],
+        "type": "point"
+      },
+      {
+        "coords": [2, 3],
+        "type": "point"
+      },
+      {
+        "coords": [-1, 2],
+        "type": "point"
+      },
+      {
+        "coords": [-6, 1],
+        "type": "point"
+      }
+    ],
+    "vertexes2": [
+      {
+        "coords": [1, -4],
+        "type": "point"
+      },
+      {
+        "coords": [4, -4],
+        "type": "point"
+      },
+      {
+        "coords": [7, 5],
+        "type": "point"
+      },
+      {
+        "coords": [1, 9],
+        "type": "point"
+      },
+      {
+        "coords": [-5, 3],
+        "type": "point"
+      },
+      {
+        "coords": [-3, -2],
+        "type": "point"
+      }
+    ],
+    "intersection": {
+      "idx": [[1, 0], [2, 0], [3, 0], [4, 1], [5, 1]],
+      "src": [
+        {
+          "$ref": "#/elements/vertexes1"
+        },
+        {
+          "$ref": "#/elements/vertexes2"
+        }
+      ],
+      "type": "side_index_multiple"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/intersection"
+      },
+      "type": "polygon"
+    }
+  ]
+}
