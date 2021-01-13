@@ -6,10 +6,10 @@ import * as d3 from 'd3';
 import zoomInit from './zoom';
 
 const Wrapper = styled.div`
-  width: inherit;
   border: 2px solid black;
+  width: 75%;
   height: 98vh;
-  margin: 10px;
+  margin: 10px 10px 0 5px;
 `;
 
 class ThreeRendering extends Component {
@@ -28,8 +28,8 @@ class ThreeRendering extends Component {
         return renderer;
     }
     handleResize = () => {
-        const width = this.mount.clientWidth;
-        const height = this.mount.clientHeight;
+        const width = this.mount.innerWidth;
+        const height = this.mount.innerHeight;
         this.renderer.setSize(width, height);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
@@ -70,21 +70,6 @@ class ThreeRendering extends Component {
 
         geometry.computeBoundingSphere();
         const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-        // const curve = new THREE.EllipseCurve(
-        //     5,  0,            // ax, aY
-        //     10, 10,           // xRadius, yRadius
-        //     0,  2 * Math.PI,  // aStartAngle, aEndAngle
-        //     false,            // aClockwise
-        //     0                 // aRotation
-        // );
-        //
-        // const points = curve.getPoints( 50 );
-        // const geometry = new THREE.BufferGeometry().setFromPoints( points );
-        //
-        // const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-        //
-        // // Create the final object to add to the scene
-        console.log(geometry.boundingSphere)
         const { x, y } = geometry.boundingSphere.center;
         const radius = geometry.boundingSphere.radius;
         const curve = new THREE.EllipseCurve(
@@ -145,7 +130,6 @@ class ThreeRendering extends Component {
 
 ThreeRendering.propTypes = {
     objects: PropTypes.any,
-    isLoading: PropTypes.bool,
 };
 
 export default ThreeRendering;
