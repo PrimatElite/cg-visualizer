@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import schema from '../../Config/schema.json';
+import Ajv from 'ajv';
 
 const MenuWrapper = styled.div`
   border: 2px solid black;
@@ -34,11 +36,21 @@ const Menu = ({ handleData }) => {
 
     const loadJson = file => {
         const reader = new FileReader();
+        const ajv = new Ajv();
+        const validate = ajv.compile(schema);
+
         reader.addEventListener('load', function() {
             const jsonData = JSON.parse(reader.result);
-            handleData(jsonData);
+            const valid = validate(jsonData)
+            if (valid) {
+                console.log('File is valid!');
+                handleData(jsonData);
+            } else {
+                console.log('uploaded file rejected by json schema');
+            }
         });
         reader.readAsText(file);
+
     };
 
     return (

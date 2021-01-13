@@ -21,14 +21,15 @@ const PanelWrapper = styled.div`
 
 function App() {
   const [data, setData] = useState(undefined);
+  const [loading, setLoading] = useState(false)
 
   return (
       <AppWrapper>
         <PanelWrapper>
-          <Menu handleData={data => setData(data)}/>
+          <Menu handleData={data => setData(data)} handleLoad={setLoading}/>
           <Info data={data} />
         </PanelWrapper>
-        <Canvas data={data}/>
+        <Canvas data={data} loading={loading}/>
       </AppWrapper>
   );
 }

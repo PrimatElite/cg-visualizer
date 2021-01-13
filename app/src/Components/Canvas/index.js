@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import styled from 'styled-components';
 import * as d3 from 'd3';
 import zoomInit from './zoom';
+import draw from "../../Utils/draw";
 
 const Wrapper = styled.div`
   border: 2px solid black;
@@ -28,8 +29,8 @@ class ThreeRendering extends Component {
         return renderer;
     }
     handleResize = () => {
-        const width = this.mount.innerWidth;
-        const height = this.mount.innerHeight;
+        const width = this.mount.clientWidth;
+        const height = this.mount.clientHeight;
         this.renderer.setSize(width, height);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
@@ -49,7 +50,14 @@ class ThreeRendering extends Component {
     renderScene = () => {
         this.renderer.render(this.scene, this.camera);
     };
-    componentDidMount() {
+
+    clearScene  = () => {
+        while(this.scene.children.length > 0){
+            this.scene.remove(this.scene.children[0]);
+        }
+    }
+
+    initScene = () => {
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
 
@@ -57,32 +65,6 @@ class ThreeRendering extends Component {
         this.scene = new THREE.Scene();
         this.camera = this.createCamera(width, height);
         this.renderer = this.createRenderer(width, height);
-
-        const geometry = new THREE.Geometry();
-
-        geometry.vertices.push(
-            new THREE.Vector3( -1,  1, 0 ),
-            new THREE.Vector3( -1, -1, 0 ),
-            new THREE.Vector3(  1, -1, 0 )
-        );
-
-        geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-
-        geometry.computeBoundingSphere();
-        const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-        const { x, y } = geometry.boundingSphere.center;
-        const radius = geometry.boundingSphere.radius;
-        const curve = new THREE.EllipseCurve(
-            x, y,            // ax, aY
-            radius, radius,           // xRadius, yRadius
-            0,  2 * Math.PI,  // aStartAngle, aEndAngle
-            false,            // aClockwise
-            0                 // aRotation
-        );
-        const points = curve.getPoints( 50 );
-        const geometry2 = new THREE.BufferGeometry().setFromPoints( points );
-        const ellipse = new THREE.Line( geometry2, material );
-        this.scene.add( ellipse );
 
         // setup zoom handling
         const zoom = zoomInit(this.camera, width, height);
@@ -93,25 +75,28 @@ class ThreeRendering extends Component {
 
         window.addEventListener('resize', this.handleResize);
         this.mount.appendChild(this.renderer.domElement);
+    }
+
+    componentDidMount() {
+        this.initScene();
         this.start();
     }
+
     componentDidUpdate() {
-        console.log(this.scene.children.length);
-        if (this.props.isLoading) {
-            // clear scene
-            while (this.scene.children.length > 0) {
-                this.scene.remove(this.scene.children[0]);
-            }
-        } else {
-            if (this.scene.children.length === 0) {
-                const geometry = new THREE.BoxGeometry();
-                const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-                const cube = new THREE.Mesh( geometry, material );
-                this.scene.add( cube );
-            }
+        if (this.props.loading)  {
+            this.clearScene();
+            // TODO: show loading indicator
         }
+        if (this.props.data !== this.data) {
+            this.clearScene();
+            this.data = this.props.data;
+            draw(this.scene, this.data);
+            console.log(this.scene.children.length)
+        }
+
         this.animate();
     }
+
     componentWillUnmount() {
         window.removeEventListener('resize');
         this.stop();
@@ -129,7 +114,8 @@ class ThreeRendering extends Component {
 }
 
 ThreeRendering.propTypes = {
-    objects: PropTypes.any,
+    data: PropTypes.object,
+    loading: PropTypes.bool.isRequired,
 };
 
 export default ThreeRendering;
