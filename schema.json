@@ -84,7 +84,8 @@
           "$ref": "#/definitions/element_ref"
         },
         "type": {
-          "const": "index"
+          "$comment": "If type is side_index src must be an array of points",
+          "enum": ["index", "side_index"]
         }
       },
       "required": ["idx", "src", "type"],
@@ -119,7 +120,8 @@
           "minItems": 2
         },
         "type": {
-          "const": "index_multiple"
+          "$comment": "If type is side_index_multiple src item must be an array of points",
+          "enum": ["index_multiple", "side_index_multiple"]
         }
       },
       "required": ["idx", "src", "type"],
@@ -485,10 +487,151 @@
       "required": ["intersection_type", "type"],
       "additionalProperties": false
     },
+    "line_intersection": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/index_numbers_array"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "src": {
+          "$ref": "#/definitions/element_ref"
+        },
+        "idx_types": {
+          "type": "array",
+          "items": {
+            "enum": ["index", "side_index"]
+          },
+          "minItems": 2
+        },
+        "intersection_type": {
+          "enum": ["empty", "contact", "intersection"],
+          "default": "intersection"
+        },
+        "type": {
+          "const": "line_intersection"
+        }
+      },
+      "required": ["idx", "src", "idx_types", "type"],
+      "additionalProperties": false
+    },
+    "line_intersection_multiple": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/two_indices"
+          },
+          "minItems": 2
+        },
+        "src": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_ref"
+          },
+          "minItems": 2
+        },
+        "idx_types": {
+          "type": "array",
+          "items": {
+            "enum": ["index", "side_index"]
+          },
+          "minItems": 2
+        },
+        "intersection_type": {
+          "enum": ["empty", "contact", "intersection"],
+          "default": "intersection"
+        },
+        "type": {
+          "const": "line_intersection_multiple"
+        }
+      },
+      "required": ["idx", "src", "idx_types", "type"],
+      "additionalProperties": false
+    },
+    "polygon_kernel": {
+      "type": "object",
+      "properties": {
+        "idx": {
+          "$comment": "Indices of polygon sides",
+          "$ref": "#/definitions/index_numbers_array"
+        },
+        "src": {
+          "$comment": "Reference to polygon vertexes",
+          "$ref": "#/definitions/element_ref"
+        },
+        "kernel_type": {
+          "enum": ["empty", "bounded"]
+        },
+        "type": {
+          "const": "polygon_kernel"
+        }
+      },
+      "required": ["kernel_type", "type"],
+      "additionalProperties": false
+    },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "vertexes": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/index"
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "index"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "$ref": "#/definitions/point"
+              }
+            ]
+          },
+          "minItems": 1
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/two_indices"
+          },
+          "minItems": 1
+        },
+        "type": {
+          "const": "graph"
+        }
+      },
+      "required": ["vertexes", "edges", "type"],
+      "additionalProperties": false
+    },
     "elements_array": {
       "type": "array",
       "items": {
         "oneOf": [
+          {
+            "$ref": "#/definitions/index"
+          },
+          {
+            "$ref": "#/definitions/index_multiple"
+          },
+          {
+            "$ref": "#/definitions/index_pair"
+          },
           {
             "$ref": "#/definitions/point"
           },
@@ -508,7 +651,25 @@
             "$ref": "#/definitions/circle"
           },
           {
+            "$ref": "#/definitions/polygon_kernel"
+          },
+          {
+            "$ref": "#/definitions/half-plane_intersection"
+          },
+          {
+            "$ref": "#/definitions/line_intersection"
+          },
+          {
+            "$ref": "#/definitions/line_intersection_multiple"
+          },
+          {
+            "$ref": "#/definitions/graph"
+          },
+          {
             "type": "boolean"
+          },
+          {
+            "type": "integer"
           }
         ]
       }
@@ -546,10 +707,25 @@
           "$ref": "#/definitions/circle"
         },
         {
+          "$ref": "#/definitions/polygon_kernel"
+        },
+        {
           "$ref": "#/definitions/half-plane_intersection"
         },
         {
+          "$ref": "#/definitions/line_intersection"
+        },
+        {
+          "$ref": "#/definitions/line_intersection_multiple"
+        },
+        {
+          "$ref": "#/definitions/graph"
+        },
+        {
           "type": "boolean"
+        },
+        {
+          "type": "integer"
         }
       ]
     },
@@ -567,7 +743,7 @@
       "properties": {
         "$ref": {
           "type": "string",
-          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*$"
+          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*(/[0-9]+)*$"
         }
       },
       "required": ["$ref"],

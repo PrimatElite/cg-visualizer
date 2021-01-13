@@ -1,0 +1,125 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [-4, -4],
+        "type": "point"
+      },
+      {
+        "coords": [2, -5],
+        "type": "point"
+      },
+      {
+        "coords": [9, -4],
+        "type": "point"
+      },
+      {
+        "coords": [13, 4],
+        "type": "point"
+      },
+      {
+        "coords": [7, 7],
+        "type": "point"
+      },
+      {
+        "coords": [1, 6],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 4],
+        "type": "point"
+      },
+      {
+        "coords": [-5, 1],
+        "type": "point"
+      }
+    ],
+    "lines": [
+      {
+        "coords1": [-7, 2],
+        "coords2": [5, 8],
+        "type": "line_coords"
+      },
+      {
+        "coefficients": [3, -4, -4],
+        "type": "line_equation"
+      },
+      {
+        "coefficients": [1, 0, -14],
+        "type": "line_equation"
+      }
+    ],
+    "intersections": [
+      {
+        "idx": [[0, 0], [5, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/lines"
+          },
+          {
+            "$ref": "#/elements/vertexes"
+          }
+        ],
+        "idx_types": ["index", "side_index"],
+        "intersection_type": "contact",
+        "type": "line_intersection_multiple"
+      },
+      {
+        "idx": [[1, 0], [3, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/lines"
+          },
+          {
+            "$ref": "#/elements/vertexes"
+          }
+        ],
+        "idx_types": ["index", "side_index"],
+        "intersection_type": "intersection",
+        "type": "line_intersection_multiple"
+      },
+      {
+        "idx": [[1, 0], [0, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/lines"
+          },
+          {
+            "$ref": "#/elements/vertexes"
+          }
+        ],
+        "idx_types": ["index", "index"],
+        "intersection_type": "intersection",
+        "type": "line_intersection_multiple"
+      },
+      {
+        "idx": [[2, 0], [2, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/lines"
+          },
+          {
+            "$ref": "#/elements/vertexes"
+          }
+        ],
+        "idx_types": ["index", "side_index"],
+        "intersection_type": "empty",
+        "type": "line_intersection_multiple"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "$ref": "#/elements/lines"
+    },
+    {
+      "$ref": "#/elements/intersections"
+    }
+  ]
+}

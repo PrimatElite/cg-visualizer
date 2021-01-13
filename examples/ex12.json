@@ -1,0 +1,110 @@
+{
+  "elements": {
+    "segments1": [
+      {
+        "coords1": [-3, 7],
+        "coords2": [-1, 7],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-1, 6],
+        "coords2": [3, 6],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [5, 4],
+        "coords2": [7, 4],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-1, 3],
+        "coords2": [1, 3],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [3, 7],
+        "coords2": [5, 7],
+        "type": "segment_coords"
+      }
+    ],
+    "segments2": [
+      {
+        "coords1": [0, 7],
+        "coords2": [0, 5],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [2, 7],
+        "coords2": [2, 5],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [6, 5],
+        "coords2": [6, 3],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [1, 9],
+        "coords2": [1, 7],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [4, 4],
+        "coords2": [4, 2],
+        "type": "segment_coords"
+      }
+    ],
+    "intersections": [
+      {
+        "idx": [[1, 0], [0, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/segments1"
+          },
+          {
+            "$ref": "#/elements/segments2"
+          }
+        ],
+        "idx_types": ["index", "index"],
+        "type": "line_intersection_multiple"
+      },
+      {
+        "idx": [[1, 0], [1, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/segments1"
+          },
+          {
+            "$ref": "#/elements/segments2"
+          }
+        ],
+        "idx_types": ["index", "index"],
+        "type": "line_intersection_multiple"
+      },
+      {
+        "idx": [[2, 0], [2, 1]],
+        "src": [
+          {
+            "$ref": "#/elements/segments1"
+          },
+          {
+            "$ref": "#/elements/segments2"
+          }
+        ],
+        "idx_types": ["index", "index"],
+        "type": "line_intersection_multiple"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/segments1"
+    },
+    {
+      "$ref": "#/elements/segments2"
+    },
+    {
+      "$ref": "#/elements/intersections"
+    }
+  ]
+}

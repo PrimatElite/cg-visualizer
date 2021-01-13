@@ -1,0 +1,65 @@
+{
+  "elements": {
+    "vertexes": [
+      {
+        "coords": [0, 6],
+        "type": "point"
+      },
+      {
+        "coords": [-2, 4],
+        "type": "point"
+      },
+      {
+        "coords": [-6, 4],
+        "type": "point"
+      },
+      {
+        "coords": [-2, 1],
+        "type": "point"
+      },
+      {
+        "coords": [-1, -2],
+        "type": "point"
+      },
+      {
+        "coords": [2, 1],
+        "type": "point"
+      },
+      {
+        "coords": [7, 1],
+        "type": "point"
+      },
+      {
+        "coords": [2, 3],
+        "type": "point"
+      },
+      {
+        "coords": [5, 5],
+        "type": "point"
+      },
+      {
+        "coords": [1, 4],
+        "type": "point"
+      }
+    ],
+    "kernel": {
+      "idx": [3, 5, 6, 7, 8, 9],
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "kernel_type": "bounded",
+      "type": "polygon_kernel"
+    }
+  },
+  "visualizations": [
+    {
+      "src": {
+        "$ref": "#/elements/vertexes"
+      },
+      "type": "polygon"
+    },
+    {
+      "$ref": "#/elements/kernel"
+    }
+  ]
+}

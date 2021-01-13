@@ -1,0 +1,124 @@
+{
+  "elements": {
+    "points": [
+      {
+        "coords": [-5, -4],
+        "type": "point"
+      },
+      {
+        "coords": [3, -3],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 2],
+        "type": "point"
+      },
+      {
+        "coords": [1, -2],
+        "type": "point"
+      },
+      {
+        "coords": [2, 5],
+        "type": "point"
+      },
+      {
+        "coords": [-5, 6],
+        "type": "point"
+      },
+      {
+        "coords": [14, 7],
+        "type": "point"
+      },
+      {
+        "coords": [7, 4],
+        "type": "point"
+      },
+      {
+        "coords": [12, -3],
+        "type": "point"
+      },
+      {
+        "coords": [4, 1],
+        "type": "point"
+      },
+      {
+        "coords": [4, 7],
+        "type": "point"
+      },
+      {
+        "coords": [10, 2],
+        "type": "point"
+      },
+      {
+        "coords": [7, -2],
+        "type": "point"
+      },
+      {
+        "coords": [8, -6],
+        "type": "point"
+      },
+      {
+        "coords": [1, 2],
+        "type": "point"
+      },
+      {
+        "coords": [4, 4],
+        "type": "point"
+      },
+      {
+        "coords": [8, 8],
+        "type": "point"
+      },
+      {
+        "coords": [11, 4],
+        "type": "point"
+      }
+    ],
+    "hulls": [
+      {
+        "idx": [0, 13, 8, 6, 16, 5],
+        "src": {
+          "$ref": "#/elements/points"
+        },
+        "type": "index"
+      },
+      {
+        "idx": [2, 3, 1, 12, 11, 17, 10],
+        "src": {
+          "$ref": "#/elements/points"
+        },
+        "type": "index"
+      },
+      {
+        "idx": [4, 14, 9, 7],
+        "src": {
+          "$ref": "#/elements/points"
+        },
+        "type": "index"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/points"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/hulls/0"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/hulls/1"
+      },
+      "type": "polygon"
+    },
+    {
+      "src": {
+        "$ref": "#/elements/hulls/2"
+      },
+      "type": "polygon"
+    }
+  ]
+}
