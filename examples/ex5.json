@@ -31,6 +31,15 @@
         "$ref": "#/elements/points"
       },
       "type": "index"
+    },
+    "distance": {
+      "from": {
+        "$ref": "#/elements/line"
+      },
+      "to": {
+        "$ref": "#/elements/point"
+      },
+      "type": "distance"
     }
   },
   "visualizations": [
@@ -44,13 +53,10 @@
       "$ref": "#/elements/point"
     },
     {
-      "src": {
-        "$ref": "#/elements/line"
-      },
-      "distance_to_point": {
-        "$ref": "#/elements/point"
-      },
-      "type": "line"
+      "$ref": "#/elements/line"
+    },
+    {
+      "$ref": "#/elements/distance"
     }
   ]
 }
