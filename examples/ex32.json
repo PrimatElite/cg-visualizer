@@ -47,18 +47,10 @@
       }
     ],
     "point1": {
-      "idx": 2,
-      "src": {
-        "$ref": "#/elements/points"
-      },
-      "type": "index"
+      "$ref": "#/elements/points/2"
     },
     "point2": {
-      "idx": 4,
-      "src": {
-        "$ref": "#/elements/points"
-      },
-      "type": "index"
+      "$ref": "#/elements/points/4"
     },
     "distance": {
       "from": {

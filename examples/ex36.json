@@ -34,24 +34,39 @@
     ],
     "intersections": [
       {
-        "idx": [0, 2],
-        "src": {
-          "$ref": "#/elements/circles"
-        },
+        "circles": [
+          {
+            "$ref": "#/elements/circles/0"
+          },
+          {
+            "$ref": "#/elements/circles/2"
+          }
+        ],
         "type": "circle_intersection"
       },
       {
-        "idx": [1, 2],
-        "src": {
-          "$ref": "#/elements/circles"
-        },
+        "circles": [
+          {
+            "$ref": "#/elements/circles/1"
+          },
+          {
+            "$ref": "#/elements/circles/2"
+          }
+        ],
         "type": "circle_intersection"
       },
       {
-        "idx": [3, 4, 5],
-        "src": {
-          "$ref": "#/elements/circles"
-        },
+        "circles": [
+          {
+            "$ref": "#/elements/circles/3"
+          },
+          {
+            "$ref": "#/elements/circles/4"
+          },
+          {
+            "$ref": "#/elements/circles/5"
+          }
+        ],
         "type": "circle_intersection"
       }
     ]

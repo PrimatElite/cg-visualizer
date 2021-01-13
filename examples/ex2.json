@@ -19,11 +19,13 @@
       }
     ],
     "diameter": {
-      "idx": [0, 2],
-      "src": {
-        "$ref": "#/elements/vertexes"
+      "coords1": {
+        "$ref": "#/elements/vertexes/0"
       },
-      "type": "segment_index"
+      "coords2": {
+        "$ref": "#/elements/vertexes/2"
+      },
+      "type": "segment_coords"
     }
   },
   "visualizations": [

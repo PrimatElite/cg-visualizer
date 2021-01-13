@@ -43,10 +43,26 @@
       }
     ],
     "kernel": {
-      "idx": [3, 5, 6, 7, 8, 9],
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
+      "sides": [
+        {
+          "$ref": "#/elements/vertexes/3"
+        },
+        {
+          "$ref": "#/elements/vertexes/5"
+        },
+        {
+          "$ref": "#/elements/vertexes/6"
+        },
+        {
+          "$ref": "#/elements/vertexes/7"
+        },
+        {
+          "$ref": "#/elements/vertexes/8"
+        },
+        {
+          "$ref": "#/elements/vertexes/9"
+        }
+      ],
       "kernel_type": "bounded",
       "type": "polygon_kernel"
     }

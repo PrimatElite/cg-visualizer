@@ -27,11 +27,13 @@
       }
     ],
     "line": {
-      "idx": [1, 4],
-      "src": {
-        "$ref": "#/elements/points"
+      "coords1": {
+        "$ref": "#/elements/points/1"
       },
-      "type": "line_index"
+      "coords2": {
+        "$ref": "#/elements/points/4"
+      },
+      "type": "line_coords"
     },
     "distance": {
       "from": {

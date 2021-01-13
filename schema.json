@@ -61,71 +61,13 @@
       "type": "integer",
       "minimum": 0
     },
-    "index_numbers_array": {
+    "two_indices": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/index_number"
-      }
-    },
-    "index": {
-      "type": "object",
-      "properties": {
-        "idx": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/index_numbers_array"
-            },
-            {
-              "$ref": "#/definitions/index_number"
-            }
-          ]
-        },
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "type": {
-          "$comment": "If type is side_index src must be an array of points",
-          "enum": ["index", "side_index"]
-        }
       },
-      "required": ["idx", "src", "type"],
-      "additionalProperties": false
-    },
-    "two_indices": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/index_numbers_array"
-        },
-        {
-          "minItems": 2,
-          "maxItems": 2
-        }
-      ]
-    },
-    "index_multiple": {
-      "type": "object",
-      "properties": {
-        "idx": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/two_indices"
-          },
-          "minItems": 2
-        },
-        "src": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/element_ref"
-          },
-          "minItems": 2
-        },
-        "type": {
-          "$comment": "If type is side_index_multiple src item must be an array of points",
-          "enum": ["index_multiple", "side_index_multiple"]
-        }
-      },
-      "required": ["idx", "src", "type"],
-      "additionalProperties": false
+      "minItems": 2,
+      "maxItems": 2
     },
     "coords": {
       "allOf": [
@@ -167,14 +109,25 @@
       "required": ["begin", "end", "type"],
       "additionalProperties": false
     },
+    "coords_or_ref": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/coords"
+        },
+        {
+          "$comment": "Reference to element from list of points",
+          "$ref": "#/definitions/element_ref"
+        }
+      ]
+    },
     "segment_coords": {
       "type": "object",
       "properties": {
         "coords1": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "coords2": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "type": {
           "const": "segment_coords"
@@ -183,37 +136,27 @@
       "required": ["coords1", "coords2", "type"],
       "additionalProperties": false
     },
-    "segment_index": {
+    "segment_side": {
       "type": "object",
       "properties": {
-        "idx": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/two_indices"
-            },
-            {
-              "$ref": "#/definitions/index_number"
-            }
-          ]
-        },
-        "src": {
+        "side": {
+          "$comment": "Reference must contain side",
           "$ref": "#/definitions/element_ref"
         },
         "type": {
-          "$comment": "If type is side_index src must be an array of points and idx must be a number",
-          "enum": ["segment_index", "segment_side_index"]
+          "const": "segment_side"
         }
       },
-      "required": ["idx", "src", "type"],
+      "required": ["side", "type"],
       "additionalProperties": false
     },
     "segment": {
-      "oneOf": [
+      "anyOf": [
         {
           "$ref": "#/definitions/segment_coords"
         },
         {
-          "$ref": "#/definitions/segment_index"
+          "$ref": "#/definitions/segment_side"
         }
       ]
     },
@@ -254,10 +197,10 @@
       "type": "object",
       "properties": {
         "coords1": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "coords2": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "type": {
           "const": "line_coords"
@@ -266,37 +209,27 @@
       "required": ["coords1", "coords2", "type"],
       "additionalProperties": false
     },
-    "line_index": {
+    "line_side": {
       "type": "object",
       "properties": {
-        "idx": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/two_indices"
-            },
-            {
-              "$ref": "#/definitions/index_number"
-            }
-          ]
-        },
-        "src": {
+        "side": {
+          "$comment": "Reference must contain side",
           "$ref": "#/definitions/element_ref"
         },
         "type": {
-          "$comment": "If type is side_index src must be an array of points and idx must be a number",
-          "enum": ["line_index", "line_side_index"]
+          "const": "line_side"
         }
       },
-      "required": ["idx", "src", "type"],
+      "required": ["side", "type"],
       "additionalProperties": false
     },
     "line": {
-      "oneOf": [
+      "anyOf": [
         {
           "$ref": "#/definitions/line_coords"
         },
         {
-          "$ref": "#/definitions/line_index"
+          "$ref": "#/definitions/line_side"
         },
         {
           "$ref": "#/definitions/line_equation"
@@ -323,10 +256,10 @@
       "type": "object",
       "properties": {
         "coords1": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "coords2": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "type": {
           "const": "half-plane_coords"
@@ -335,37 +268,27 @@
       "required": ["coords1", "coords2", "type"],
       "additionalProperties": false
     },
-    "half-plane_index": {
+    "half-plane_side": {
       "type": "object",
       "properties": {
-        "idx": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/two_indices"
-            },
-            {
-              "$ref": "#/definitions/index_number"
-            }
-          ]
-        },
-        "src": {
+        "side": {
+          "$comment": "Reference must contain side",
           "$ref": "#/definitions/element_ref"
         },
         "type": {
-          "$comment": "If type is side_index src must be an array of points and idx must be a number",
-          "enum": ["half-plane_index", "half-plane_side_index"]
+          "const": "half-plane_side"
         }
       },
-      "required": ["idx", "src", "type"],
+      "required": ["side", "type"],
       "additionalProperties": false
     },
     "half-plane": {
-      "oneOf": [
+      "anyOf": [
         {
           "$ref": "#/definitions/half-plane_coords"
         },
         {
-          "$ref": "#/definitions/half-plane_index"
+          "$ref": "#/definitions/half-plane_side"
         },
         {
           "$ref": "#/definitions/half-plane_equation"
@@ -376,7 +299,7 @@
       "type": "object",
       "properties": {
         "center": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "radius": {
           "$ref": "#/definitions/number"
@@ -388,95 +311,65 @@
       "required": ["center", "radius", "type"],
       "additionalProperties": false
     },
-    "circle_points_coords": {
+    "circle_points": {
       "type": "object",
       "properties": {
         "points": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/coords"
+            "$ref": "#/definitions/coords_or_ref"
           },
+          "minItems": 1,
           "maxItems": 3
         },
         "type": {
-          "const": "circle_points_coords"
+          "const": "circle_points"
         }
       },
       "required": ["points", "type"],
       "additionalProperties": false
     },
-    "circle_points_index": {
+    "circle_sides": {
       "type": "object",
       "properties": {
-        "idx": {
-          "allOf": [
-            {
-              "$ref": "#/definitions/index_numbers_array"
-            },
-            {
-              "minItems": 1,
-              "maxItems": 3
-            }
-          ]
-        },
-        "src": {
-          "$ref": "#/definitions/element_ref"
+        "sides": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference must contain side",
+            "$ref": "#/definitions/element_ref"
+          },
+          "minItems": 3,
+          "maxItems": 3
         },
         "type": {
-          "const": "circle_points_index"
+          "const": "circle_sides"
         }
       },
-      "required": ["idx", "src", "type"],
-      "additionalProperties": false
-    },
-    "circle_sides_index": {
-      "type": "object",
-      "properties": {
-        "idx": {
-          "allOf": [
-            {
-              "$ref": "#/definitions/index_numbers_array"
-            },
-            {
-              "minItems": 3,
-              "maxItems": 3
-            }
-          ]
-        },
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "type": {
-          "const": "circle_sides_index"
-        }
-      },
-      "required": ["idx", "src", "type"],
+      "required": ["sides", "type"],
       "additionalProperties": false
     },
     "circle": {
-      "oneOf": [
+      "anyOf": [
         {
           "$ref": "#/definitions/circle_center_radius"
         },
         {
-          "$ref": "#/definitions/circle_points_coords"
+          "$ref": "#/definitions/circle_points"
         },
         {
-          "$ref": "#/definitions/circle_points_index"
-        },
-        {
-          "$ref": "#/definitions/circle_sides_index"
+          "$ref": "#/definitions/circle_sides"
         }
       ]
     },
     "half-plane_intersection": {
       "type": "object",
       "properties": {
-        "idx": {
-          "$ref": "#/definitions/index_numbers_array"
-        },
-        "src": {
-          "$ref": "#/definitions/element_ref"
+        "half-planes": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference to element from list of half-planes",
+            "$ref": "#/definitions/element_ref"
+          }
         },
         "intersection_type": {
           "enum": ["empty", "layer", "unbounded", "bounded"]
@@ -485,32 +378,18 @@
           "const": "half-plane_intersection"
         }
       },
-      "required": ["intersection_type", "type"],
+      "required": ["half-planes", "intersection_type", "type"],
       "additionalProperties": false
     },
     "line_intersection": {
       "type": "object",
       "properties": {
-        "idx": {
-          "allOf": [
-            {
-              "$ref": "#/definitions/index_numbers_array"
-            },
-            {
-              "minItems": 2
-            }
-          ]
-        },
-        "src": {
-          "$comment": "Reference to list of segments, lines or vertexes",
-          "$ref": "#/definitions/element_ref"
-        },
-        "idx_types": {
+        "objects": {
           "type": "array",
           "items": {
-            "enum": ["index", "side_index"]
-          },
-          "minItems": 2
+            "$comment": "Reference to element from list of segments, lines or vertexes",
+            "$ref": "#/definitions/element_ref"
+          }
         },
         "intersection_type": {
           "enum": ["empty", "contact", "intersection"],
@@ -520,79 +399,35 @@
           "const": "line_intersection"
         }
       },
-      "required": ["idx", "src", "idx_types", "type"],
-      "additionalProperties": false
-    },
-    "line_intersection_multiple": {
-      "type": "object",
-      "properties": {
-        "idx": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/two_indices"
-          },
-          "minItems": 2
-        },
-        "src": {
-          "type": "array",
-          "items": {
-            "$comment": "Reference to list of segments, lines or vertexes",
-            "$ref": "#/definitions/element_ref"
-          },
-          "minItems": 2
-        },
-        "idx_types": {
-          "type": "array",
-          "items": {
-            "enum": ["index", "side_index"]
-          },
-          "minItems": 2
-        },
-        "intersection_type": {
-          "enum": ["empty", "contact", "intersection"],
-          "default": "intersection"
-        },
-        "type": {
-          "const": "line_intersection_multiple"
-        }
-      },
-      "required": ["idx", "src", "idx_types", "type"],
+      "required": ["objects", "type"],
       "additionalProperties": false
     },
     "circle_intersection": {
       "type": "object",
       "properties": {
-        "idx": {
-          "allOf": [
-            {
-              "$ref": "#/definitions/index_numbers_array"
-            },
-            {
-              "minItems": 2
-            }
-          ]
-        },
-        "src": {
-          "$comment": "Reference to list of circles",
-          "$ref": "#/definitions/element_ref"
+        "circles": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference to element from list of circles",
+            "$ref": "#/definitions/element_ref"
+          }
         },
         "type": {
           "const": "circle_intersection"
         }
       },
-      "required": ["idx", "src", "type"],
+      "required": ["circles", "type"],
       "additionalProperties": false
     },
     "polygon_kernel": {
       "type": "object",
       "properties": {
-        "idx": {
-          "$comment": "Indices of polygon sides",
-          "$ref": "#/definitions/index_numbers_array"
-        },
-        "src": {
-          "$comment": "Reference to polygon vertexes",
-          "$ref": "#/definitions/element_ref"
+        "sides": {
+          "type": "array",
+          "items": {
+            "$comment": "Polygon side - reference to element from list of vertexes",
+            "$ref": "#/definitions/element_ref"
+          }
         },
         "kernel_type": {
           "enum": ["empty", "bounded"]
@@ -601,8 +436,19 @@
           "const": "polygon_kernel"
         }
       },
-      "required": ["kernel_type", "type"],
+      "required": ["sides", "kernel_type", "type"],
       "additionalProperties": false
+    },
+    "point_or_ref": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/point"
+        },
+        {
+          "$comment": "Reference to element from list of points",
+          "$ref": "#/definitions/element_ref"
+        }
+      ]
     },
     "graph": {
       "type": "object",
@@ -610,25 +456,7 @@
         "vertexes": {
           "type": "array",
           "items": {
-            "oneOf": [
-              {
-                "allOf": [
-                  {
-                    "$ref": "#/definitions/index"
-                  },
-                  {
-                    "properties": {
-                      "type": {
-                        "const": "index"
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                "$ref": "#/definitions/point"
-              }
-            ]
+            "$ref": "#/definitions/point_or_ref"
           },
           "minItems": 1
         },
@@ -655,7 +483,7 @@
         },
         "to": {
           "$comment": "If there is count of objects more then one in this value then result distance is summarized",
-          "oneOf": [
+          "anyOf": [
             {
               "$comment": "Reference to point or list of points",
               "$ref": "#/definitions/element_ref"
@@ -680,74 +508,10 @@
       "required": ["from", "to", "type"],
       "additionalProperties": false
     },
-    "elements_array": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/definitions/index"
-          },
-          {
-            "$ref": "#/definitions/index_multiple"
-          },
-          {
-            "$ref": "#/definitions/point"
-          },
-          {
-            "$ref": "#/definitions/vector"
-          },
-          {
-            "$ref": "#/definitions/segment"
-          },
-          {
-            "$ref": "#/definitions/line"
-          },
-          {
-            "$ref": "#/definitions/half-plane"
-          },
-          {
-            "$ref": "#/definitions/circle"
-          },
-          {
-            "$ref": "#/definitions/polygon_kernel"
-          },
-          {
-            "$ref": "#/definitions/half-plane_intersection"
-          },
-          {
-            "$ref": "#/definitions/line_intersection"
-          },
-          {
-            "$ref": "#/definitions/line_intersection_multiple"
-          },
-          {
-            "$ref": "#/definitions/circle_intersection"
-          },
-          {
-            "$ref": "#/definitions/graph"
-          },
-          {
-            "$ref": "#/definitions/distance"
-          },
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "integer"
-          }
-        ]
-      }
-    },
     "element": {
-      "oneOf": [
+      "anyOf": [
         {
-          "$ref": "#/definitions/elements_array"
-        },
-        {
-          "$ref": "#/definitions/index"
-        },
-        {
-          "$ref": "#/definitions/index_multiple"
+          "$ref": "#/definitions/element_ref"
         },
         {
           "$ref": "#/definitions/point"
@@ -777,9 +541,6 @@
           "$ref": "#/definitions/line_intersection"
         },
         {
-          "$ref": "#/definitions/line_intersection_multiple"
-        },
-        {
           "$ref": "#/definitions/circle_intersection"
         },
         {
@@ -796,11 +557,30 @@
         }
       ]
     },
+    "elements_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/element"
+      }
+    },
     "elements": {
       "type": "object",
       "patternProperties": {
         "^[A-Za-z_][A-Za-z0-9_-]*$": {
-          "$ref": "#/definitions/element"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/element"
+            },
+            {
+              "$ref": "#/definitions/elements_array"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/elements_array"
+              }
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -810,7 +590,7 @@
       "properties": {
         "$ref": {
           "type": "string",
-          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*(/[0-9]+)*$"
+          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*(/(side.)*[0-9]+)*$"
         }
       },
       "required": ["$ref"],
@@ -893,9 +673,6 @@
         "src": {
           "$ref": "#/definitions/element_ref"
         },
-        "is_polygon": {
-          "type": "boolean"
-        },
         "type": {
           "const": "polyline"
         }
@@ -930,7 +707,7 @@
       "additionalProperties": false
     },
     "visualization": {
-      "oneOf": [
+      "anyOf": [
         {
           "$ref": "#/definitions/element_ref"
         },

@@ -75,27 +75,63 @@
       }
     ],
     "hulls": [
-      {
-        "idx": [0, 13, 8, 6, 16, 5],
-        "src": {
-          "$ref": "#/elements/points"
+      [
+        {
+          "$ref": "#/elements/points/0"
         },
-        "type": "index"
-      },
-      {
-        "idx": [2, 3, 1, 12, 11, 17, 10],
-        "src": {
-          "$ref": "#/elements/points"
+        {
+          "$ref": "#/elements/points/13"
         },
-        "type": "index"
-      },
-      {
-        "idx": [4, 14, 9, 7],
-        "src": {
-          "$ref": "#/elements/points"
+        {
+          "$ref": "#/elements/points/8"
         },
-        "type": "index"
-      }
+        {
+          "$ref": "#/elements/points/6"
+        },
+        {
+          "$ref": "#/elements/points/16"
+        },
+        {
+          "$ref": "#/elements/points/5"
+        }
+      ],
+      [
+        {
+          "$ref": "#/elements/points/2"
+        },
+        {
+          "$ref": "#/elements/points/3"
+        },
+        {
+          "$ref": "#/elements/points/1"
+        },
+        {
+          "$ref": "#/elements/points/12"
+        },
+        {
+          "$ref": "#/elements/points/11"
+        },
+        {
+          "$ref": "#/elements/points/17"
+        },
+        {
+          "$ref": "#/elements/points/10"
+        }
+      ],
+      [
+        {
+          "$ref": "#/elements/points/4"
+        },
+        {
+          "$ref": "#/elements/points/14"
+        },
+        {
+          "$ref": "#/elements/points/9"
+        },
+        {
+          "$ref": "#/elements/points/7"
+        }
+      ]
     ]
   },
   "visualizations": [

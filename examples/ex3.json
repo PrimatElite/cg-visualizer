@@ -26,13 +26,20 @@
         "type": "point"
       }
     ],
-    "convex_hull": {
-      "idx": [0, 1, 4, 5],
-      "src": {
-        "$ref": "#/elements/points"
+    "convex_hull": [
+      {
+        "$ref": "#/elements/points/0"
       },
-      "type": "index"
-    }
+      {
+        "$ref": "#/elements/points/1"
+      },
+      {
+        "$ref": "#/elements/points/4"
+      },
+      {
+        "$ref": "#/elements/points/5"
+      }
+    ]
   },
   "visualizations": [
     {
