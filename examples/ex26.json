@@ -19,11 +19,18 @@
       }
     ],
     "circle": {
-      "idx": [0, 2, 3],
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "circle_sides_index"
+      "sides": [
+        {
+          "$ref": "#/elements/vertexes/side.0"
+        },
+        {
+          "$ref": "#/elements/vertexes/side.2"
+        },
+        {
+          "$ref": "#/elements/vertexes/side.3"
+        }
+      ],
+      "type": "circle_sides"
     }
   },
   "visualizations": [

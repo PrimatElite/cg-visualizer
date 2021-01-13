@@ -37,18 +37,10 @@
       }
     ],
     "point1": {
-      "idx": 1,
-      "src": {
-        "$ref": "#/elements/vertexes1"
-      },
-      "type": "index"
+      "$ref": "#/elements/vertexes1/1"
     },
     "point2": {
-      "idx": 4,
-      "src": {
-        "$ref": "#/elements/vertexes2"
-      },
-      "type": "index"
+      "$ref": "#/elements/vertexes2/4"
     },
     "distance": {
       "from": {

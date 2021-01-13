@@ -22,13 +22,17 @@
         "type": "point"
       }
     ],
-    "triangle": {
-      "idx": [0, 1, 3],
-      "src": {
-        "$ref": "#/elements/vertexes"
+    "triangle": [
+      {
+        "$ref": "#/elements/vertexes/0"
       },
-      "type": "index"
-    }
+      {
+        "$ref": "#/elements/vertexes/1"
+      },
+      {
+        "$ref": "#/elements/vertexes/3"
+      }
+    ]
   },
   "visualizations": [
     {

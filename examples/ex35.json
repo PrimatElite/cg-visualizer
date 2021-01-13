@@ -56,11 +56,31 @@
       {
         "vertexes": [
           {
-            "idx": [0, 1, 2, 3, 4, 5, 6, 7, 8],
-            "src": {
-              "$ref": "#/elements/vertexes1"
-            },
-            "type": "index"
+            "$ref": "#/elements/vertexes1/0"
+          },
+          {
+            "$ref": "#/elements/vertexes1/1"
+          },
+          {
+            "$ref": "#/elements/vertexes1/2"
+          },
+          {
+            "$ref": "#/elements/vertexes1/3"
+          },
+          {
+            "$ref": "#/elements/vertexes1/4"
+          },
+          {
+            "$ref": "#/elements/vertexes1/5"
+          },
+          {
+            "$ref": "#/elements/vertexes1/6"
+          },
+          {
+            "$ref": "#/elements/vertexes1/7"
+          },
+          {
+            "$ref": "#/elements/vertexes1/8"
           }
         ],
         "edges": [
@@ -79,11 +99,13 @@
       {
         "vertexes": [
           {
-            "idx": [0, 1, 2],
-            "src": {
-              "$ref": "#/elements/vertexes2"
-            },
-            "type": "index"
+            "$ref": "#/elements/vertexes2/0"
+          },
+          {
+            "$ref": "#/elements/vertexes2/1"
+          },
+          {
+            "$ref": "#/elements/vertexes2/2"
           }
         ],
         "edges": [
@@ -96,18 +118,40 @@
       {
         "vertexes": [
           {
-            "idx": [0, 1, 2, 3, 4, 5, 6, 7, 8],
-            "src": {
-              "$ref": "#/elements/vertexes1"
-            },
-            "type": "index"
+            "$ref": "#/elements/vertexes1/0"
           },
           {
-            "idx": [0, 1, 2],
-            "src": {
-              "$ref": "#/elements/vertexes2"
-            },
-            "type": "index"
+            "$ref": "#/elements/vertexes1/1"
+          },
+          {
+            "$ref": "#/elements/vertexes1/2"
+          },
+          {
+            "$ref": "#/elements/vertexes1/3"
+          },
+          {
+            "$ref": "#/elements/vertexes1/4"
+          },
+          {
+            "$ref": "#/elements/vertexes1/5"
+          },
+          {
+            "$ref": "#/elements/vertexes1/6"
+          },
+          {
+            "$ref": "#/elements/vertexes1/7"
+          },
+          {
+            "$ref": "#/elements/vertexes1/8"
+          },
+          {
+            "$ref": "#/elements/vertexes2/0"
+          },
+          {
+            "$ref": "#/elements/vertexes2/1"
+          },
+          {
+            "$ref": "#/elements/vertexes2/2"
           },
           {
             "coords": [

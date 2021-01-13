@@ -19,18 +19,13 @@
       }
     ],
     "line": {
-      "idx": [1, 2],
-      "src": {
-        "$ref": "#/elements/points"
+      "side": {
+        "$ref": "#/elements/vertexes/side.1"
       },
-      "type": "line_index"
+      "type": "line_side"
     },
     "point": {
-      "idx": 0,
-      "src": {
-        "$ref": "#/elements/points"
-      },
-      "type": "index"
+      "$ref": "#/elements/points/0"
     },
     "distance": {
       "from": {

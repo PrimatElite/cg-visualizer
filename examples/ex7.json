@@ -30,13 +30,29 @@
         "type": "point"
       }
     ],
-    "polygon": {
-      "idx": [0, 4, 1, 6, 2, 3, 5],
-      "src": {
-        "$ref": "#/elements/points"
+    "polygon": [
+      {
+        "$ref": "#/elements/points/0"
       },
-      "type": "index"
-    }
+      {
+        "$ref": "#/elements/points/4"
+      },
+      {
+        "$ref": "#/elements/points/1"
+      },
+      {
+        "$ref": "#/elements/points/6"
+      },
+      {
+        "$ref": "#/elements/points/2"
+      },
+      {
+        "$ref": "#/elements/points/3"
+      },
+      {
+        "$ref": "#/elements/points/5"
+      }
+    ]
   },
   "visualizations": [
     {

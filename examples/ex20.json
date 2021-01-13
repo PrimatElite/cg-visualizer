@@ -33,11 +33,25 @@
     "triangulation": {
       "vertexes": [
         {
-          "idx": [0, 1, 2, 3, 4, 5, 6],
-          "src": {
-            "$ref": "#/elements/vertexes"
-          },
-          "type": "index"
+          "$ref": "#/elements/vertexes/0"
+        },
+        {
+          "$ref": "#/elements/vertexes/1"
+        },
+        {
+          "$ref": "#/elements/vertexes/2"
+        },
+        {
+          "$ref": "#/elements/vertexes/3"
+        },
+        {
+          "$ref": "#/elements/vertexes/4"
+        },
+        {
+          "$ref": "#/elements/vertexes/5"
+        },
+        {
+          "$ref": "#/elements/vertexes/6"
         }
       ],
       "edges": [

@@ -47,11 +47,18 @@
       }
     ],
     "circle": {
-      "idx": [0, 5, 10],
-      "src": {
-        "$ref": "#/elements/points"
-      },
-      "type": "circle_points_index"
+      "points": [
+        {
+          "$ref": "#/elements/points/0"
+        },
+        {
+          "$ref": "#/elements/points/5"
+        },
+        {
+          "$ref": "#/elements/points/10"
+        }
+      ],
+      "type": "circle_points"
     },
     "paints": [true, false, false, false, false, true, false, false, false, false, true]
   },

@@ -48,18 +48,38 @@
         "type": "point"
       }
     ],
-    "intersection": {
-      "idx": [[1, 0], [2, 0], [3, 0], [4, 1], [5, 1]],
-      "src": [
-        {
-          "$ref": "#/elements/vertexes1"
+    "intersection": [
+      {
+        "side": {
+          "$ref": "#/elements/vertexes1/side.1"
         },
-        {
-          "$ref": "#/elements/vertexes2"
-        }
-      ],
-      "type": "side_index_multiple"
-    }
+        "type": "half-plane_side"
+      },
+      {
+        "side": {
+          "$ref": "#/elements/vertexes1/side.2"
+        },
+        "type": "half-plane_side"
+      },
+      {
+        "side": {
+          "$ref": "#/elements/vertexes1/side.3"
+        },
+        "type": "half-plane_side"
+      },
+      {
+        "side": {
+          "$ref": "#/elements/vertexes2/side.4"
+        },
+        "type": "half-plane_side"
+      },
+      {
+        "side": {
+          "$ref": "#/elements/vertexes2/side.5"
+        },
+        "type": "half-plane_side"
+      }
+    ]
   },
   "visualizations": [
     {
