@@ -1,0 +1,80 @@
+{
+  "elements": {
+    "segments": [
+      {
+        "coords1": [-3, 8],
+        "coords2": [-1, 6],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [2, 9],
+        "coords2": [1, 6],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-4, 6],
+        "coords2": [3, 8],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-1, 8],
+        "coords2": [-3, 4],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-1, 9],
+        "coords2": [1, 10],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [-2, 2],
+        "coords2": [-1, 5],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [1, 8],
+        "coords2": [-1, 10],
+        "type": "segment_coords"
+      },
+      {
+        "coords1": [1, 4],
+        "coords2": [2, 2],
+        "type": "segment_coords"
+      }
+    ],
+    "intersections": [
+      {
+        "idx": [0, 2, 3],
+        "src": {
+          "$ref": "#/elements/segments"
+        },
+        "idx_types": ["index", "index", "index"],
+        "type": "line_intersection"
+      },
+      {
+        "idx": [1, 2],
+        "src": {
+          "$ref": "#/elements/segments"
+        },
+        "idx_types": ["index", "index"],
+        "type": "line_intersection"
+      },
+      {
+        "idx": [4, 6],
+        "src": {
+          "$ref": "#/elements/segments"
+        },
+        "idx_types": ["index", "index"],
+        "type": "line_intersection"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/segments"
+    },
+    {
+      "$ref": "#/elements/intersections"
+    }
+  ]
+}

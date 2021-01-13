@@ -46,12 +46,28 @@
         "type": "point"
       }
     ],
-    "pair": {
-      "idx": [2, 4],
+    "point1": {
+      "idx": 2,
       "src": {
         "$ref": "#/elements/points"
       },
-      "type": "segment_index"
+      "type": "index"
+    },
+    "point2": {
+      "idx": 4,
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "index"
+    },
+    "distance": {
+      "from": {
+        "$ref": "#/elements/point1"
+      },
+      "to": {
+        "$ref": "#/elements/point2"
+      },
+      "type": "distance"
     }
   },
   "visualizations": [
@@ -59,11 +75,13 @@
       "$ref": "#/elements/points"
     },
     {
-      "src": {
-        "$ref": "#/elements/pair"
-      },
-      "length": true,
-      "type": "segment"
+      "$ref": "#/elements/point1"
+    },
+    {
+      "$ref": "#/elements/point2"
+    },
+    {
+      "$ref": "#/elements/distance"
     }
   ]
 }

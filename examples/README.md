@@ -52,6 +52,10 @@
 
 **Файл:** [ex13.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex13.json)
 
+## Минимальный описанный прямоугольник для выпуклого многоугольника
+
+**Файл:** [ex14.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex14.json)
+
 ## Диаграмма Вороного сторон выпуклого многоугольника
 
 **Файл:** [ex15.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex15.json)
@@ -72,9 +76,17 @@
 
 **Файл:** [ex19.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex19.json)
 
+## Число протыканий триангуляции выпуклого многоугольника
+
+**Файл:** [ex20.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex20.json)
+
 ## Максимальный треугольник вписанный в выпуклый многоугольник
 
 **Файл:** [ex21.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex21.json)
+
+## Минимальный диск для множества точек
+
+**Файл:** [ex22.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex22.json)
 
 ## Диаграмма Вороного множества точек (любой алгоритм)
 
@@ -96,6 +108,10 @@
 
 **Файл:** [ex28.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex28.json)
 
+## Расстояние между выпуклыми многоугольниками
+
+**Файл:** [ex30.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex30.json)
+
 ## Локализация точки в ППЛГ (любой метод)
 
 **Файл:** [ex31.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex31.json)
@@ -108,9 +124,17 @@
 
 **Файл:** [ex33.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex33.json)
 
+## Пересечение отрезков
+
+**Файл:** [ex34.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex34.json)
+
 ## Пересечение ППЛГ
 
 **Файл:** [ex35.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex35.json)
+
+## Пересечение окружностей
+
+**Файл:** [ex36.json](https://github.com/PrimatElite/cg-visualizer/blob/main/examples/ex36.json)
 
 ## Восстановить множество точек по диаграмме Вороного
 

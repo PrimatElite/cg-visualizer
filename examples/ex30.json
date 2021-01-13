@@ -36,36 +36,29 @@
         "type": "point"
       }
     ],
-    "sum": [
-      {
-        "coords": [11, 3],
-        "type": "point"
+    "point1": {
+      "idx": 1,
+      "src": {
+        "$ref": "#/elements/vertexes1"
       },
-      {
-        "coords": [15, 4],
-        "type": "point"
+      "type": "index"
+    },
+    "point2": {
+      "idx": 4,
+      "src": {
+        "$ref": "#/elements/vertexes2"
       },
-      {
-        "coords": [20, 7],
-        "type": "point"
+      "type": "index"
+    },
+    "distance": {
+      "from": {
+        "$ref": "#/elements/point1"
       },
-      {
-        "coords": [19, 10],
-        "type": "point"
+      "to": {
+        "$ref": "#/elements/point2"
       },
-      {
-        "coords": [13, 14],
-        "type": "point"
-      },
-      {
-        "coords": [10, 10],
-        "type": "point"
-      },
-      {
-        "coords": [9, 7],
-        "type": "point"
-      }
-    ]
+      "type": "distance"
+    }
   },
   "visualizations": [
     {
@@ -81,10 +74,13 @@
       "type": "polygon"
     },
     {
-      "src": {
-        "$ref": "#/elements/sum"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/point1"
+    },
+    {
+      "$ref": "#/elements/point2"
+    },
+    {
+      "$ref": "#/elements/distance"
     }
   ]
 }

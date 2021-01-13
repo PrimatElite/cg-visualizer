@@ -1,0 +1,67 @@
+{
+  "elements": {
+    "circles": [
+      {
+        "center": [0, 0],
+        "radius": 5,
+        "type": "circle_center_radius"
+      },
+      {
+        "center": [5, 8],
+        "radius": 2,
+        "type": "circle_center_radius"
+      },
+      {
+        "center": [-1, 9],
+        "radius": 6,
+        "type": "circle_center_radius"
+      },
+      {
+        "center": [6, 4],
+        "radius": 15,
+        "type": "circle_center_radius"
+      },
+      {
+        "center": [18, 8],
+        "radius": 3,
+        "type": "circle_center_radius"
+      },
+      {
+        "center": [20, 12],
+        "radius": 2,
+        "type": "circle_center_radius"
+      }
+    ],
+    "intersections": [
+      {
+        "idx": [0, 2],
+        "src": {
+          "$ref": "#/elements/circles"
+        },
+        "type": "circle_intersection"
+      },
+      {
+        "idx": [1, 2],
+        "src": {
+          "$ref": "#/elements/circles"
+        },
+        "type": "circle_intersection"
+      },
+      {
+        "idx": [3, 4, 5],
+        "src": {
+          "$ref": "#/elements/circles"
+        },
+        "type": "circle_intersection"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/circles"
+    },
+    {
+      "$ref": "#/elements/intersections"
+    }
+  ]
+}

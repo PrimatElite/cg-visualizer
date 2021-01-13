@@ -1,0 +1,72 @@
+{
+  "elements": {
+    "points": [
+      {
+        "coords": [-1, 4],
+        "type": "point"
+      },
+      {
+        "coords": [1, 3],
+        "type": "point"
+      },
+      {
+        "coords": [-2, -1],
+        "type": "point"
+      },
+      {
+        "coords": [-1, 1],
+        "type": "point"
+      },
+      {
+        "coords": [2, 1],
+        "type": "point"
+      },
+      {
+        "coords": [2, -1],
+        "type": "point"
+      },
+      {
+        "coords": [-1, -1],
+        "type": "point"
+      },
+      {
+        "coords": [1, 0],
+        "type": "point"
+      },
+      {
+        "coords": [-2, 2],
+        "type": "point"
+      },
+      {
+        "coords": [2, 1],
+        "type": "point"
+      },
+      {
+        "coords": [-3, 1],
+        "type": "point"
+      }
+    ],
+    "circle": {
+      "idx": [0, 5, 10],
+      "src": {
+        "$ref": "#/elements/points"
+      },
+      "type": "circle_points_index"
+    },
+    "paints": [true, false, false, false, false, true, false, false, false, false, true]
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/circle"
+    },
+    {
+      "input": {
+        "$ref": "#/elements/points"
+      },
+      "output": {
+        "$ref": "#/elements/paints"
+      },
+      "type": "paints"
+    }
+  ]
+}
