@@ -26,7 +26,7 @@
         "type": "point"
       }
     ],
-    "convex_hull": [
+    "vertices": [
       {
         "$ref": "#/elements/points/0"
       },
@@ -39,17 +39,20 @@
       {
         "$ref": "#/elements/points/5"
       }
-    ]
+    ],
+    "convex_hull": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
+    }
   },
   "visualizations": [
     {
       "$ref": "#/elements/points"
     },
     {
-      "src": {
-        "$ref": "#/elements/convex_hull"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/convex_hull"
     }
   ]
 }

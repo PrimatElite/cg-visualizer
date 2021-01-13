@@ -74,7 +74,7 @@
         "type": "point"
       }
     ],
-    "hulls": [
+    "vertices": [
       [
         {
           "$ref": "#/elements/points/0"
@@ -132,6 +132,26 @@
           "$ref": "#/elements/points/7"
         }
       ]
+    ],
+    "convex_hulls": [
+      {
+        "src": {
+          "$ref": "#/elements/vertices/0"
+        },
+        "type": "polygon"
+      },
+      {
+        "src": {
+          "$ref": "#/elements/vertices/1"
+        },
+        "type": "polygon"
+      },
+      {
+        "src": {
+          "$ref": "#/elements/vertices/2"
+        },
+        "type": "polygon"
+      }
     ]
   },
   "visualizations": [
@@ -139,22 +159,7 @@
       "$ref": "#/elements/points"
     },
     {
-      "src": {
-        "$ref": "#/elements/hulls/0"
-      },
-      "type": "polygon"
-    },
-    {
-      "src": {
-        "$ref": "#/elements/hulls/1"
-      },
-      "type": "polygon"
-    },
-    {
-      "src": {
-        "$ref": "#/elements/hulls/2"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/convex_hulls"
     }
   ]
 }

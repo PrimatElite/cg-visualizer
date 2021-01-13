@@ -60,20 +60,23 @@
       ],
       "type": "circle_points"
     },
-    "paints": [true, false, false, false, false, true, false, false, false, false, true]
+    "answer": [true, false, false, false, false, true, false, false, false, false, true],
+    "paints": {
+      "input": {
+        "$ref": "#/elements/points"
+      },
+      "output": {
+        "$ref": "#/elements/answer"
+      },
+      "type": "paints"
+    }
   },
   "visualizations": [
     {
       "$ref": "#/elements/circle"
     },
     {
-      "input": {
-        "$ref": "#/elements/points"
-      },
-      "output": {
-        "$ref": "#/elements/paints"
-      },
-      "type": "paints"
+      "$ref": "#/elements/paints"
     }
   ]
 }

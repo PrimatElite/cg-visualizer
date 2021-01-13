@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [-4, -4],
         "type": "point"
@@ -56,7 +56,7 @@
             "$ref": "#/elements/lines/0"
           },
           {
-            "$ref": "#/elements/vertexes/side.5"
+            "$ref": "#/elements/vertices/side.5"
           }
         ],
         "intersection_type": "contact",
@@ -68,7 +68,7 @@
             "$ref": "#/elements/lines/1"
           },
           {
-            "$ref": "#/elements/vertexes/side.3"
+            "$ref": "#/elements/vertices/side.3"
           }
         ],
         "intersection_type": "intersection",
@@ -80,7 +80,7 @@
             "$ref": "#/elements/lines/1"
           },
           {
-            "$ref": "#/elements/vertexes/0"
+            "$ref": "#/elements/vertices/0"
           }
         ],
         "intersection_type": "intersection",
@@ -92,20 +92,23 @@
             "$ref": "#/elements/lines/2"
           },
           {
-            "$ref": "#/elements/vertexes/side.2"
+            "$ref": "#/elements/vertices/side.2"
           }
         ],
         "intersection_type": "empty",
         "type": "line_intersection"
       }
-    ]
+    ],
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
+    }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
       "$ref": "#/elements/lines"

@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [-4, -2],
         "type": "point"
@@ -31,27 +31,27 @@
       }
     ],
     "triangulation": {
-      "vertexes": [
+      "vertices": [
         {
-          "$ref": "#/elements/vertexes/0"
+          "$ref": "#/elements/vertices/0"
         },
         {
-          "$ref": "#/elements/vertexes/1"
+          "$ref": "#/elements/vertices/1"
         },
         {
-          "$ref": "#/elements/vertexes/2"
+          "$ref": "#/elements/vertices/2"
         },
         {
-          "$ref": "#/elements/vertexes/3"
+          "$ref": "#/elements/vertices/3"
         },
         {
-          "$ref": "#/elements/vertexes/4"
+          "$ref": "#/elements/vertices/4"
         },
         {
-          "$ref": "#/elements/vertexes/5"
+          "$ref": "#/elements/vertices/5"
         },
         {
-          "$ref": "#/elements/vertexes/6"
+          "$ref": "#/elements/vertices/6"
         }
       ],
       "edges": [
@@ -73,14 +73,17 @@
       "coefficients": [1, 9, 14],
       "type": "line_equation"
     },
-    "stabbing_number": 4
+    "stabbing_number": 4,
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
+    }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
       "$ref": "#/elements/triangulation"

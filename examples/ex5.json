@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [0, 0],
         "type": "point"
@@ -20,7 +20,7 @@
     ],
     "line": {
       "side": {
-        "$ref": "#/elements/vertexes/side.1"
+        "$ref": "#/elements/vertices/side.1"
       },
       "type": "line_side"
     },
@@ -35,14 +35,17 @@
         "$ref": "#/elements/point"
       },
       "type": "distance"
+    },
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
     }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
       "$ref": "#/elements/point"

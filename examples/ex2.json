@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [0, 0],
         "type": "point"
@@ -20,27 +20,26 @@
     ],
     "diameter": {
       "coords1": {
-        "$ref": "#/elements/vertexes/0"
+        "$ref": "#/elements/vertices/0"
       },
       "coords2": {
-        "$ref": "#/elements/vertexes/2"
+        "$ref": "#/elements/vertices/2"
       },
       "type": "segment_coords"
+    },
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
     }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
-      "src": {
-        "$ref": "#/elements/diameter"
-      },
-      "length": true,
-      "type": "segment"
+      "$ref": "#/elements/diameter"
     }
   ]
 }

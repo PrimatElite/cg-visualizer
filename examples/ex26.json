@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [-1, 3],
         "type": "point"
@@ -21,13 +21,13 @@
     "circle": {
       "sides": [
         {
-          "$ref": "#/elements/vertexes/side.0"
+          "$ref": "#/elements/vertices/side.0"
         },
         {
-          "$ref": "#/elements/vertexes/side.2"
+          "$ref": "#/elements/vertices/side.2"
         },
         {
-          "$ref": "#/elements/vertexes/side.3"
+          "$ref": "#/elements/vertices/side.3"
         }
       ],
       "type": "circle_sides"
@@ -36,7 +36,7 @@
   "visualizations": [
     {
       "src": {
-        "$ref": "#/elements/vertexes"
+        "$ref": "#/elements/vertices"
       },
       "type": "polygon"
     },

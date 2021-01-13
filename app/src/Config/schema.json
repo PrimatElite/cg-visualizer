@@ -387,7 +387,7 @@
         "objects": {
           "type": "array",
           "items": {
-            "$comment": "Reference to element from list of segments, lines or vertexes",
+            "$comment": "Reference to element from list of segments, lines or vertices",
             "$ref": "#/definitions/element_ref"
           }
         },
@@ -425,7 +425,7 @@
         "sides": {
           "type": "array",
           "items": {
-            "$comment": "Polygon side - reference to element from list of vertexes",
+            "$comment": "Polygon side - reference to element from list of vertices",
             "$ref": "#/definitions/element_ref"
           }
         },
@@ -453,7 +453,7 @@
     "graph": {
       "type": "object",
       "properties": {
-        "vertexes": {
+        "vertices": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/point_or_ref"
@@ -471,7 +471,7 @@
           "const": "graph"
         }
       },
-      "required": ["vertexes", "edges", "type"],
+      "required": ["vertices", "edges", "type"],
       "additionalProperties": false
     },
     "distance": {
@@ -506,6 +506,70 @@
         }
       },
       "required": ["from", "to", "type"],
+      "additionalProperties": false
+    },
+    "polygon": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$comment": "Reference to list of points or half-planes",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "polygon"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "paints": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "$comment": "Reference to list of objects",
+          "$ref": "#/definitions/element_ref"
+        },
+        "output": {
+          "$comment": "Reference to list of integers or booleans",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "paints"
+        }
+      },
+      "required": ["input", "output", "type"],
+      "additionalProperties": false
+    },
+    "polyline": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$comment": "Reference to list of points",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "polyline"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "rectangle": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "$comment": "Reference to segment or line",
+          "$ref": "#/definitions/element_ref"
+        },
+        "points": {
+          "$comment": "Reference to list of three points counterclockwise starting at point following anchor side",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "rectangle"
+        }
+      },
+      "required": ["side", "points", "type"],
       "additionalProperties": false
     },
     "element": {
@@ -548,6 +612,18 @@
         },
         {
           "$ref": "#/definitions/distance"
+        },
+        {
+          "$ref": "#/definitions/polygon"
+        },
+        {
+          "$ref": "#/definitions/paints"
+        },
+        {
+          "$ref": "#/definitions/polyline"
+        },
+        {
+          "$ref": "#/definitions/rectangle"
         },
         {
           "type": "boolean"
@@ -596,145 +672,10 @@
       "required": ["$ref"],
       "additionalProperties": false
     },
-    "polygon_visualization": {
-      "type": "object",
-      "properties": {
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "perimeter": {
-          "type": "boolean",
-          "default": false
-        },
-        "area": {
-          "type": "boolean",
-          "default": false
-        },
-        "type": {
-          "const": "polygon"
-        }
-      },
-      "required": ["src", "type"],
-      "additionalProperties": false
-    },
-    "paints_visualization": {
-      "type": "object",
-      "properties": {
-        "input": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "output": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "type": {
-          "const": "paints"
-        }
-      },
-      "required": ["input", "output", "type"],
-      "additionalProperties": false
-    },
-    "segment_visualization": {
-      "type": "object",
-      "properties": {
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "length": {
-          "type": "boolean",
-          "default": false
-        },
-        "type": {
-          "const": "segment"
-        }
-      },
-      "required": ["src", "type"],
-      "additionalProperties": false
-    },
-    "circle_visualization": {
-      "type": "object",
-      "properties": {
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "radius": {
-          "type": "boolean",
-          "default": false
-        },
-        "type": {
-          "const": "circle"
-        }
-      },
-      "required": ["src", "type"],
-      "additionalProperties": false
-    },
-    "polyline_visualization": {
-      "type": "object",
-      "properties": {
-        "src": {
-          "$ref": "#/definitions/element_ref"
-        },
-        "type": {
-          "const": "polyline"
-        }
-      },
-      "required": ["src", "type"],
-      "additionalProperties": false
-    },
-    "rectangle_visualization": {
-      "type": "object",
-      "properties": {
-        "side": {
-          "$comment": "Reference to segment or line",
-          "$ref": "#/definitions/element_ref"
-        },
-        "points": {
-          "$comment": "Reference to list of three points counterclockwise starting at point following anchor side",
-          "$ref": "#/definitions/element_ref"
-        },
-        "perimeter": {
-          "type": "boolean",
-          "default": false
-        },
-        "area": {
-          "type": "boolean",
-          "default": false
-        },
-        "type": {
-          "const": "rectangle"
-        }
-      },
-      "required": ["side", "points", "type"],
-      "additionalProperties": false
-    },
-    "visualization": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/element_ref"
-        },
-        {
-          "$ref": "#/definitions/polygon_visualization"
-        },
-        {
-          "$ref": "#/definitions/paints_visualization"
-        },
-        {
-          "$ref": "#/definitions/segment_visualization"
-        },
-        {
-          "$ref": "#/definitions/circle_visualization"
-        },
-        {
-          "$ref": "#/definitions/polyline_visualization"
-        },
-        {
-          "$ref": "#/definitions/rectangle_visualization"
-        }
-      ]
-    },
     "visualizations": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/visualization"
+        "$ref": "#/definitions/element_ref"
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes1": [
+    "vertices1": [
       {
         "coords": [-4, -2],
         "type": "point"
@@ -38,7 +38,7 @@
         "type": "point"
       }
     ],
-    "vertexes2": [
+    "vertices2": [
       {
         "coords": [-2, -2],
         "type": "point"
@@ -54,33 +54,33 @@
     ],
     "pslgs": [
       {
-        "vertexes": [
+        "vertices": [
           {
-            "$ref": "#/elements/vertexes1/0"
+            "$ref": "#/elements/vertices1/0"
           },
           {
-            "$ref": "#/elements/vertexes1/1"
+            "$ref": "#/elements/vertices1/1"
           },
           {
-            "$ref": "#/elements/vertexes1/2"
+            "$ref": "#/elements/vertices1/2"
           },
           {
-            "$ref": "#/elements/vertexes1/3"
+            "$ref": "#/elements/vertices1/3"
           },
           {
-            "$ref": "#/elements/vertexes1/4"
+            "$ref": "#/elements/vertices1/4"
           },
           {
-            "$ref": "#/elements/vertexes1/5"
+            "$ref": "#/elements/vertices1/5"
           },
           {
-            "$ref": "#/elements/vertexes1/6"
+            "$ref": "#/elements/vertices1/6"
           },
           {
-            "$ref": "#/elements/vertexes1/7"
+            "$ref": "#/elements/vertices1/7"
           },
           {
-            "$ref": "#/elements/vertexes1/8"
+            "$ref": "#/elements/vertices1/8"
           }
         ],
         "edges": [
@@ -97,15 +97,15 @@
         "type": "graph"
       },
       {
-        "vertexes": [
+        "vertices": [
           {
-            "$ref": "#/elements/vertexes2/0"
+            "$ref": "#/elements/vertices2/0"
           },
           {
-            "$ref": "#/elements/vertexes2/1"
+            "$ref": "#/elements/vertices2/1"
           },
           {
-            "$ref": "#/elements/vertexes2/2"
+            "$ref": "#/elements/vertices2/2"
           }
         ],
         "edges": [
@@ -116,42 +116,42 @@
         "type": "graph"
       },
       {
-        "vertexes": [
+        "vertices": [
           {
-            "$ref": "#/elements/vertexes1/0"
+            "$ref": "#/elements/vertices1/0"
           },
           {
-            "$ref": "#/elements/vertexes1/1"
+            "$ref": "#/elements/vertices1/1"
           },
           {
-            "$ref": "#/elements/vertexes1/2"
+            "$ref": "#/elements/vertices1/2"
           },
           {
-            "$ref": "#/elements/vertexes1/3"
+            "$ref": "#/elements/vertices1/3"
           },
           {
-            "$ref": "#/elements/vertexes1/4"
+            "$ref": "#/elements/vertices1/4"
           },
           {
-            "$ref": "#/elements/vertexes1/5"
+            "$ref": "#/elements/vertices1/5"
           },
           {
-            "$ref": "#/elements/vertexes1/6"
+            "$ref": "#/elements/vertices1/6"
           },
           {
-            "$ref": "#/elements/vertexes1/7"
+            "$ref": "#/elements/vertices1/7"
           },
           {
-            "$ref": "#/elements/vertexes1/8"
+            "$ref": "#/elements/vertices1/8"
           },
           {
-            "$ref": "#/elements/vertexes2/0"
+            "$ref": "#/elements/vertices2/0"
           },
           {
-            "$ref": "#/elements/vertexes2/1"
+            "$ref": "#/elements/vertices2/1"
           },
           {
-            "$ref": "#/elements/vertexes2/2"
+            "$ref": "#/elements/vertices2/2"
           },
           {
             "coords": [

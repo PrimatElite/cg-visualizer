@@ -30,7 +30,7 @@
         "type": "point"
       }
     ],
-    "polygon": [
+    "vertices": [
       {
         "$ref": "#/elements/points/0"
       },
@@ -52,17 +52,20 @@
       {
         "$ref": "#/elements/points/5"
       }
-    ]
+    ],
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
+    }
   },
   "visualizations": [
     {
       "$ref": "#/elements/points"
     },
     {
-      "src": {
-        "$ref": "#/elements/polygon"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     }
   ]
 }

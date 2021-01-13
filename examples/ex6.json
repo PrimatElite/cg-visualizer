@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes1": [
+    "vertices1": [
       {
         "coords": [-5, -5],
         "type": "point"
@@ -22,7 +22,7 @@
         "type": "point"
       }
     ],
-    "vertexes2": [
+    "vertices2": [
       {
         "coords": [1, -4],
         "type": "point"
@@ -51,42 +51,63 @@
     "intersection": [
       {
         "side": {
-          "$ref": "#/elements/vertexes1/side.1"
+          "$ref": "#/elements/vertices1/side.1"
         },
         "type": "half-plane_side"
       },
       {
         "side": {
-          "$ref": "#/elements/vertexes1/side.2"
+          "$ref": "#/elements/vertices1/side.2"
         },
         "type": "half-plane_side"
       },
       {
         "side": {
-          "$ref": "#/elements/vertexes1/side.3"
+          "$ref": "#/elements/vertices1/side.3"
         },
         "type": "half-plane_side"
       },
       {
         "side": {
-          "$ref": "#/elements/vertexes2/side.4"
+          "$ref": "#/elements/vertices2/side.4"
         },
         "type": "half-plane_side"
       },
       {
         "side": {
-          "$ref": "#/elements/vertexes2/side.5"
+          "$ref": "#/elements/vertices2/side.5"
         },
         "type": "half-plane_side"
       }
-    ]
-  },
-  "visualizations": [
-    {
+    ],
+    "polygon1": {
+      "src": {
+        "$ref": "#/elements/vertices1"
+      },
+      "type": "polygon"
+    },
+    "polygon2": {
+      "src": {
+        "$ref": "#/elements/vertices2"
+      },
+      "type": "polygon"
+    },
+    "result_polygon": {
       "src": {
         "$ref": "#/elements/intersection"
       },
       "type": "polygon"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polygon1"
+    },
+    {
+      "$ref": "#/elements/polygon2"
+    },
+    {
+      "$ref": "#/elements/result_polygon"
     }
   ]
 }
