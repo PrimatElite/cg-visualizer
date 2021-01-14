@@ -13,6 +13,7 @@ const AppWrapper = styled.div`
 
 const PanelWrapper = styled.div`
   width: 25%;
+  height: calc(100vh - 20px);
   border: 2px solid black;
   margin: 10px 5px 0 10px;
   display: flex;

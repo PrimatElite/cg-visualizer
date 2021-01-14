@@ -7,6 +7,7 @@ const InfoWrapper = styled.div`
   border: 2px solid black;
   margin: 5px 10px 10px 10px;
   height: 75%;
+  overflow: auto;
   padding: 10px;
 `;
 

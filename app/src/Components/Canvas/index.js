@@ -15,8 +15,8 @@ const Wrapper = styled.div`
 
 class ThreeRendering extends Component {
     createCamera(width, height) {
-        const near = 0.1;
-        const far = 2000;
+        const near = 1.5;
+        const far = 10;
         const camera = new THREE.PerspectiveCamera(90, width / height, near, far);
         camera.position.set(0, 0, far/2);
         return camera;
