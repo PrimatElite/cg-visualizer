@@ -31,21 +31,20 @@
         }
       ],
       "type": "circle_sides"
-    }
-  },
-  "visualizations": [
-    {
+    },
+    "polygon": {
       "src": {
         "$ref": "#/elements/vertices"
       },
       "type": "polygon"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polygon"
     },
     {
-      "src": {
-        "$ref": "#/elements/circle"
-      },
-      "radius": true,
-      "type": "circle"
+      "$ref": "#/elements/circle"
     }
   ]
 }
