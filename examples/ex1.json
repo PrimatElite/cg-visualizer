@@ -42,7 +42,7 @@
         "type": "point"
       }
     ],
-    "answer": [true, true, false],
+    "answer": [true, true, true, false],
     "polygon": {
       "src": {
         "$ref": "#/elements/vertices"
