@@ -20,7 +20,7 @@ const PanelWrapper = styled.div`
 `;
 
 function App() {
-  const [data, setData] = useState(undefined);
+  const [data, setData] = useState({elements: {}, visualizations: []});
   const [loading, setLoading] = useState(false)
 
   return (

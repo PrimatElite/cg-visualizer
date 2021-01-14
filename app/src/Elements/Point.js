@@ -1,12 +1,17 @@
 import * as THREE from 'three';
 import { processCoord } from "../Utils/utils";
-
+import { createAccordionItem } from "../Utils/generators";
 
 export default class Point {
     constructor(obj) {
         this.radius = 0.05;
         this.x = processCoord(obj.coords[0]);
         this.y = processCoord(obj.coords[1]);
+    }
+
+    info(parent, id) {
+        const body = `Point: (${this.x.toFraction()}, ${this.y.toFraction()})`;
+        return createAccordionItem(parent, id, body, id);
     }
 
     draw(color=0x000) {
