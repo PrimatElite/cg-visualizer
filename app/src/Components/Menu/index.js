@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import schema from '../../Config/schema.json';
+import { processElements } from "../../Utils/preprocessing";
 import Ajv from 'ajv';
 
 const MenuWrapper = styled.div`
@@ -44,7 +45,7 @@ const Menu = ({ handleData }) => {
             const valid = validate(jsonData)
             if (valid) {
                 console.log('File is valid!');
-                handleData(jsonData);
+                handleData(processElements(jsonData));
             } else {
                 console.log('uploaded file rejected by json schema');
             }

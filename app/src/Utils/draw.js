@@ -1,33 +1,16 @@
-import Polygon from '../Elements/Polygon';
 import { getByRef } from "./schema";
 
-function drawItem(scene, data, item) {
-    switch (item.type) {
-        case 'polygon':
-            const points = getByRef(data, item.src.$ref);
-            const polygon = new Polygon(points);
-            scene.add(polygon.draw());
-            break;
-        case 'paints':
-            break;
-        default:
-            console.log('Unsupported visualization type');
-    }
-}
 
 function drawVisualizations(scene, data) {
+    console.log(data);
     data.visualizations.forEach(item => {
-        draw(scene, data, item);
+        draw(scene, data, getByRef(data, item.$ref));
     });
 }
 
 const draw = (scene, data, item) => {
-    if (!item.type) {
-        item = getByRef(data, item.$ref);
-    }
-
-    if ((typeof item) === 'object') {
-        drawItem(scene, data, item);
+    if (item.length === undefined) {
+        scene.add(item.draw());
     } else {
         item.forEach(el => draw(scene, data, el));
     }

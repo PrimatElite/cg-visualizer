@@ -9,9 +9,12 @@ export function getByRef(obj, ref) {
     const path = ref.split('/').slice(1);
     let currentObject = obj;
 
-    path.forEach(path_node => {
-       currentObject = stepInJson(currentObject, path_node)
-    });
+    for (let i = 0; i < path.length; i++) {
+        currentObject = stepInJson(currentObject, path[i]);
+        if (!currentObject) {
+            break;
+        }
+    }
 
     return currentObject;
 }

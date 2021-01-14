@@ -1,18 +1,18 @@
 import * as THREE from 'three';
 
 export default class Polygon {
-    constructor(vertices) {
-        this.vertices = [...vertices];
+    constructor(obj) {
+        this.vertices = obj.src;
     }
-    draw() {
-        const shape = new THREE.Shape(this.vertices.map(v => new THREE.Vector2(v.coords[0], v.coords[1])));
-        const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.coords[0], v.coords[1])));
+    draw(color=0xFAF) {
+        const shape = new THREE.Shape(this.vertices.map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
+        const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const lineGeometry = new THREE.BufferGeometry().setFromPoints( path.getPoints() )
         const geometry = new THREE.ShapeGeometry(shape);
-        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xFAF, linewidth: 2});
+        const lineMaterial = new THREE.LineBasicMaterial({ color, linewidth: 2});
         const material = new THREE.MeshBasicMaterial(
             {
-                color: 0xFAF,
+                color,
                 opacity: 0.3,
                 transparent: true,
             });
