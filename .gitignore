@@ -104,5 +104,6 @@ dist
 .tern-port
 
 .idea
-build
-**/build
+**/build/*
+!**/build/*.pdf
+
