@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [0, 6],
         "type": "point"
@@ -43,20 +43,39 @@
       }
     ],
     "kernel": {
-      "idx": [3, 5, 6, 7, 8, 9],
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
+      "sides": [
+        {
+          "$ref": "#/elements/vertices/3"
+        },
+        {
+          "$ref": "#/elements/vertices/5"
+        },
+        {
+          "$ref": "#/elements/vertices/6"
+        },
+        {
+          "$ref": "#/elements/vertices/7"
+        },
+        {
+          "$ref": "#/elements/vertices/8"
+        },
+        {
+          "$ref": "#/elements/vertices/9"
+        }
+      ],
       "kernel_type": "bounded",
       "type": "polygon_kernel"
+    },
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
     }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
       "$ref": "#/elements/kernel"

@@ -74,27 +74,83 @@
         "type": "point"
       }
     ],
-    "hulls": [
-      {
-        "idx": [0, 13, 8, 6, 16, 5],
-        "src": {
-          "$ref": "#/elements/points"
+    "vertices": [
+      [
+        {
+          "$ref": "#/elements/points/0"
         },
-        "type": "index"
+        {
+          "$ref": "#/elements/points/13"
+        },
+        {
+          "$ref": "#/elements/points/8"
+        },
+        {
+          "$ref": "#/elements/points/6"
+        },
+        {
+          "$ref": "#/elements/points/16"
+        },
+        {
+          "$ref": "#/elements/points/5"
+        }
+      ],
+      [
+        {
+          "$ref": "#/elements/points/2"
+        },
+        {
+          "$ref": "#/elements/points/3"
+        },
+        {
+          "$ref": "#/elements/points/1"
+        },
+        {
+          "$ref": "#/elements/points/12"
+        },
+        {
+          "$ref": "#/elements/points/11"
+        },
+        {
+          "$ref": "#/elements/points/17"
+        },
+        {
+          "$ref": "#/elements/points/10"
+        }
+      ],
+      [
+        {
+          "$ref": "#/elements/points/4"
+        },
+        {
+          "$ref": "#/elements/points/14"
+        },
+        {
+          "$ref": "#/elements/points/9"
+        },
+        {
+          "$ref": "#/elements/points/7"
+        }
+      ]
+    ],
+    "convex_hulls": [
+      {
+        "src": {
+          "$ref": "#/elements/vertices/0"
+        },
+        "type": "polygon"
       },
       {
-        "idx": [2, 3, 1, 12, 11, 17, 10],
         "src": {
-          "$ref": "#/elements/points"
+          "$ref": "#/elements/vertices/1"
         },
-        "type": "index"
+        "type": "polygon"
       },
       {
-        "idx": [4, 14, 9, 7],
         "src": {
-          "$ref": "#/elements/points"
+          "$ref": "#/elements/vertices/2"
         },
-        "type": "index"
+        "type": "polygon"
       }
     ]
   },
@@ -103,22 +159,7 @@
       "$ref": "#/elements/points"
     },
     {
-      "src": {
-        "$ref": "#/elements/hulls/0"
-      },
-      "type": "polygon"
-    },
-    {
-      "src": {
-        "$ref": "#/elements/hulls/1"
-      },
-      "type": "polygon"
-    },
-    {
-      "src": {
-        "$ref": "#/elements/hulls/2"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/convex_hulls"
     }
   ]
 }

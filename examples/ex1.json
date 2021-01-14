@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [0, 0],
         "type": "point"
@@ -42,16 +42,14 @@
         "type": "point"
       }
     ],
-    "answer": [true, true, false]
-  },
-  "visualizations": [
-    {
+    "answer": [true, true, true, false],
+    "polygon": {
       "src": {
-        "$ref": "#/elements/vertexes"
+        "$ref": "#/elements/vertices"
       },
       "type": "polygon"
     },
-    {
+    "paints": {
       "input": {
         "$ref": "#/elements/points"
       },
@@ -59,6 +57,14 @@
         "$ref": "#/elements/answer"
       },
       "type": "paints"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polygon"
+    },
+    {
+      "$ref": "#/elements/paints"
     }
   ]
 }

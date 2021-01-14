@@ -47,26 +47,36 @@
       }
     ],
     "circle": {
-      "idx": [0, 5, 10],
-      "src": {
+      "points": [
+        {
+          "$ref": "#/elements/points/0"
+        },
+        {
+          "$ref": "#/elements/points/5"
+        },
+        {
+          "$ref": "#/elements/points/10"
+        }
+      ],
+      "type": "circle_points"
+    },
+    "answer": [true, false, false, false, false, true, false, false, false, false, true],
+    "paints": {
+      "input": {
         "$ref": "#/elements/points"
       },
-      "type": "circle_points_index"
-    },
-    "paints": [true, false, false, false, false, true, false, false, false, false, true]
+      "output": {
+        "$ref": "#/elements/answer"
+      },
+      "type": "paints"
+    }
   },
   "visualizations": [
     {
       "$ref": "#/elements/circle"
     },
     {
-      "input": {
-        "$ref": "#/elements/points"
-      },
-      "output": {
-        "$ref": "#/elements/paints"
-      },
-      "type": "paints"
+      "$ref": "#/elements/paints"
     }
   ]
 }

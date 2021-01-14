@@ -23,10 +23,17 @@
       }
     ],
     "intersection": {
-      "idx": [0, 1, 2],
-      "src": {
-        "$ref": "#/elements/half-planes"
-      },
+      "half-planes": [
+        {
+          "$ref": "#/elements/half-planes/0"
+        },
+        {
+          "$ref": "#/elements/half-planes/1"
+        },
+        {
+          "$ref": "#/elements/half-planes/2"
+        }
+      ],
       "intersection_type": "bounded",
       "type": "half-plane_intersection"
     }

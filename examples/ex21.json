@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [10, 1],
         "type": "point"
@@ -22,28 +22,36 @@
         "type": "point"
       }
     ],
-    "triangle": {
-      "idx": [0, 1, 3],
-      "src": {
-        "$ref": "#/elements/vertexes"
+    "triangle_vertices": [
+      {
+        "$ref": "#/elements/vertices/0"
       },
-      "type": "index"
+      {
+        "$ref": "#/elements/vertices/1"
+      },
+      {
+        "$ref": "#/elements/vertices/3"
+      }
+    ],
+    "polygon": {
+      "src": {
+        "$ref": "#/elements/vertices"
+      },
+      "type": "polygon"
+    },
+    "triangle": {
+      "src": {
+        "$ref": "#/elements/triangle_vertices"
+      },
+      "type": "polygon"
     }
   },
   "visualizations": [
     {
-      "src": {
-        "$ref": "#/elements/vertexes"
-      },
-      "type": "polygon"
+      "$ref": "#/elements/polygon"
     },
     {
-      "src": {
-        "$ref": "#/elements/triangle"
-      },
-      "perimeter": true,
-      "area": true,
-      "type": "polygon"
+      "$ref": "#/elements/triangle"
     }
   ]
 }

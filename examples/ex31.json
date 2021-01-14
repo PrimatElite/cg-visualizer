@@ -43,7 +43,7 @@
       }
     ],
     "pslg": {
-      "vertexes": [
+      "vertices": [
         {
           "coords": [-5, -1],
           "type": "point"
@@ -103,13 +103,8 @@
       ],
       "type": "graph"
     },
-    "answer": [4, 0, 2, 1, 3, -1, -1, 0, 1, 3]
-  },
-  "visualizations": [
-    {
-      "$ref": "#/elements/pslg"
-    },
-    {
+    "answer": [4, 0, 2, 1, 3, -1, -1, 0, 1, 3],
+    "paints": {
       "input": {
         "$ref": "#/elements/points"
       },
@@ -117,6 +112,14 @@
         "$ref": "#/elements/answer"
       },
       "type": "paints"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/pslg"
+    },
+    {
+      "$ref": "#/elements/paints"
     }
   ]
 }

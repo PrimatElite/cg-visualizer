@@ -1,0 +1,682 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Data",
+  "description": "Format for data visualization",
+  "type": "object",
+  "properties": {
+    "elements": {
+      "$ref": "#/definitions/elements"
+    },
+    "visualizations": {
+      "$ref": "#/definitions/visualizations"
+    }
+  },
+  "required": ["elements", "visualizations"],
+  "additionalProperties": false,
+  "definitions": {
+    "rational_fraction": {
+      "type": "array",
+      "items": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer",
+          "minimum": 1
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "rational_number": {
+      "type": "object",
+      "properties": {
+        "frac": {
+          "$ref": "#/definitions/rational_fraction"
+        },
+        "type": {
+          "const": "rational_number"
+        }
+      },
+      "required": ["frac", "type"],
+      "additionalProperties": false
+    },
+    "number": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/definitions/rational_number"
+        }
+      ]
+    },
+    "numbers_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/number"
+      }
+    },
+    "index_number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "two_indices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/index_number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "coords": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/numbers_array"
+        },
+        {
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "point": {
+      "type": "object",
+      "properties": {
+        "coords": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "point"
+        }
+      },
+      "required": ["coords", "type"],
+      "additionalProperties": false
+    },
+    "vector": {
+      "type": "object",
+      "properties": {
+        "begin": {
+          "$ref": "#/definitions/coords"
+        },
+        "end": {
+          "$ref": "#/definitions/coords"
+        },
+        "type": {
+          "const": "vector"
+        }
+      },
+      "required": ["begin", "end", "type"],
+      "additionalProperties": false
+    },
+    "coords_or_ref": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/coords"
+        },
+        {
+          "$comment": "Reference to element from list of points",
+          "$ref": "#/definitions/element_ref"
+        }
+      ]
+    },
+    "segment_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "type": {
+          "const": "segment_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "segment_side": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "$comment": "Reference must contain side",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "segment_side"
+        }
+      },
+      "required": ["side", "type"],
+      "additionalProperties": false
+    },
+    "segment": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/segment_coords"
+        },
+        {
+          "$ref": "#/definitions/segment_side"
+        }
+      ]
+    },
+    "line_equation_coefficients": {
+      "$comment": "If equation is ax + by + c = 0 the array is [a, b, c]",
+      "allOf": [
+        {
+          "$ref": "#/definitions/numbers_array"
+        },
+        {
+          "minItems": 3,
+          "maxItems": 3
+        }
+      ]
+    },
+    "line_equation_direction": {
+      "$comment": "If equation is ax + by + c = 0 the forward direction is (-b, a)",
+      "enum": ["forward", "reverse"],
+      "default": "forward"
+    },
+    "line_equation": {
+      "type": "object",
+      "properties": {
+        "coefficients": {
+          "$ref": "#/definitions/line_equation_coefficients"
+        },
+        "direction": {
+          "$ref": "#/definitions/line_equation_direction"
+        },
+        "type": {
+          "const": "line_equation"
+        }
+      },
+      "required": ["coefficients", "type"],
+      "additionalProperties": false
+    },
+    "line_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "type": {
+          "const": "line_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "line_side": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "$comment": "Reference must contain side",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "line_side"
+        }
+      },
+      "required": ["side", "type"],
+      "additionalProperties": false
+    },
+    "line": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/line_coords"
+        },
+        {
+          "$ref": "#/definitions/line_side"
+        },
+        {
+          "$ref": "#/definitions/line_equation"
+        }
+      ]
+    },
+    "half-plane_equation": {
+      "type": "object",
+      "properties": {
+        "coefficients": {
+          "$ref": "#/definitions/line_equation_coefficients"
+        },
+        "direction": {
+          "$ref": "#/definitions/line_equation_direction"
+        },
+        "type": {
+          "const": "half-plane_equation"
+        }
+      },
+      "required": ["coefficients", "type"],
+      "additionalProperties": false
+    },
+    "half-plane_coords": {
+      "type": "object",
+      "properties": {
+        "coords1": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "coords2": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "type": {
+          "const": "half-plane_coords"
+        }
+      },
+      "required": ["coords1", "coords2", "type"],
+      "additionalProperties": false
+    },
+    "half-plane_side": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "$comment": "Reference must contain side",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "half-plane_side"
+        }
+      },
+      "required": ["side", "type"],
+      "additionalProperties": false
+    },
+    "half-plane": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/half-plane_coords"
+        },
+        {
+          "$ref": "#/definitions/half-plane_side"
+        },
+        {
+          "$ref": "#/definitions/half-plane_equation"
+        }
+      ]
+    },
+    "circle_center_radius": {
+      "type": "object",
+      "properties": {
+        "center": {
+          "$ref": "#/definitions/coords_or_ref"
+        },
+        "radius": {
+          "$ref": "#/definitions/number"
+        },
+        "type": {
+          "const": "circle_center_radius"
+        }
+      },
+      "required": ["center", "radius", "type"],
+      "additionalProperties": false
+    },
+    "circle_points": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coords_or_ref"
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+        "type": {
+          "const": "circle_points"
+        }
+      },
+      "required": ["points", "type"],
+      "additionalProperties": false
+    },
+    "circle_sides": {
+      "type": "object",
+      "properties": {
+        "sides": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference must contain side",
+            "$ref": "#/definitions/element_ref"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "type": {
+          "const": "circle_sides"
+        }
+      },
+      "required": ["sides", "type"],
+      "additionalProperties": false
+    },
+    "circle": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/circle_center_radius"
+        },
+        {
+          "$ref": "#/definitions/circle_points"
+        },
+        {
+          "$ref": "#/definitions/circle_sides"
+        }
+      ]
+    },
+    "half-plane_intersection": {
+      "type": "object",
+      "properties": {
+        "half-planes": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference to element from list of half-planes",
+            "$ref": "#/definitions/element_ref"
+          }
+        },
+        "intersection_type": {
+          "enum": ["empty", "layer", "unbounded", "bounded"]
+        },
+        "type": {
+          "const": "half-plane_intersection"
+        }
+      },
+      "required": ["half-planes", "intersection_type", "type"],
+      "additionalProperties": false
+    },
+    "line_intersection": {
+      "type": "object",
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference to element from list of segments, lines or vertices",
+            "$ref": "#/definitions/element_ref"
+          }
+        },
+        "intersection_type": {
+          "enum": ["empty", "contact", "intersection"],
+          "default": "intersection"
+        },
+        "type": {
+          "const": "line_intersection"
+        }
+      },
+      "required": ["objects", "type"],
+      "additionalProperties": false
+    },
+    "circle_intersection": {
+      "type": "object",
+      "properties": {
+        "circles": {
+          "type": "array",
+          "items": {
+            "$comment": "Reference to element from list of circles",
+            "$ref": "#/definitions/element_ref"
+          }
+        },
+        "type": {
+          "const": "circle_intersection"
+        }
+      },
+      "required": ["circles", "type"],
+      "additionalProperties": false
+    },
+    "polygon_kernel": {
+      "type": "object",
+      "properties": {
+        "sides": {
+          "type": "array",
+          "items": {
+            "$comment": "Polygon side - reference to element from list of vertices",
+            "$ref": "#/definitions/element_ref"
+          }
+        },
+        "kernel_type": {
+          "enum": ["empty", "bounded"]
+        },
+        "type": {
+          "const": "polygon_kernel"
+        }
+      },
+      "required": ["sides", "kernel_type", "type"],
+      "additionalProperties": false
+    },
+    "point_or_ref": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/point"
+        },
+        {
+          "$comment": "Reference to element from list of points",
+          "$ref": "#/definitions/element_ref"
+        }
+      ]
+    },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/point_or_ref"
+          },
+          "minItems": 1
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/two_indices"
+          },
+          "minItems": 1
+        },
+        "type": {
+          "const": "graph"
+        }
+      },
+      "required": ["vertices", "edges", "type"],
+      "additionalProperties": false
+    },
+    "distance": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$comment": "Reference to point or line",
+          "$ref": "#/definitions/element_ref"
+        },
+        "to": {
+          "$comment": "If there is count of objects more then one in this value then result distance is summarized",
+          "anyOf": [
+            {
+              "$comment": "Reference to point or list of points",
+              "$ref": "#/definitions/element_ref"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$comment": "Reference to point",
+                "$ref": "#/definitions/element_ref"
+              }
+            }
+          ]
+        },
+        "metric": {
+          "default": 2,
+          "enum": [1, 2, "inf"]
+        },
+        "type": {
+          "const": "distance"
+        }
+      },
+      "required": ["from", "to", "type"],
+      "additionalProperties": false
+    },
+    "polygon": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$comment": "Reference to list of points or half-planes",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "polygon"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "paints": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "$comment": "Reference to list of objects",
+          "$ref": "#/definitions/element_ref"
+        },
+        "output": {
+          "$comment": "Reference to list of integers or booleans",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "paints"
+        }
+      },
+      "required": ["input", "output", "type"],
+      "additionalProperties": false
+    },
+    "polyline": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "$comment": "Reference to list of points",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "polyline"
+        }
+      },
+      "required": ["src", "type"],
+      "additionalProperties": false
+    },
+    "rectangle": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "$comment": "Reference to segment or line",
+          "$ref": "#/definitions/element_ref"
+        },
+        "points": {
+          "$comment": "Reference to list of three points counterclockwise starting at point following anchor side",
+          "$ref": "#/definitions/element_ref"
+        },
+        "type": {
+          "const": "rectangle"
+        }
+      },
+      "required": ["side", "points", "type"],
+      "additionalProperties": false
+    },
+    "element": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/element_ref"
+        },
+        {
+          "$ref": "#/definitions/point"
+        },
+        {
+          "$ref": "#/definitions/vector"
+        },
+        {
+          "$ref": "#/definitions/segment"
+        },
+        {
+          "$ref": "#/definitions/line"
+        },
+        {
+          "$ref": "#/definitions/half-plane"
+        },
+        {
+          "$ref": "#/definitions/circle"
+        },
+        {
+          "$ref": "#/definitions/polygon_kernel"
+        },
+        {
+          "$ref": "#/definitions/half-plane_intersection"
+        },
+        {
+          "$ref": "#/definitions/line_intersection"
+        },
+        {
+          "$ref": "#/definitions/circle_intersection"
+        },
+        {
+          "$ref": "#/definitions/graph"
+        },
+        {
+          "$ref": "#/definitions/distance"
+        },
+        {
+          "$ref": "#/definitions/polygon"
+        },
+        {
+          "$ref": "#/definitions/paints"
+        },
+        {
+          "$ref": "#/definitions/polyline"
+        },
+        {
+          "$ref": "#/definitions/rectangle"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "elements_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/element"
+      }
+    },
+    "elements": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Za-z_][A-Za-z0-9_-]*$": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/element"
+            },
+            {
+              "$ref": "#/definitions/elements_array"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/elements_array"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "element_ref": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string",
+          "pattern": "^#/elements/[A-Za-z_][A-Za-z0-9_-]*(/(side.)*[0-9]+)*$"
+        }
+      },
+      "required": ["$ref"],
+      "additionalProperties": false
+    },
+    "visualizations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/element_ref"
+      }
+    }
+  }
+}

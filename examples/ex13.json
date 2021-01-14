@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes1": [
+    "vertices1": [
       {
         "coords": [1, 2],
         "type": "point"
@@ -14,7 +14,7 @@
         "type": "point"
       }
     ],
-    "vertexes2": [
+    "vertices2": [
       {
         "coords": [10, 1],
         "type": "point"
@@ -65,26 +65,35 @@
         "coords": [9, 7],
         "type": "point"
       }
-    ]
-  },
-  "visualizations": [
-    {
+    ],
+    "polygon1": {
       "src": {
-        "$ref": "#/elements/vertexes1"
+        "$ref": "#/elements/vertices1"
       },
       "type": "polygon"
     },
-    {
+    "polygon2": {
       "src": {
-        "$ref": "#/elements/vertexes2"
+        "$ref": "#/elements/vertices2"
       },
       "type": "polygon"
     },
-    {
+    "result_polygon": {
       "src": {
         "$ref": "#/elements/sum"
       },
       "type": "polygon"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polygon1"
+    },
+    {
+      "$ref": "#/elements/polygon2"
+    },
+    {
+      "$ref": "#/elements/result_polygon"
     }
   ]
 }

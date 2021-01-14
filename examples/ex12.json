@@ -56,43 +56,37 @@
     ],
     "intersections": [
       {
-        "idx": [[1, 0], [0, 1]],
-        "src": [
+        "objects": [
           {
-            "$ref": "#/elements/segments1"
+            "$ref": "#/elements/segments1/1"
           },
           {
-            "$ref": "#/elements/segments2"
+            "$ref": "#/elements/segments2/0"
           }
         ],
-        "idx_types": ["index", "index"],
-        "type": "line_intersection_multiple"
+        "type": "line_intersection"
       },
       {
-        "idx": [[1, 0], [1, 1]],
-        "src": [
+        "objects": [
           {
-            "$ref": "#/elements/segments1"
+            "$ref": "#/elements/segments1/1"
           },
           {
-            "$ref": "#/elements/segments2"
+            "$ref": "#/elements/segments2/1"
           }
         ],
-        "idx_types": ["index", "index"],
-        "type": "line_intersection_multiple"
+        "type": "line_intersection"
       },
       {
-        "idx": [[2, 0], [2, 1]],
-        "src": [
+        "objects": [
           {
-            "$ref": "#/elements/segments1"
+            "$ref": "#/elements/segments1/2"
           },
           {
-            "$ref": "#/elements/segments2"
+            "$ref": "#/elements/segments2/2"
           }
         ],
-        "idx_types": ["index", "index"],
-        "type": "line_intersection_multiple"
+        "type": "line_intersection"
       }
     ]
   },

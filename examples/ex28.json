@@ -22,14 +22,17 @@
         "type": "point"
       }
     ],
-    "is_polygon": false
-  },
-  "visualizations": [
-    {
+    "is_polygon": false,
+    "polyline": {
       "src": {
         "$ref": "#/elements/points"
       },
       "type": "polyline"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polyline"
     },
     {
       "$ref": "#/elements/is_polygon"

@@ -1,6 +1,6 @@
 {
   "elements": {
-    "vertexes": [
+    "vertices": [
       {
         "coords": [0, 0],
         "type": "point"
@@ -27,37 +27,44 @@
       }
     ],
     "side": {
-      "idx": 4,
-      "src": {
-        "$ref": "#/elements/vertexes"
+      "side": {
+        "$ref": "#/elements/vertices/5"
       },
-      "type": "segment_side_index"
+      "type": "segment_side"
     },
-    "points": {
-      "idx": [1, 3, 4],
-      "src": {
-        "$ref": "#/elements/vertexes"
+    "points": [
+      {
+        "$ref": "#/elements/vertices/1"
       },
-      "type": "index"
-    }
-  },
-  "visualizations": [
-    {
+      {
+        "$ref": "#/elements/vertices/3"
+      },
+      {
+        "$ref": "#/elements/vertices/4"
+      }
+    ],
+    "polygon": {
       "src": {
-        "$ref": "#/elements/vertexes"
+        "$ref": "#/elements/vertices"
       },
       "type": "polygon"
     },
-    {
+    "rectangle": {
       "side": {
         "$ref": "#/elements/side"
       },
       "points": {
         "$ref": "#/elements/points"
       },
-      "perimeter": true,
-      "area": true,
       "type": "rectangle"
+    }
+  },
+  "visualizations": [
+    {
+      "$ref": "#/elements/polygon"
+    },
+    {
+      "$ref": "#/elements/rectangle"
     }
   ]
 }
