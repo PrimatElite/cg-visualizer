@@ -15,6 +15,12 @@ export default class Point {
     }
 
     draw(color=0x000) {
+        // const geometry = new THREE.BufferGeometry();
+        // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( [this.x.valueOf(), this.y.valueOf(), 0], 3 ) );
+        //
+        // const material = new THREE.PointsMaterial( { color } );
+        //
+        //  return new THREE.Points( geometry, material );
         const curve = new THREE.EllipseCurve(
             this.x.valueOf(),  this.y.valueOf(),            // ax, aY
             this.radius, this.radius,           // xRadius, yRadius
@@ -22,7 +28,7 @@ export default class Point {
             false,            // aClockwise
             0                 // aRotation
         );
-        const points = curve.getPoints( 50 )
+        const points = curve.getPoints( 8 )
         const shape = new THREE.Shape(points);
         const geometry = new THREE.ShapeGeometry(shape);
         const material = new THREE.MeshBasicMaterial({ color });
