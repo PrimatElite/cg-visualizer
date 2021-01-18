@@ -4,7 +4,7 @@ name=cg
 
 yarn install
 
-echo "REACT_APP_UPDATED=$(date)" > .env
+echo "REACT_APP_UPDATED=$(date +%d:%m:%y/%H:%M:%S)" > .env
 npm run build
 docker stop $name || true
 docker rm $name || true
