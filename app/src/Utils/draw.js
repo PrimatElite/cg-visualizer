@@ -9,10 +9,10 @@ function drawVisualizations(scene, data) {
 }
 
 const draw = (scene, data, item) => {
-    if (item.length === undefined) {
-        scene.add(item.draw());
-    } else {
+    if (item instanceof Array) {
         item.forEach(el => draw(scene, data, el));
+    } else {
+        scene.add(item.draw());
     }
 }
 

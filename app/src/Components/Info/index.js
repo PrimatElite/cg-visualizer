@@ -21,12 +21,12 @@ function drawInfo(data) {
 }
 
 function info(parent, data, item, id) {
-    if (item.length === undefined) {
-        return item.info(parent, id);
-    } else {
+    if (item instanceof Array) {
         const newId = `${id}_array`;
         const body = createAccordion(newId, item.map((el, ind) => info(newId, data, el, `${id}_${ind}`)));
         return createAccordionItem(parent, id, body, id);
+    } else {
+        return item.info(parent, id);
     }
 }
 

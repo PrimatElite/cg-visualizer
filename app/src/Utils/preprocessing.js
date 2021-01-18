@@ -16,7 +16,7 @@ function processElementRef(elements, newData, value) {
 function processElement(elements, newData, value) {
     let newElement;
 
-    if (value.length !== undefined) {
+    if (value instanceof Array) {
         newElement = value.map(el => processElement(elements, newData, el));
     } else if (value.type) {
         switch (value.type) {
@@ -33,7 +33,7 @@ function processElement(elements, newData, value) {
                 newElement = new Paints(value);
                 break;
             default:
-                throw new Error('Unsupported type');
+                throw new Error('Unsupported type'); // TODO delete this when all types will be described
         }
     } else if (['boolean', 'number'].includes(typeof value)) {
         newElement = value;
