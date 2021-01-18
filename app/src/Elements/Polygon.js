@@ -23,9 +23,9 @@ export default class Polygon {
         let p = 0;
         const len = this.vertices.length;
         for (let i = 0; i < len - 1; i++) {
-            p += Math.sqrt(this.vertices[i].x.sub(this.vertices[i + 1].x).pow(2).add(this.vertices[i].y.sub(this.vertices[i + 1].y).pow(2)).valueOf());
+            p += this.vertices[i].getDistanceToPoint(this.vertices[i + 1]);
         }
-        p += Math.sqrt(this.vertices[len - 1].x.sub(this.vertices[0].x).pow(2).add(this.vertices[len - 1].y.sub(this.vertices[0].y).pow(2)).valueOf());
+        p += this.vertices[len - 1].getDistanceToPoint(this.vertices[0]);
         return p;
     }
 
@@ -41,7 +41,7 @@ export default class Polygon {
     draw(color=0xFAF) {
         const shape = new THREE.Shape(this.vertices.map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
-        const lineGeometry = new THREE.BufferGeometry().setFromPoints( path.getPoints() )
+        const lineGeometry = new THREE.BufferGeometry().setFromPoints( path.getPoints() );
         const geometry = new THREE.ShapeGeometry(shape);
         const lineMaterial = new THREE.LineBasicMaterial({ color, linewidth: 2});
         const material = new THREE.MeshBasicMaterial(
@@ -59,4 +59,3 @@ export default class Polygon {
     }
 
 }
-
