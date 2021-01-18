@@ -15,3 +15,7 @@ export function getMyColor(n) {
 export function toRadians(angle) {
     return angle * (Math.PI / 180);
 }
+
+export function isRef(obj) {
+    return obj.$ref !== undefined;
+}
