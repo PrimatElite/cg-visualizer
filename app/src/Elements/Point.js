@@ -28,10 +28,14 @@ export default class Point {
             false,            // aClockwise
             0                 // aRotation
         );
-        const points = curve.getPoints( 8 )
+        const points = curve.getPoints( 8 );
         const shape = new THREE.Shape(points);
         const geometry = new THREE.ShapeGeometry(shape);
         const material = new THREE.MeshBasicMaterial({ color });
         return new THREE.Mesh( geometry, material );
+    }
+
+    getDistanceToPoint(p) {
+        return Math.sqrt(this.x.sub(p.x).pow(2).add(this.y.sub(p.y).pow(2)).valueOf());
     }
 }
