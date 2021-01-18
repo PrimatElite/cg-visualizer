@@ -8,8 +8,16 @@ export default class Paints {
         this.objects = obj.input;
         this.values = obj.output;
         this.colors = {};
-        for (const element of new Set(obj.output)) {
-            this.colors[element] = getMyColor(element);
+
+        const uniqueValues = new Set(obj.output);
+        let shift = 0;
+        if ((typeof uniqueValues.values().next().value) === 'number') {
+            const min = Math.min(...Array.from(uniqueValues));
+            shift = 0 ? min >= 0 : Math.abs(min);
+        }
+
+        for (const element of uniqueValues) {
+            this.colors[element] = getMyColor(element + shift);
         }
     }
 
