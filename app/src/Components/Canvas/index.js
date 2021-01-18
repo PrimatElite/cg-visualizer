@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import styled from 'styled-components';
 import * as d3 from 'd3';
-import zoomInit from './zoom';
+import setUpZoom from './zoom';
 import draw from "../../Utils/draw";
 
 const Wrapper = styled.div`
@@ -14,12 +14,14 @@ const Wrapper = styled.div`
 `;
 
 class ThreeRendering extends Component {
+    constructor() {
+        super();
+        this.fov = 90;
+        this.far = 2000;
+        this.near = 1.5;
+    }
     createCamera(width, height) {
-        const near = 1.5;
-        const far = 10;
-        const camera = new THREE.PerspectiveCamera(90, width / height, near, far);
-        camera.position.set(0, 0, far/2);
-        return camera;
+        return new THREE.PerspectiveCamera(this.fov, width / height, this.near, this.far);
     }
     createRenderer(width, height) {
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -27,6 +29,11 @@ class ThreeRendering extends Component {
         renderer.setClearColor('#FFF');
         renderer.setSize(width, height);
         return renderer;
+    }
+    createZoomHandling(camera, width, height) {
+        const screenDimensions = { width, height };
+        const view = d3.select(this.renderer.domElement);
+        setUpZoom(view, camera, this.fov, this.far, this.near, screenDimensions);
     }
     handleResize = () => {
         const width = this.mount.clientWidth;
@@ -67,11 +74,7 @@ class ThreeRendering extends Component {
         this.renderer = this.createRenderer(width, height);
 
         // setup zoom handling
-        const zoom = zoomInit(this.camera, width, height);
-        const view = d3.select(this.renderer.domElement);
-        view.call(zoom);
-        view.on('dblclick.zoom', null);
-        zoom.scaleTo(view, this.camera.far);
+        this.createZoomHandling(this.camera, width, height);
 
         window.addEventListener('resize', this.handleResize);
         this.mount.appendChild(this.renderer.domElement);

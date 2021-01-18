@@ -1,35 +1,42 @@
 import * as d3 from 'd3';
+import {toRadians} from "../../Utils/utils";
 
-function getCurrentScale(camera, height) {
-    const vFOV = (camera.fov * Math.PI) / 180;
-    const scale_height = 2 * Math.tan(vFOV / 2) * camera.position.z;
-    const currentScale = height / scale_height;
-    return currentScale;
-}
-
-export default function zoomInit(camera, width, height) {
-    const handler = event => {
-        if (event.sourceEvent) {
-            if (event.sourceEvent.type === "wheel") {
-                const new_z = event.transform.k;
-                camera.position.set(camera.position.x, camera.position.y, new_z);
-            } else {
-                // Handle panning
-                const { movementX, movementY } = event.sourceEvent;
-
-                // Adjust mouse movement by current scale and set camera
-                const current_scale = getCurrentScale(camera, height);
-                camera.position.set(
-                    camera.position.x - movementX / current_scale,
-                    camera.position.y + movementY / current_scale,
-                    camera.position.z
-                );
-            }
-        }
+const setUpZoom = (view, camera, fov, far, near, screenDimensions) => {
+    const zoomHandler = d3_transform => {
+        let scale = d3_transform.k;
+        let x = -(d3_transform.x - screenDimensions.width / 2) / scale;
+        let y = (d3_transform.y - screenDimensions.height / 2) / scale;
+        let z = getZFromScale(scale);
+        camera.position.set(x, y, z);
+    };
+    const getScaleFromZ = (camera_z_position) => {
+        let half_fov = fov / 2;
+        let half_fov_radians = toRadians(half_fov);
+        let half_fov_height = Math.tan(half_fov_radians) * camera_z_position;
+        let fov_height = half_fov_height * 2;
+        return screenDimensions.height / fov_height;
+    };
+    const getZFromScale = (scale) => {
+        let half_fov = fov / 2;
+        let half_fov_radians = toRadians(half_fov);
+        let scale_height = screenDimensions.height / scale;
+        return scale_height / (2 * Math.tan(half_fov_radians));
     };
 
-    return d3
+    const zoom = d3
         .zoom()
-        .scaleExtent([camera.near, camera.far])
-        .on('zoom', handler);
+        .scaleExtent([getScaleFromZ(far), getScaleFromZ(near)])
+        .on('zoom', event => {
+            let d3_transform = event.transform;
+            zoomHandler(d3_transform);
+        });
+
+    view.call(zoom);
+    let initial_scale = getScaleFromZ(near * 10);
+    const initial_transform = d3.zoomIdentity
+        .translate(screenDimensions.width / 2, screenDimensions.height / 2)
+        .scale(initial_scale);
+    zoom.transform(view, initial_transform);
 }
+
+export default setUpZoom;
