@@ -2,7 +2,9 @@
 
 name=cg
 
-npm install
+yarn install
+
+echo "REACT_APP_UPDATED=$(date)" > .env
 npm run build
 docker stop $name || true
 docker rm $name || true

@@ -56,6 +56,7 @@ const Menu = ({ handleData }) => {
 
     return (
         <MenuWrapper>
+            <p>{`last updated: ${process.env.REACT_APP_UPDATED}`}</p>
             <ButtonWrapper>
                 <input
                     id="load_file"
