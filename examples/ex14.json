@@ -28,7 +28,7 @@
     ],
     "side": {
       "side": {
-        "$ref": "#/elements/vertices/5"
+        "$ref": "#/elements/vertices/side.5"
       },
       "type": "segment_side"
     },
