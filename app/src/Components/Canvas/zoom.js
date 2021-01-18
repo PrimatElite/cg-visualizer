@@ -32,7 +32,7 @@ const setUpZoom = (view, camera, fov, far, near, screenDimensions) => {
         });
 
     view.call(zoom);
-    let initial_scale = getScaleFromZ(far);
+    let initial_scale = getScaleFromZ(near * 10);
     const initial_transform = d3.zoomIdentity
         .translate(screenDimensions.width / 2, screenDimensions.height / 2)
         .scale(initial_scale);

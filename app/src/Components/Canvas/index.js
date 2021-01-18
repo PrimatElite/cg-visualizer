@@ -17,13 +17,11 @@ class ThreeRendering extends Component {
     constructor() {
         super();
         this.fov = 90;
-        this.far = 10;
+        this.far = 2000;
         this.near = 1.5;
     }
     createCamera(width, height) {
-        const camera = new THREE.PerspectiveCamera(this.fov, width / height, this.near, this.far);
-        camera.position.set(0, 0, this.far / 2);
-        return camera;
+        return new THREE.PerspectiveCamera(this.fov, width / height, this.near, this.far);
     }
     createRenderer(width, height) {
         const renderer = new THREE.WebGLRenderer({ antialias: true });
