@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import * as d3 from 'd3';
 import setUpZoom from './zoom';
 import draw from "../../Utils/draw";
+import {toRadians} from "../../Utils/utils";
 
 const Wrapper = styled.div`
   border: 2px solid black;
@@ -57,23 +58,27 @@ class ThreeRendering extends Component {
     renderScene = () => {
         this.renderer.render(this.scene, this.camera);
     };
-
+    // addGrid() {
+    //     const gridHelper = new THREE.GridHelper( 200000, 200000 ).rotateX(toRadians(90));
+    //     this.scene.add( gridHelper );
+    // }
     clearScene  = () => {
         while(this.scene.children.length > 0){
             this.scene.remove(this.scene.children[0]);
         }
+        this.addGrid();
     }
 
     initScene = () => {
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
 
-        // threejs setup
         this.scene = new THREE.Scene();
         this.camera = this.createCamera(width, height);
         this.renderer = this.createRenderer(width, height);
 
-        // setup zoom handling
+        // this.addGrid();
+
         this.createZoomHandling(this.camera, width, height);
 
         window.addEventListener('resize', this.handleResize);
