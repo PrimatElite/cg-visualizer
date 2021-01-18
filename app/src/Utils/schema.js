@@ -1,7 +1,12 @@
 function stepInJson(obj, key) {
-    // if (key.length > 5 && key.splice(0, 5) === 'site.') {
-    //     console.log('kek');
-    // }
+    if (key.startsWith('side.')) {
+        key = parseInt(key.slice(5));
+        const len = obj.length;
+        if (len === undefined || obj[key].type !== 'point' || obj[(key + 1) % len].type !== 'point') { // Point element
+            throw new Error('Unsupported reference'); // TODO make beautiful error handler
+        }
+        return [obj[key], obj[(key + 1) % len]]
+    }
     return obj[key];
 }
 

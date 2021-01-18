@@ -8,6 +8,7 @@ export default class Paints {
         this.objects = obj.input;
         this.values = obj.output;
         this.colors = {};
+        this.type = 'paints';
 
         const uniqueValues = new Set(obj.output);
         let shift = 0;
