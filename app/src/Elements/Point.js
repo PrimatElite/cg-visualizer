@@ -7,6 +7,7 @@ export default class Point {
         this.radius = 0.05;
         this.x = processCoord(obj.coords[0]);
         this.y = processCoord(obj.coords[1]);
+        this.type = 'point';
     }
 
     info(parent, id) {

@@ -7,6 +7,7 @@ export default class Polygon {
         this.vertices = obj.src;
         this.area = this.getArea();
         this.perimeter = this.getPerimeter();
+        this.type = 'polygon';
     }
 
     getArea() {
