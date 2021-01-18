@@ -106,4 +106,4 @@ dist
 .idea
 **/build/*
 !**/build/*.pdf
-
+json_test
