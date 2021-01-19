@@ -1,7 +1,9 @@
 import Point from "../Elements/Point";
 import Polygon from "../Elements/Polygon";
 import Paints from "../Elements/Paints";
+import Segment from "../Elements/Segment";
 import { getByRef } from "./schema";
+import { isRef } from "./utils";
 
 function processElementRef(elements, newData, value) {
     let item = getByRef(newData, value.$ref);
@@ -16,7 +18,7 @@ function processElementRef(elements, newData, value) {
 function processElement(elements, newData, value) {
     let newElement;
 
-    if (value.length !== undefined) {
+    if (value instanceof Array) {
         newElement = value.map(el => processElement(elements, newData, el));
     } else if (value.type) {
         switch (value.type) {
@@ -32,8 +34,20 @@ function processElement(elements, newData, value) {
                 value.output = processElementRef(elements, newData, value.output);
                 newElement = new Paints(value);
                 break;
+            case 'segment_coords':
+                for (const key of ['coords1', 'coords2']) {
+                    if (isRef(value[key])) {
+                        value[key] = processElementRef(elements, newData, value[key]);
+                    }
+                }
+                newElement = new Segment(value);
+                break;
+            case 'segment_side':
+                value.side = processElementRef(elements, newData, value.side);
+                newElement = new Segment(value);
+                break;
             default:
-                throw new Error('Unsupported type');
+                throw new Error('Unsupported type'); // TODO delete this when all types will be described
         }
     } else if (['boolean', 'number'].includes(typeof value)) {
         newElement = value;

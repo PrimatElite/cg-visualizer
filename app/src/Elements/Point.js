@@ -10,6 +10,16 @@ export default class Point {
         this.type = 'point';
     }
 
+    static fromCoords(coords) {
+        if (coords instanceof Point) {
+            return coords;
+        } else if (coords instanceof Array && coords.length === 2) {
+            return new Point({coords, type: 'point'});
+        } else {
+            return undefined;
+        }
+    }
+
     info(parent, id) {
         const body = `Point: (${this.x.toFraction()}, ${this.y.toFraction()})`;
         return createAccordionItem(parent, id, body, id);
