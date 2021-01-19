@@ -26,7 +26,7 @@ export default class Point extends Element {
         return createAccordionItem(parent, name, body, id);
     }
 
-    isInRectangle(rectangle) {
+    inRectangle(rectangle) {
         return true // TODO
     }
 

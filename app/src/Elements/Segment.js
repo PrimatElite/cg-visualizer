@@ -25,7 +25,7 @@ export default class Segment extends Element {
         return createAccordionItem(parent, name, body, id);
     }
 
-    isInRectangle(rectangle) {
+    inRectangle(rectangle) {
         return true // TODO
     }
 

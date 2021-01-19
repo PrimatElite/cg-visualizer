@@ -30,9 +30,9 @@ export default class Paints extends Element {
         return createAccordionItem(parent, name, body, id);
     }
 
-    isInRectangle(rectangle) {
+    inRectangle(rectangle) {
         for (const object of this.objects) {
-            if (object.isInRectangle(rectangle)) {
+            if (object.inRectangle(rectangle)) {
                 return true;
             }
         }

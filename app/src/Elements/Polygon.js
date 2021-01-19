@@ -40,9 +40,9 @@ export default class Polygon extends Element {
         return createAccordionItem(parent, name, body, id);
     }
 
-    isInRectangle(rectangle) {
+    inRectangle(rectangle) {
         for (const vertex of this.vertices) {
-            if (vertex.isInRectangle(rectangle)) {
+            if (vertex.inRectangle(rectangle)) {
                 return true;
             }
         }

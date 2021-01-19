@@ -10,8 +10,8 @@ export default class Element {
         throw new Error("Method 'info(name, parent, id)' must be implemented.");
     }
 
-    isInRectangle(rectangle) {
-        throw new Error("Method 'isInRectangle(rectangle)' must be implemented.");
+    inRectangle(rectangle) {
+        throw new Error("Method 'inRectangle(rectangle)' must be implemented.");
     }
 
     getColor() {
