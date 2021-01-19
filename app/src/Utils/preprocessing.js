@@ -2,6 +2,7 @@ import Point from "../Elements/Point";
 import Polygon from "../Elements/Polygon";
 import Paints from "../Elements/Paints";
 import Segment from "../Elements/Segment";
+import Vector from "../Elements/Vector";
 import { getByRef } from "./schema";
 import { isRef } from "./utils";
 
@@ -45,6 +46,14 @@ function processElement(elements, newData, value) {
             case 'segment_side':
                 value.side = processElementRef(elements, newData, value.side);
                 newElement = new Segment(value);
+                break;
+            case 'vector':
+                for (const key of ['begin', 'end']) {
+                    if (isRef(value[key])) {
+                        value[key] = processElementRef(elements, newData, value[key]);
+                    }
+                }
+                newElement = new Vector(value);
                 break;
             default:
                 throw new Error('Unsupported type'); // TODO delete this when all types will be described
