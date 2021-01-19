@@ -1,13 +1,14 @@
 import * as THREE from 'three';
-import {createAccordion, createAccordionItem} from "../Utils/generators";
+import Element from "./Element";
+import { createAccordion, createAccordionItem } from "../Utils/generators";
 import Fraction from "fraction.js";
 
-export default class Polygon {
+export default class Polygon extends Element {
     constructor(obj) {
+        super('polygon');
         this.vertices = obj.src;
         this.area = this.getArea();
         this.perimeter = this.getPerimeter();
-        this.type = 'polygon';
     }
 
     getArea() {
@@ -30,24 +31,33 @@ export default class Polygon {
         return p;
     }
 
-    info(parent, id) {
+    info(name, parent, id) {
         const newId = `${id}_data`;
-        const vertices = this.vertices.map((el, ind) => el.info(newId, `${id}_${ind}`));
+        const vertices = this.vertices.map((el, ind) => el.info(`vertex_${ind}`, newId, `${id}_${ind}`));
         const area = createAccordionItem(newId, 'area', `Area: ${this.area}`, `${id}_area`);
         const perimeter = createAccordionItem(newId, 'perimeter', `Perimeter: ${this.perimeter}`, `${id}_perimeter`);
         const body = createAccordion(newId, [area, perimeter, ...vertices]);
-        return createAccordionItem(parent, id, body, id);
+        return createAccordionItem(parent, name, body, id);
     }
 
-    draw(color=0xFAF) {
+    isInRectangle(rectangle) {
+        for (const vertex of this.vertices) {
+            if (vertex.isInRectangle(rectangle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    draw() {
         const shape = new THREE.Shape(this.vertices.map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const lineGeometry = new THREE.BufferGeometry().setFromPoints( path.getPoints() );
         const geometry = new THREE.ShapeGeometry(shape);
-        const lineMaterial = new THREE.LineBasicMaterial({ color, linewidth: 2});
+        const lineMaterial = new THREE.LineBasicMaterial({ color: this._color, linewidth: 2});
         const material = new THREE.MeshBasicMaterial(
             {
-                color,
+                color: this._color,
                 opacity: 0.3,
                 transparent: true,
             });
