@@ -8,8 +8,8 @@ export function processCoord(vertex) {
     }
 }
 
-export function getMyColor(n) {
-    return parseInt((n * 0xfffff * 1000000).toString(16).slice(0, 6), 16);
+export function getMyColor(n, color=0xfffff) {
+    return parseInt((n * color * 1000000).toString(16).slice(0, 6), 16);
 }
 
 export function toRadians(angle) {

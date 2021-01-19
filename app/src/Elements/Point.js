@@ -1,13 +1,14 @@
 import * as THREE from 'three';
+import Element from "./Element";
 import { processCoord } from "../Utils/utils";
 import { createAccordionItem } from "../Utils/generators";
 
-export default class Point {
+export default class Point extends Element {
     constructor(obj) {
+        super('point');
         this.radius = 0.05;
         this.x = processCoord(obj.coords[0]);
         this.y = processCoord(obj.coords[1]);
-        this.type = 'point';
     }
 
     static fromCoords(coords) {
@@ -20,16 +21,20 @@ export default class Point {
         }
     }
 
-    info(parent, id) {
+    info(name, parent, id) {
         const body = `Point: (${this.x.toFraction()}, ${this.y.toFraction()})`;
-        return createAccordionItem(parent, id, body, id);
+        return createAccordionItem(parent, name, body, id);
     }
 
-    draw(color=0x000) {
+    inRectangle(rectangle) {
+        return true // TODO
+    }
+
+    draw() {
         // const geometry = new THREE.BufferGeometry();
         // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( [this.x.valueOf(), this.y.valueOf(), 0], 3 ) );
         //
-        // const material = new THREE.PointsMaterial( { color } );
+        // const material = new THREE.PointsMaterial( { color: this._color } );
         //
         //  return new THREE.Points( geometry, material );
         const curve = new THREE.EllipseCurve(
@@ -42,7 +47,7 @@ export default class Point {
         const points = curve.getPoints( 8 );
         const shape = new THREE.Shape(points);
         const geometry = new THREE.ShapeGeometry(shape);
-        const material = new THREE.MeshBasicMaterial({ color });
+        const material = new THREE.MeshBasicMaterial({ color: this._color });
         return new THREE.Mesh( geometry, material );
     }
 

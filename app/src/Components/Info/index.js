@@ -26,7 +26,7 @@ function info(parent, data, item, id) {
         const body = createAccordion(newId, item.map((el, ind) => info(newId, data, el, `${id}_${ind}`)));
         return createAccordionItem(parent, id, body, id);
     } else {
-        return item.info(parent, id);
+        return item.info(id, parent, id);
     }
 }
 
