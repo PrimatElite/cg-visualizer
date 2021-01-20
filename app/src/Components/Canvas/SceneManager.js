@@ -47,9 +47,67 @@ export default class SceneManager {
         }
     }
 
-    updateView(cameraRect, scale, ) {
-        // console.log(`cameraRect:`, cameraRect);
-        // console.log(`viewRect:`, this.viewRect);
+    _decreaseViewRectAspect(cameraRect) {
+        const aspect = this.viewRect.getWidth() / cameraRect.getWidth();
+        if (aspect > this.aspectRatio * 2) {
+            this.viewRect.syncCenter(cameraRect);
+            const doubleWStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getWidth();
+            const doubleHStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getHeight();
+            this.viewRect.scale(- doubleHStep / 2, - doubleWStep / 2);
+        }
+    }
 
+    _normalizeViewRectAspect(cameraRect) {
+        const aspect = this.viewRect.getWidth() / cameraRect.getWidth();
+        if (aspect < this.aspectRatio / 2) {
+            const doubleWStep = this.aspectRatio * cameraRect.getWidth() - this.viewRect.getWidth();
+            const doubleHStep = this.aspectRatio * cameraRect.getHeight() - this.viewRect.getHeight();
+            this.viewRect.scale(doubleHStep / 2, doubleWStep / 2);
+            return true;
+        }
+        return false;
+    }
+
+    _handleMouseMove(cameraRect) {
+        const wStep = (this.viewRect.right - this.viewRect.left) / 2;
+        const hStep = (this.viewRect.top - this.viewRect.bottom) / 2;
+
+        const direction = this.viewRect.innerIntersection(cameraRect)[0];
+
+        if (direction) {
+            const normalised = this._normalizeViewRectAspect(cameraRect);
+            if (!normalised) {
+                let step;
+                if (['left', 'right'].includes(direction)) {
+                    step = wStep;
+                } else {
+                    step = hStep;
+                }
+                this.viewRect.move(direction, step);
+            }
+        }
+    }
+
+    _handleWheel(cameraRect) {
+        // zoom in
+        const directions = this.viewRect.innerIntersection(cameraRect);
+        if (directions.length) {
+            this._normalizeViewRectAspect(cameraRect);
+        }
+        // zoom out
+        this._decreaseViewRectAspect(cameraRect);
+    }
+
+    updateView(cameraRect, scale, eventType) {
+        switch(eventType) {
+            case 'wheel':
+                this._handleWheel(cameraRect, scale);
+                break;
+            case 'mousemove':
+                this._handleMouseMove(cameraRect);
+                break;
+            default:
+                break;
+        }
     }
 }

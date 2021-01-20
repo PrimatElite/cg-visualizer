@@ -12,8 +12,10 @@ const setUpZoom = (sceneManager, view, camera, fov, far, near, screenDimensions)
         camera.position.set(x, y, z);
 
         // handle sceneManager.view updating
-        const cameraView = new RectangleView(x, y, width / scale, height / scale);
-        sceneManager.updateView(cameraView, scale);
+        if (zoomEvent) {
+            const cameraView = new RectangleView(x, y, width / scale, height / scale);
+            sceneManager.updateView(cameraView, scale, zoomEvent);
+        }
     };
     const getScaleFromZ = (camera_z_position) => {
         let half_fov = fov / 2;
@@ -33,9 +35,8 @@ const setUpZoom = (sceneManager, view, camera, fov, far, near, screenDimensions)
         .zoom()
         .scaleExtent([getScaleFromZ(far), getScaleFromZ(near)])
         .on('zoom', event => {
-            console.log(event.sourceEvent && event.sourceEvent.type);
             let d3_transform = event.transform;
-            zoomHandler(d3_transform);
+            zoomHandler(d3_transform, event.sourceEvent && event.sourceEvent.type);
         });
 
     view.call(zoom);
