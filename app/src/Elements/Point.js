@@ -54,4 +54,16 @@ export default class Point extends Element {
     getDistanceToPoint(p) {
         return Math.sqrt(this.x.sub(p.x).pow(2).add(this.y.sub(p.y).pow(2)).valueOf());
     }
+
+    add(p) {
+        return Point.fromCoords([this.x.add(p.x), this.y.add(p.y)]);
+    }
+
+    sub(p) {
+        return Point.fromCoords([this.x.sub(p.x), this.y.sub(p.y)]);
+    }
+
+    multiplyScalar(s) {
+        return Point.fromCoords([this.x.mul(s), this.y.mul(s)]);
+    }
 }

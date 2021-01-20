@@ -2,7 +2,11 @@ import Fraction from "fraction.js";
 
 export function processCoord(vertex) {
     if (typeof vertex === "object") {
-        return new Fraction(vertex.frac);
+        if (vertex instanceof Fraction) {
+            return vertex;
+        } else {
+            return new Fraction(vertex.frac);
+        }
     } else {
         return new Fraction(vertex);
     }

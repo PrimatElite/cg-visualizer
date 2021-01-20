@@ -97,10 +97,10 @@
       "type": "object",
       "properties": {
         "begin": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "end": {
-          "$ref": "#/definitions/coords"
+          "$ref": "#/definitions/coords_or_ref"
         },
         "type": {
           "const": "vector"
