@@ -27,7 +27,7 @@ export default class Segment extends Element {
     }
 
     inRectangle(rectangle) {
-        return true // TODO
+        return this.p1.inRectangle(rectangle) || this.p2.inRectangle();
     }
 
     draw() {
