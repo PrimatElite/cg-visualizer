@@ -53,6 +53,28 @@ export default class Segment extends Element {
                 return point;
             }
         }
-        throw Error("Can't find intersection of two segments"); // TODO make beautiful error handler
+        throw Error("Can't find intersection with point"); // TODO make beautiful error handler
+    }
+
+    intersectWithSegment(segment) {
+        const dir1 = this.p2.sub(this.p1), dir2 = segment.p1.sub(segment.p2), dir3 = segment.p1.sub(this.p1);
+        const D = dir1.x.mul(dir2.y).sub(dir2.x.mul(dir1.y));
+
+        if (D.equals(0)) {
+            if ((this.p1.equals(segment.p1) && !this.p2.equals(segment.p2)) ||
+                (this.p1.equals(segment.p2) && !this.p2.equals(segment.p1))) {
+                return this.p1;
+            } else if ((this.p2.equals(segment.p1) && !this.p1.equals(segment.p2)) ||
+                       (this.p2.equals(segment.p2) && !this.p1.equals(segment.p1))) {
+                return this.p2;
+            }
+        } else {
+            const D1 = dir3.x.mul(dir2.y).sub(dir2.x.mul(dir3.y));
+            const t = D1.div(D);
+            if (t.compare(0) >= 0 && t.compare(1) <= 0) {
+                return this.p1.add(dir1.mul(t));
+            }
+        }
+        throw Error("Can't find intersection with segment"); // TODO make beautiful error handler
     }
 }
