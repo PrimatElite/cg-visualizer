@@ -1,18 +1,19 @@
 import { getByRef } from "./schema";
 
 
-function drawVisualizations(scene, data) {
-    console.log(data);
+function drawVisualizations(data) {
+    const sceneObjects = [];
     data.visualizations.forEach(item => {
-        draw(scene, data, getByRef(data, item.$ref));
+        draw(sceneObjects, data, getByRef(data, item.$ref));
     });
+    return sceneObjects;
 }
 
-const draw = (scene, data, item) => {
+const draw = (objects, data, item) => {
     if (item instanceof Array) {
-        item.forEach(el => draw(scene, data, el));
+        item.forEach(el => draw(objects, data, el));
     } else {
-        scene.add(item.draw());
+        objects.push(item.draw());
     }
 }
 
