@@ -65,12 +65,12 @@ export default class Line extends Element {
     }
 
     inRectangle(rectangle) {
-        if (this.coefficients[0].equals(0) && this.coefficients[1].equals[0]) {
+        if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
             return false;
         }
         let point1 = this.p1, point2 = this.p2;
         if (point1 === undefined || point2 === undefined) {
-            if (this.coefficients[1].equals[0]) {
+            if (this.coefficients[1].equals(0)) {
                 const x = this.coefficients[2].neg().div(this.coefficients[0]);
                 point1 = Point.fromCoords([x, 0]);
                 point2 = Point.fromCoords([x, 1]);
@@ -82,8 +82,8 @@ export default class Line extends Element {
             }
         }
 
-        const left = rectangle.getLeft(), right = rectangle.getRight();
-        const top = rectangle.getTop(), bottom = rectangle.getBottom();
+        const left = Math.floor(rectangle.getLeft()), right = Math.ceil(rectangle.getRight());
+        const top = Math.ceil(rectangle.getTop()), bottom = Math.floor(rectangle.getBottom());
         const corners = [Point.fromCoords([left, top]), Point.fromCoords([left, bottom]),
             Point.fromCoords([right, bottom]), Point.fromCoords([right, top])];
         const vertices = [...corners, corners[0]];
@@ -100,6 +100,33 @@ export default class Line extends Element {
     }
 
     draw(rectangle) {
-        return undefined;
+        let point1, point2;
+        if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
+            if (this.p1 && this.p2) {
+                point1 = this.p1;
+                point2 = this.p2;
+            } else {
+                return undefined;
+            }
+        } else {
+            const left = Math.floor(rectangle.getLeft()), right = Math.ceil(rectangle.getRight());
+            const top = Math.ceil(rectangle.getTop()), bottom = Math.floor(rectangle.getBottom());
+
+            if (this.coefficients[1].equals(0)) {
+                const x = this.coefficients[2].neg().div(this.coefficients[0]);
+                point1 = Point.fromCoords([x, bottom]);
+                point2 = Point.fromCoords([x, top]);
+            } else {
+                const k = this.coefficients[0].neg().div(this.coefficients[1]);
+                const b = this.coefficients[2].neg().div(this.coefficients[1]);
+                point1 = Point.fromCoords([left, k.mul(left).add(b)]);
+                point2 = Point.fromCoords([right, k.mul(right).add(b)]);
+            }
+        }
+
+        const path = new THREE.Path([point1, point2].map(p => new THREE.Vector2(p.x.valueOf(), p.y.valueOf())));
+        const geometry = new THREE.BufferGeometry().setFromPoints(path.getPoints());
+        const material = new THREE.LineBasicMaterial({ color: this._color, linewidth: 2 });
+        return new THREE.Line(geometry, material);
     }
 }

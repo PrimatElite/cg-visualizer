@@ -1,4 +1,5 @@
 const COLORS = {
+    line: 0xFAF,
     paints: 0xFFFFF,
     point: 0x000,
     polygon: 0xFAF,
