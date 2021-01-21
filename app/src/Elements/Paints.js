@@ -9,7 +9,7 @@ export default class Paints extends Element {
         this.objects = obj.input;
         this.values = obj.output.map(el => el.value);
 
-        this.uniqueValues = new Set(obj.output);
+        this.uniqueValues = new Set(this.values);
         this.shift = 0;
         if ((typeof this.uniqueValues.values().next().value) === 'number') {
             const min = Math.min(...Array.from(this.uniqueValues));
