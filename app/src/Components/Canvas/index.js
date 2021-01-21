@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import * as d3 from 'd3';
 import setUpZoom from './zoom';
 import draw from "../../Utils/draw";
-import {toRadians} from "../../Utils/utils";
+import SceneManager from "./SceneManager";
 
 const Wrapper = styled.div`
   border: 2px solid black;
@@ -31,10 +31,10 @@ class ThreeRendering extends Component {
         renderer.setSize(width, height);
         return renderer;
     }
-    createZoomHandling(camera, width, height) {
+    createZoomHandling(sceneManager, camera, width, height) {
         const screenDimensions = { width, height };
         const view = d3.select(this.renderer.domElement);
-        setUpZoom(view, camera, this.fov, this.far, this.near, screenDimensions);
+        setUpZoom(sceneManager, view, camera, this.fov, this.far, this.near, screenDimensions);
     }
     handleResize = () => {
         const width = this.mount.clientWidth;
@@ -56,30 +56,18 @@ class ThreeRendering extends Component {
         this.frameId = window.requestAnimationFrame(this.animate);
     };
     renderScene = () => {
-        this.renderer.render(this.scene, this.camera);
+        this.renderer.render(this.sceneManager.scene, this.camera);
     };
-    // addGrid() {
-    //     const gridHelper = new THREE.GridHelper( 200000, 200000 ).rotateX(toRadians(90));
-    //     this.scene.add( gridHelper );
-    // }
-    clearScene  = () => {
-        while(this.scene.children.length > 0){
-            this.scene.remove(this.scene.children[0]);
-        }
-        // this.addGrid();
-    }
 
     initScene = () => {
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
 
-        this.scene = new THREE.Scene();
+        this.sceneManager = new SceneManager({x: 0, y: 0}, { width, height });
         this.camera = this.createCamera(width, height);
         this.renderer = this.createRenderer(width, height);
 
-        // this.addGrid();
-
-        this.createZoomHandling(this.camera, width, height);
+        this.createZoomHandling(this.sceneManager, this.camera, width, height);
 
         window.addEventListener('resize', this.handleResize);
         this.mount.appendChild(this.renderer.domElement);
@@ -91,15 +79,10 @@ class ThreeRendering extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.loading)  {
-            this.clearScene();
-            // TODO: show loading indicator
-        }
         if (this.props.data !== this.data) {
-            this.clearScene();
             this.data = this.props.data;
-            draw(this.scene, this.data);
-            console.log(this.scene.children.length)
+            const sceneObjects = draw(this.data);
+            this.sceneManager.updateScene(sceneObjects);
         }
 
         this.animate();

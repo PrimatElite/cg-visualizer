@@ -1,14 +1,21 @@
 import * as d3 from 'd3';
 import {toRadians} from "../../Utils/utils";
+import RectangleView from "./RectangleView";
 
-const setUpZoom = (view, camera, fov, far, near, screenDimensions) => {
-    const zoomHandler = d3_transform => {
+const setUpZoom = (sceneManager, view, camera, fov, far, near, screenDimensions) => {
+    const zoomHandler = (d3_transform, zoomEvent) => {
         let scale = d3_transform.k;
         const { width, height } = screenDimensions;
         let x = -(d3_transform.x - width / 2) / scale;
         let y = (d3_transform.y - height / 2) / scale;
         let z = getZFromScale(scale);
         camera.position.set(x, y, z);
+
+        // handle sceneManager.view updating
+        if (zoomEvent) {
+            const cameraView = new RectangleView(x, y, width / scale, height / scale);
+            sceneManager.updateView(cameraView, scale, zoomEvent);
+        }
     };
     const getScaleFromZ = (camera_z_position) => {
         let half_fov = fov / 2;
@@ -29,7 +36,7 @@ const setUpZoom = (view, camera, fov, far, near, screenDimensions) => {
         .scaleExtent([getScaleFromZ(far), getScaleFromZ(near)])
         .on('zoom', event => {
             let d3_transform = event.transform;
-            zoomHandler(d3_transform);
+            zoomHandler(d3_transform, event.sourceEvent && event.sourceEvent.type);
         });
 
     view.call(zoom);
