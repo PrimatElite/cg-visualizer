@@ -1,6 +1,8 @@
+import MyBoolean from "../Elements/Boolean";
+import MyNumber from "../Elements/Number";
+import Paints from "../Elements/Paints";
 import Point from "../Elements/Point";
 import Polygon from "../Elements/Polygon";
-import Paints from "../Elements/Paints";
 import Segment from "../Elements/Segment";
 import Vector from "../Elements/Vector";
 import { getByRef } from "./schema";
@@ -21,8 +23,17 @@ function processElement(elements, newData, value) {
 
     if (value instanceof Array) {
         newElement = value.map(el => processElement(elements, newData, el));
+    } else if (typeof value === "boolean") {
+        newElement = new MyBoolean(value);
+    } else if (typeof value === "number") {
+        newElement = new MyNumber(value);
     } else if (value.type) {
         switch (value.type) {
+            case 'paints':
+                value.input = processElementRef(elements, newData, value.input);
+                value.output = processElementRef(elements, newData, value.output);
+                newElement = new Paints(value);
+                break;
             case 'point':
                 newElement = new Point(value);
                 break;
@@ -30,10 +41,6 @@ function processElement(elements, newData, value) {
                 value.src = processElementRef(elements, newData, value.src);
                 newElement = new Polygon(value);
                 break;
-            case 'paints':
-                value.input = processElementRef(elements, newData, value.input);
-                value.output = processElementRef(elements, newData, value.output);
-                newElement = new Paints(value);
                 break;
             case 'segment_coords':
                 for (const key of ['coords1', 'coords2']) {
@@ -58,8 +65,6 @@ function processElement(elements, newData, value) {
             default:
                 throw new Error('Unsupported type'); // TODO delete this when all types will be described
         }
-    } else if (['boolean', 'number'].includes(typeof value)) {
-        newElement = value;
     } else {
         newElement = processElementRef(elements, newData, value);
     }
