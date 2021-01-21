@@ -22,7 +22,7 @@ export default class Element {
         this._color = color;
     }
 
-    draw() {
-        throw new Error("Method 'draw()' must be implemented.");
+    draw(rectangle) {
+        throw new Error("Method 'draw(rectangle)' must be implemented.");
     }
 }

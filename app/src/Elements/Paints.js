@@ -54,7 +54,7 @@ export default class Paints extends Element {
         this._updateColors();
     }
 
-    draw() {
+    draw(rectangle) {
         const group = new THREE.Group();
         this.objects.forEach((o, ind) => {
             console.log(ind, o.getColor());

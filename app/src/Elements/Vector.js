@@ -22,7 +22,7 @@ export default class Vector extends Element {
         return this.begin.inRectangle(rectangle) || this.end.inRectangle();
     }
 
-    draw() {
+    draw(rectangle) {
         const path = new THREE.Path([this.begin, this.end].map(p => new THREE.Vector2(p.x.valueOf(), p.y.valueOf())));
         const lineGeometry = new THREE.BufferGeometry().setFromPoints(path.getPoints());
         const lineMaterial = new THREE.LineBasicMaterial({color: this._color, linewidth: 2});

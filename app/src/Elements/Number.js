@@ -16,7 +16,7 @@ export default class Number extends Element {
         return false;
     }
 
-    draw() {
+    draw(rectangle) {
         return undefined;
     }
 }

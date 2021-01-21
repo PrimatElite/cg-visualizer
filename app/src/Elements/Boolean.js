@@ -16,7 +16,7 @@ export default class Boolean extends Element {
         return false;
     }
 
-    draw() {
+    draw(rectangle) {
         return undefined;
     }
 }
