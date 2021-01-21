@@ -18,9 +18,9 @@ export default class SceneManager {
 
     _drawObjects() {
         this.objects.forEach(object => {
-            // if (object.inRectangle(this.viewRect)) {
-            this.scene.add(object.draw());
-            // }
+            if (object.inRectangle(this.viewRect)) {
+                this.scene.add(object.draw());
+            }
         });
     }
 

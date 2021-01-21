@@ -27,7 +27,8 @@ export default class Point extends Element {
     }
 
     inRectangle(rectangle) {
-        return true // TODO
+        return this.x.compare(rectangle.getLeft()) >= 0 && this.x.compare(rectangle.getRight()) <= 0 &&
+            this.y.compare(rectangle.getBottom()) >= 0 && this.y.compare(rectangle.getTop()) <= 0;
     }
 
     draw() {
