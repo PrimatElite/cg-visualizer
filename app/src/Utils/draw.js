@@ -13,7 +13,7 @@ const draw = (objects, data, item) => {
     if (item instanceof Array) {
         item.forEach(el => draw(objects, data, el));
     } else {
-        objects.push(item.draw());
+        objects.push(item);
     }
 }
 

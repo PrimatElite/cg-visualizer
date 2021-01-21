@@ -19,7 +19,7 @@ export default class SceneManager {
     _drawObjects() {
         this.objects.forEach(object => {
             // if (object.inRectangle(this.viewRect)) {
-            this.scene.add(object);
+            this.scene.add(object.draw());
             // }
         });
     }
@@ -52,7 +52,7 @@ export default class SceneManager {
         if (aspect > this.aspectRatio * 2) {
             this.viewRect.syncCenter(cameraRect);
             const doubleWStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getWidth();
-            const doubleHStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getHeight();
+            const doubleHStep = this.viewRect.getHeight() - this.aspectRatio * cameraRect.getHeight();
             this.viewRect.scale(- doubleHStep / 2, - doubleWStep / 2);
         }
     }
