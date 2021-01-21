@@ -68,7 +68,7 @@ export default class RectangleView {
 
     scale(newH, newW) {
         this.w = newW;
-        this.h -= newH;
+        this.h = newH;
     }
 
     // check out, if rect's bounds is too near to this's bounds
