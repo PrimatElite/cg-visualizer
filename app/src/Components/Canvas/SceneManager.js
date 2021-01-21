@@ -38,8 +38,8 @@ export default class SceneManager {
 
     updateScene(objects, newRectDim) {
         if (newRectDim !== undefined) {
-            const { left, right, top, bottom } = newRectDim;
-            this.viewRect.updateRect(left, right, top, bottom);
+            const { x, y, w, h } = newRectDim;
+            this.viewRect.updateRect(x, y, w, h);
             this._drawObjects();
         }
         if (objects !== undefined && this.objects !== objects) {
@@ -53,7 +53,7 @@ export default class SceneManager {
             this.viewRect.syncCenter(cameraRect);
             const doubleWStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getWidth();
             const doubleHStep = this.viewRect.getHeight() - this.aspectRatio * cameraRect.getHeight();
-            this.viewRect.scale(- doubleHStep / 2, - doubleWStep / 2);
+            this.viewRect.scale(this.viewRect.getHeight() - doubleHStep,this.viewRect.getWidth() - doubleWStep);
         }
     }
 
@@ -62,15 +62,15 @@ export default class SceneManager {
         if (aspect < this.aspectRatio / 2) {
             const doubleWStep = this.aspectRatio * cameraRect.getWidth() - this.viewRect.getWidth();
             const doubleHStep = this.aspectRatio * cameraRect.getHeight() - this.viewRect.getHeight();
-            this.viewRect.scale(doubleHStep / 2, doubleWStep / 2);
+            this.viewRect.scale(this.viewRect.getHeight() + doubleHStep,this.viewRect.getWidth() + doubleWStep);
             return true;
         }
         return false;
     }
 
     _handleMouseMove(cameraRect) {
-        const wStep = (this.viewRect.right - this.viewRect.left) / 2;
-        const hStep = (this.viewRect.top - this.viewRect.bottom) / 2;
+        const wStep = this.viewRect.getWidth() / 2;
+        const hStep = this.viewRect.getHeight() / 2;
 
         const direction = this.viewRect.innerIntersection(cameraRect)[0];
 

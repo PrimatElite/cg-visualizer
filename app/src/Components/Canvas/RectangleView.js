@@ -1,90 +1,92 @@
 export default class RectangleView {
     constructor(x, y, w, h) {
-        this.left = x - w / 2;
-        this.right = x + w / 2;
-        this.top = y + h / 2;
-        this.bottom = y - h / 2;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
     }
 
-    updateRect(l, r, t, b) {
-        this.left = l;
-        this.right = r;
-        this.top = t;
-        this.bottom = b;
+    updateRect(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
     }
 
     getCenter() {
-        const x = (this.right - this.left) / 2;
-        const y = (this.top - this.bottom) / 2;
-        return { x, y };
+        return { x: this.x, y: this.y };
+    }
+
+    getLeft() {
+        return this.x - this.w / 2;
+    }
+
+    getRight() {
+        return this.x + this.w / 2;
+    }
+
+    getBottom() {
+        return this.y - this.h / 2;
+    }
+
+    getTop() {
+        return this.y + this.h / 2;
     }
 
     // put this center to rect center
     syncCenter(rect) {
-        const newCenter = rect.getCenter();
-        const halfWidth = this.getWidth() / 2;
-        const halfHeight = this.getHeight() / 2;
-
-        this.left = newCenter.x - halfWidth;
-        this.right = newCenter.x + halfWidth;
-        this.bottom = newCenter.y - halfHeight;
-        this.top = newCenter.y + halfHeight;
+        this.x = rect.x;
+        this.y = rect.y;
     }
 
     getWidth() {
-        return this.right - this.left;
+        return this.w;
     }
 
     getHeight() {
-        return this.top - this.bottom;
+        return this.h;
     }
 
     move(direction, shift) {
         switch (direction) {
             case 'left':
-                this.left -= shift;
-                this.right -= shift;
+                this.x -= shift;
                 break;
             case 'right':
-                this.left += shift;
-                this.right += shift;
+                this.x += shift;
                 break;
             case 'top':
-                this.top += shift;
-                this.bottom += shift;
+                this.y += shift;
                 break;
             case 'bottom':
-                this.top -= shift;
-                this.bottom -= shift;
+                this.y -= shift;
                 break;
             default:
                 throw Error('Unsupported direction');
         }
     }
 
-    scale(hShift, wShift) {
-        this.top += hShift;
-        this.bottom -= hShift;
-        this.left -= wShift;
-        this.right += wShift;
+    scale(newH, newW) {
+        this.w = newW;
+        this.h -= newH;
     }
 
     // check out, if rect's bounds is too near to this's bounds
     innerIntersection(rect) {
-        const wShift = (this.right - this.left) * 0.1;
-        const hShift = (this.top - this.bottom) * 0.1;
+        const wShift = this.w * 0.1;
+        const hShift = this.h * 0.1;
         const directions = [];
 
-        if (rect.right >= this.right - wShift) {
+        if (rect.getRight() >= this.getRight() - wShift) {
             directions.push('right');
         }
-        if (rect.left <= this.left + wShift) {
+        if (rect.getLeft() <= this.getLeft() + wShift) {
             directions.push('left');
         }
-        if (rect.bottom <= this.bottom + hShift) {
+        if (rect.getBottom() <= this.getBottom() + hShift) {
             directions.push('bottom');
         }
-        if (rect.top >= this.top - hShift) {
+        if (rect.getTop() >= this.getTop() - hShift) {
             directions.push('top');
         }
 
