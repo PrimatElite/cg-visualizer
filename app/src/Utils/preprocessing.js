@@ -3,6 +3,7 @@ import MyNumber from "../Elements/Number";
 import Paints from "../Elements/Paints";
 import Point from "../Elements/Point";
 import Polygon from "../Elements/Polygon";
+import PolyLine from "../Elements/PolyLine";
 import Segment from "../Elements/Segment";
 import Vector from "../Elements/Vector";
 import { getByRef } from "./schema";
@@ -41,6 +42,9 @@ function processElement(elements, newData, value) {
                 value.src = processElementRef(elements, newData, value.src);
                 newElement = new Polygon(value);
                 break;
+            case 'polyline':
+                value.src = processElementRef(elements, newData, value.src);
+                newElement = new PolyLine(value);
                 break;
             case 'segment_coords':
                 for (const key of ['coords1', 'coords2']) {
