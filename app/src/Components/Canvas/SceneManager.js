@@ -25,7 +25,9 @@ export default class SceneManager {
     }
 
     _updateObjects(newObjects) {
-        this.objects = newObjects;
+        if (newObjects) {
+            this.objects = newObjects;
+        }
         this._clearScene();
         this._drawObjects();
     }
@@ -36,14 +38,11 @@ export default class SceneManager {
         }
     }
 
-    updateScene(objects, newRectDim) {
-        if (newRectDim !== undefined) {
-            const { x, y, w, h } = newRectDim;
-            this.viewRect.updateRect(x, y, w, h);
-            this._drawObjects();
-        }
+    updateScene(objects) {
         if (objects !== undefined && this.objects !== objects) {
             this._updateObjects(objects);
+        } else {
+            this._updateObjects();
         }
     }
 
@@ -109,5 +108,6 @@ export default class SceneManager {
             default:
                 break;
         }
+        this.updateScene();
     }
 }
