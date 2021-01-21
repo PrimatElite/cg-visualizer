@@ -23,3 +23,9 @@ export function toRadians(angle) {
 export function isRef(obj) {
     return obj.$ref !== undefined;
 }
+
+export function triangleArea(p1, p2, p3) {
+    const D = p1.x.mul(p2.y).add(p1.y.mul(p3.x)).add(p2.x.mul(p3.y))
+        .sub(p2.y.mul(p3.x)).sub(p1.y.mul(p2.x)).sub(p3.y.mul(p1.x));
+    return D.div(2);
+}
