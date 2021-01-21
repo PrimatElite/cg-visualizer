@@ -24,7 +24,7 @@ export default class PolyLine extends Element {
         return false;
     }
 
-    draw() {
+    draw(rectangle) {
         const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const geometry = new THREE.BufferGeometry().setFromPoints(path.getPoints());
         const material = new THREE.LineBasicMaterial({ color: this._color, linewidth: 2});

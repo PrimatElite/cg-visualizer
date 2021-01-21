@@ -30,7 +30,7 @@ export default class Segment extends Element {
         return this.p1.inRectangle(rectangle) || this.p2.inRectangle();
     }
 
-    draw() {
+    draw(rectangle) {
         const path = new THREE.Path([this.p1, this.p2].map(p => new THREE.Vector2(p.x.valueOf(), p.y.valueOf())));
         const geometry = new THREE.BufferGeometry().setFromPoints(path.getPoints());
         const material = new THREE.LineBasicMaterial({ color: this._color, linewidth: 2});

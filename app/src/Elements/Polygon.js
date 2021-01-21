@@ -49,7 +49,7 @@ export default class Polygon extends Element {
         return false;
     }
 
-    draw() {
+    draw(rectangle) {
         const shape = new THREE.Shape(this.vertices.map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const path = new THREE.Path([...this.vertices, this.vertices[0]].map(v => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())));
         const lineGeometry = new THREE.BufferGeometry().setFromPoints( path.getPoints() );
@@ -68,5 +68,4 @@ export default class Polygon extends Element {
         group.add(contour);
         return group;
     }
-
 }

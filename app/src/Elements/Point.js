@@ -31,7 +31,7 @@ export default class Point extends Element {
             this.y.compare(rectangle.getBottom()) >= 0 && this.y.compare(rectangle.getTop()) <= 0;
     }
 
-    draw() {
+    draw(rectangle) {
         // const geometry = new THREE.BufferGeometry();
         // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( [this.x.valueOf(), this.y.valueOf(), 0], 3 ) );
         //
