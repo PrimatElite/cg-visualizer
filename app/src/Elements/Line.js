@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import Element from "./Element";
 import Point from "./Point";
 import { createAccordion, createAccordionItem } from "../Utils/generators";
-import { processCoord } from "../Utils/utils";
+import { processCoord, triangleArea } from "../Utils/utils";
 
 export default class Line extends Element {
     constructor(obj) {
@@ -65,7 +65,38 @@ export default class Line extends Element {
     }
 
     inRectangle(rectangle) {
-        return true;
+        if (this.coefficients[0].equals(0) && this.coefficients[1].equals[0]) {
+            return false;
+        }
+        let point1 = this.p1, point2 = this.p2;
+        if (point1 === undefined || point2 === undefined) {
+            if (this.coefficients[1].equals[0]) {
+                const x = this.coefficients[2].neg().div(this.coefficients[0]);
+                point1 = Point.fromCoords([x, 0]);
+                point2 = Point.fromCoords([x, 1]);
+            } else {
+                const k = this.coefficients[0].neg().div(this.coefficients[1]);
+                const b = this.coefficients[2].neg().div(this.coefficients[1]);
+                point1 = Point.fromCoords([0, b]);
+                point2 = Point.fromCoords([1, k.add(b)]);
+            }
+        }
+
+        const left = rectangle.getLeft(), right = rectangle.getRight();
+        const top = rectangle.getTop(), bottom = rectangle.getBottom();
+        const corners = [Point.fromCoords([left, top]), Point.fromCoords([left, bottom]),
+            Point.fromCoords([right, bottom]), Point.fromCoords([right, top])];
+        const vertices = [...corners, corners[0]];
+        let areaSign1, areaSign2;
+        for (let i = 0; i < 4; i++) {
+            areaSign1 = triangleArea(point1, point2, vertices[i]).compare(0);
+            areaSign2 = triangleArea(point1, point2, vertices[i + 1]).compare(0);
+            if ((areaSign1 !== areaSign2 && areaSign1 !== 0 && areaSign2 !== 0) ||
+                (areaSign1 === 0 && areaSign2 === 0)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     draw(rectangle) {
