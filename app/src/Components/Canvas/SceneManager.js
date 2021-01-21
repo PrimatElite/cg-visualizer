@@ -7,7 +7,7 @@ export default class SceneManager {
         const { width, height } = screenDimentions;
 
         this.scale = 1;
-        this.aspectRatio = 4;
+        this.aspectRatio = 10;
 
         this.scene = new THREE.Scene();
         this.viewRect = new RectangleView(x, y,
