@@ -53,6 +53,7 @@ export default class SceneManager {
             const doubleWStep = this.viewRect.getWidth() - this.aspectRatio * cameraRect.getWidth();
             const doubleHStep = this.viewRect.getHeight() - this.aspectRatio * cameraRect.getHeight();
             this.viewRect.scale(this.viewRect.getHeight() - doubleHStep,this.viewRect.getWidth() - doubleWStep);
+            this.updateScene();
         }
     }
 
@@ -62,6 +63,7 @@ export default class SceneManager {
             const doubleWStep = this.aspectRatio * cameraRect.getWidth() - this.viewRect.getWidth();
             const doubleHStep = this.aspectRatio * cameraRect.getHeight() - this.viewRect.getHeight();
             this.viewRect.scale(this.viewRect.getHeight() + doubleHStep,this.viewRect.getWidth() + doubleWStep);
+            this.updateScene();
             return true;
         }
         return false;
@@ -83,6 +85,7 @@ export default class SceneManager {
                     step = hStep;
                 }
                 this.viewRect.move(direction, step);
+                this.updateScene();
             }
         }
     }
@@ -108,6 +111,5 @@ export default class SceneManager {
             default:
                 break;
         }
-        this.updateScene();
     }
 }
