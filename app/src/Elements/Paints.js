@@ -3,12 +3,11 @@ import Element from "./Element";
 import { getMyColor } from "../Utils/utils";
 import { createAccordion, createAccordionItem } from "../Utils/generators";
 
-
 export default class Paints extends Element {
     constructor(obj) {
         super('paints');
         this.objects = obj.input;
-        this.values = obj.output;
+        this.values = obj.output.map(el => el.value);
 
         this.uniqueValues = new Set(obj.output);
         this.shift = 0;
