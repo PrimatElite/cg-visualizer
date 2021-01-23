@@ -13,7 +13,7 @@ export default class Paints extends Element {
         this.shift = 0;
         if ((typeof this.uniqueValues.values().next().value) === 'number') {
             const min = Math.min(...Array.from(this.uniqueValues));
-            this.shift = 0 ? min >= 0 : Math.abs(min);
+            this.shift = min >= 0 ? 0 : Math.abs(min);
         }
         this._updateColors();
     }

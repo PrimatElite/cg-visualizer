@@ -1,3 +1,4 @@
+import Line from "../Elements/Line";
 import MyBoolean from "../Elements/Boolean";
 import MyNumber from "../Elements/Number";
 import Paints from "../Elements/Paints";
@@ -30,6 +31,21 @@ function processElement(elements, newData, value) {
         newElement = new MyNumber(value);
     } else if (value.type) {
         switch (value.type) {
+            case 'line_coords':
+                for (const key of ['coords1', 'coords2']) {
+                    if (isRef(value[key])) {
+                        value[key] = processElementRef(elements, newData, value[key]);
+                    }
+                }
+                newElement = new Line(value);
+                break;
+            case 'line_side':
+                value.side = processElementRef(elements, newData, value.side); // TODO check that it is array of two points
+                newElement = new Line(value);
+                break;
+            case 'line_equation':
+                newElement = new Line(value);
+                break;
             case 'paints':
                 value.input = processElementRef(elements, newData, value.input);
                 value.output = processElementRef(elements, newData, value.output);
@@ -55,7 +71,7 @@ function processElement(elements, newData, value) {
                 newElement = new Segment(value);
                 break;
             case 'segment_side':
-                value.side = processElementRef(elements, newData, value.side);
+                value.side = processElementRef(elements, newData, value.side); // TODO check that it is array of two points
                 newElement = new Segment(value);
                 break;
             case 'vector':
