@@ -115,4 +115,16 @@ export default class Line extends Element {
         const material = new THREE.LineBasicMaterial({ color: this._color, linewidth: 2 });
         return new THREE.Line(geometry, material);
     }
+
+    getDistanceToPoint(p) {
+        if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
+            return undefined;
+        }
+        const d = Math.sqrt(this.coefficients[0].pow(2).add(this.coefficients[1]).pow(2).valueOf());
+        const v = this.coefficients[0].mul(p.x).add(this.coefficients[1].mul(p.y)).add(this.coefficients[2]);
+        if (v.equals(0)) {
+            return 0;
+        }
+        return v.abs().valueOf() / d;
+    }
 }
