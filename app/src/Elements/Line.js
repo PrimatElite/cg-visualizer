@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import Element from "./Element";
 import Point from "./Point";
 import { createAccordion, createAccordionItem } from "../Utils/generators";
-import { processCoord, triangleArea } from "../Utils/utils";
+import { processCoord, triangleArea, getLeftPartLineEquation } from "../Utils/utils";
 
 export default class Line extends Element {
     constructor(obj) {
@@ -28,21 +28,7 @@ export default class Line extends Element {
     info(name, parent, id) {
         const newId = `${id}_data`;
 
-        let equationStr = '';
-        if (!this.coefficients[0].equals(0)) {
-            equationStr += `${this.coefficients[0].toFraction()}x`;
-        }
-        if (this.coefficients[1].compare(0) < 0) {
-            equationStr += `${this.coefficients[1].toFraction()}y`;
-        } else if (this.coefficients[1].compare(0) > 0) {
-            equationStr += `+${this.coefficients[1].toFraction()}y`;
-        }
-        if (this.coefficients[2].compare(0) < 0) {
-            equationStr += `${this.coefficients[2].toFraction()}`;
-        } else if (this.coefficients[2].compare(0) > 0) {
-            equationStr += `+${this.coefficients[2].toFraction()}`;
-        }
-        equationStr += '=0';
+        const equationStr = `${getLeftPartLineEquation(this.coefficients)}=0`;
         const equation = createAccordionItem(newId, 'equation', `Equation: ${equationStr}`, `${id}_equation`);
 
         let directionStr;
