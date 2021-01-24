@@ -5,10 +5,10 @@ import Menu from './Components/Menu';
 import Info from './Components/Info';
 
 const AppWrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
 `;
 
 const PanelWrapper = styled.div`
@@ -21,17 +21,17 @@ const PanelWrapper = styled.div`
 `;
 
 function App() {
-  const [data, setData] = useState({elements: {}, visualizations: []});
-  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState({ elements: {}, visualizations: [] });
+  const [loading, setLoading] = useState(false);
 
   return (
-      <AppWrapper>
-        <PanelWrapper>
-          <Menu handleData={data => setData(data)} handleLoad={setLoading}/>
-          <Info data={data} />
-        </PanelWrapper>
-        <Canvas data={data} loading={loading}/>
-      </AppWrapper>
+    <AppWrapper>
+      <PanelWrapper>
+        <Menu handleData={(data) => setData(data)} handleLoad={setLoading} />
+        <Info data={data} />
+      </PanelWrapper>
+      <Canvas data={data} loading={loading} />
+    </AppWrapper>
   );
 }
 
