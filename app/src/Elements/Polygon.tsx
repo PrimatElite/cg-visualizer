@@ -1,17 +1,27 @@
 import * as THREE from 'three';
-import Element from './Element';
-import { createAccordion, createAccordionItem } from '../Utils/generators';
 import Fraction from 'fraction.js';
+import Element from './Element';
+import Point from './Point';
+import RectangleView from '../Components/Canvas/RectangleView';
+import { createAccordion, createAccordionItem } from '../Utils/generators';
 
 export default class Polygon extends Element {
-  constructor(obj) {
+  readonly vertices: Array<Point>;
+  readonly area: number;
+  readonly perimeter: number;
+
+  private constructor(vertices: Array<Point>) {
     super('polygon');
-    this.vertices = obj.src;
+    this.vertices = vertices;
     this.area = this.getArea();
     this.perimeter = this.getPerimeter();
   }
 
-  getArea() {
+  static fromVertices(vertices: Array<Point>): Polygon {
+    return new Polygon(vertices);
+  }
+
+  getArea(): number {
     let s = new Fraction(0);
     const len = this.vertices.length;
     for (let i = 0; i < len - 1; i++) {
@@ -29,7 +39,7 @@ export default class Polygon extends Element {
     return s.div(2).valueOf();
   }
 
-  getPerimeter() {
+  getPerimeter(): number {
     let p = 0;
     const len = this.vertices.length;
     for (let i = 0; i < len - 1; i++) {
@@ -39,7 +49,7 @@ export default class Polygon extends Element {
     return p;
   }
 
-  info(name, parent, id) {
+  info(name: string, parent: string, id: string) {
     const newId = `${id}_data`;
     const vertices = this.vertices.map((el, ind) =>
       el.info(`vertex_${ind}`, newId, `${id}_${ind}`),
@@ -60,7 +70,7 @@ export default class Polygon extends Element {
     return createAccordionItem(parent, name, body, id);
   }
 
-  inRectangle(rectangle) {
+  inRectangle(rectangle: RectangleView) {
     for (const vertex of this.vertices) {
       if (vertex.inRectangle(rectangle)) {
         return true;
@@ -69,7 +79,7 @@ export default class Polygon extends Element {
     return false;
   }
 
-  draw(rectangle) {
+  draw(rectangle: RectangleView) {
     const shape = new THREE.Shape(
       this.vertices.map((v) => new THREE.Vector2(v.x.valueOf(), v.y.valueOf())),
     );

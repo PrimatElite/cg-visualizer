@@ -1,41 +1,38 @@
 import Fraction from 'fraction.js';
 
-export function processCoord(vertex) {
-  if (typeof vertex === 'object') {
-    if (vertex instanceof Fraction) {
-      return vertex;
-    } else {
-      return new Fraction(vertex.frac);
-    }
+interface RationalNumber {
+  frac: [number, number];
+  type: string;
+}
+
+export type ExtendedNumber = number | RationalNumber | Fraction;
+
+export function processCoord(n: ExtendedNumber) {
+  if (n instanceof Fraction) {
+    return n;
+  } else if (typeof n === 'number') {
+    return new Fraction(n);
   } else {
-    return new Fraction(vertex);
+    return new Fraction(n.frac);
   }
 }
 
-export function getMyColor(n, color = 0xfffff) {
+export function getMyColor(n: number, color = 0xfffff) {
   return parseInt((n * color * 1000000).toString(16).slice(0, 6), 16);
 }
 
-export function toRadians(angle) {
+export function toRadians(angle: number) {
   return angle * (Math.PI / 180);
 }
 
-export function isRef(obj) {
+export function isRef(obj: any) {
   return obj.$ref !== undefined;
 }
 
-export function triangleArea(p1, p2, p3) {
-  const D = p1.x
-    .mul(p2.y)
-    .add(p1.y.mul(p3.x))
-    .add(p2.x.mul(p3.y))
-    .sub(p2.y.mul(p3.x))
-    .sub(p1.y.mul(p2.x))
-    .sub(p3.y.mul(p1.x));
-  return D.div(2);
-}
-
-function getLeftPartVariableLineEquation(coefficient, variable) {
+function getLeftPartVariableLineEquation(
+  coefficient: Fraction,
+  variable: string,
+) {
   if (coefficient.compare(0) < 0) {
     return `${coefficient.toFraction()}${variable}`;
   } else if (coefficient.compare(0) > 0) {
@@ -45,8 +42,10 @@ function getLeftPartVariableLineEquation(coefficient, variable) {
   }
 }
 
+export type LineCoefficients = [Fraction, Fraction, Fraction];
+
 export function getLeftPartLineEquation(
-  coefficients,
+  coefficients: LineCoefficients,
   variables = ['x', 'y', ''],
 ) {
   let equationStr = '';
@@ -57,4 +56,8 @@ export function getLeftPartLineEquation(
     );
   }
   return equationStr.startsWith('+') ? equationStr.slice(1) : equationStr;
+}
+
+export function error(message: string): never {
+  throw new Error(message);
 }

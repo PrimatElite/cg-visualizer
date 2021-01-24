@@ -1,38 +1,66 @@
 import * as THREE from 'three';
 import Element from './Element';
-import Point from './Point';
+import Point, { Coord } from './Point';
+import RectangleView from '../Components/Canvas/RectangleView';
 import { createAccordion, createAccordionItem } from '../Utils/generators';
 import {
+  ExtendedNumber,
+  LineCoefficients,
   processCoord,
-  triangleArea,
   getLeftPartLineEquation,
+  error,
 } from '../Utils/utils';
 
+type LineDirection = 'forward' | 'reverse';
+
 export default class Line extends Element {
-  constructor(obj) {
+  readonly coefficients: LineCoefficients;
+  readonly p1: Point | undefined;
+  readonly p2: Point | undefined;
+  readonly direction: LineDirection;
+
+  private constructor(
+    coefficients: LineCoefficients,
+    p1: Point | undefined,
+    p2: Point | undefined,
+    direction: LineDirection,
+  ) {
     super('line');
-    if (obj.type === 'line_equation') {
-      this.coefficients = obj.coefficients.map((el) => processCoord(el));
-      this.direction = obj.direction || 'forward';
-      this.p1 = this.p2 = undefined;
-    } else {
-      if (obj.type === 'line_side') {
-        this.p1 = obj.side[0];
-        this.p2 = obj.side[1];
-      } else {
-        this.p1 = Point.fromCoords(obj.coords1);
-        this.p2 = Point.fromCoords(obj.coords2);
-      }
-      this.coefficients = [
-        this.p2.y.sub(this.p1.y),
-        this.p1.x.sub(this.p2.x),
-        this.p2.x.mul(this.p1.y).sub(this.p1.x.mul(this.p2.y)),
-      ];
-      this.direction = 'forward';
-    }
+    this.coefficients = coefficients;
+    this.direction = direction;
+    this.p1 = p1;
+    this.p2 = p2;
   }
 
-  info(name, parent, id) {
+  static fromEquation(
+    coefficients: [ExtendedNumber, ExtendedNumber, ExtendedNumber],
+    direction: LineDirection,
+  ): Line {
+    const lineCoefficients: LineCoefficients = [
+      processCoord(coefficients[0]),
+      processCoord(coefficients[1]),
+      processCoord(coefficients[2]),
+    ];
+    return new Line(lineCoefficients, undefined, undefined, direction);
+  }
+
+  static fromSide(side: [Point, Point]): Line {
+    const coefficients: LineCoefficients = [
+      side[1].y.sub(side[0].y),
+      side[0].x.sub(side[1].x),
+      side[1].x.mul(side[0].y).sub(side[0].x.mul(side[1].y)),
+    ];
+    return new Line(coefficients, side[0], side[1], 'forward');
+  }
+
+  static fromCoords(coords1: Coord, coords2: Coord): Line {
+    return Line.fromSide([
+      Point.fromCoords(coords1),
+      Point.fromCoords(coords2),
+    ]);
+  }
+
+  info(name: string, parent: string, id: string) {
     const newId = `${id}_data`;
 
     const equationStr = `${getLeftPartLineEquation(this.coefficients)}=0`;
@@ -71,7 +99,7 @@ export default class Line extends Element {
     return createAccordionItem(parent, name, body, id);
   }
 
-  inRectangle(rectangle) {
+  inRectangle(rectangle: RectangleView) {
     if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
       return false;
     }
@@ -103,8 +131,10 @@ export default class Line extends Element {
     const vertices = [...corners, corners[0]];
     let areaSign1, areaSign2;
     for (let i = 0; i < 4; i++) {
-      areaSign1 = triangleArea(point1, point2, vertices[i]).compare(0);
-      areaSign2 = triangleArea(point1, point2, vertices[i + 1]).compare(0);
+      areaSign1 = Point.triangleArea(point1, point2, vertices[i]).compare(0);
+      areaSign2 = Point.triangleArea(point1, point2, vertices[i + 1]).compare(
+        0,
+      );
       if (
         (areaSign1 !== areaSign2 && areaSign1 !== 0 && areaSign2 !== 0) ||
         (areaSign1 === 0 && areaSign2 === 0)
@@ -115,14 +145,14 @@ export default class Line extends Element {
     return false;
   }
 
-  draw(rectangle) {
+  draw(rectangle: RectangleView) {
     let point1, point2;
     if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
       if (this.p1 && this.p2) {
         point1 = this.p1;
         point2 = this.p2;
       } else {
-        return undefined;
+        return error("Line can't be drawn");
       }
     } else {
       const left = Math.floor(rectangle.getLeft()),
@@ -155,7 +185,7 @@ export default class Line extends Element {
     return new THREE.Line(geometry, material);
   }
 
-  getDistanceToPoint(p) {
+  getDistanceToPoint(p: Point) {
     if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
       return undefined;
     }

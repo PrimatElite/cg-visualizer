@@ -1,16 +1,25 @@
 import * as THREE from 'three';
+import Fraction from 'fraction.js';
 import Element from './Element';
-import Point from './Point';
+import Point, { Coord } from './Point';
+import RectangleView from '../Components/Canvas/RectangleView';
 import { createAccordion, createAccordionItem } from '../Utils/generators';
 
 export default class Vector extends Element {
-  constructor(obj) {
+  readonly begin: Point;
+  readonly end: Point;
+
+  private constructor(begin: Point, end: Point) {
     super('vector');
-    this.begin = Point.fromCoords(obj.begin);
-    this.end = Point.fromCoords(obj.end);
+    this.begin = begin;
+    this.end = end;
   }
 
-  info(name, parent, id) {
+  static fromCoords(begin: Coord, end: Coord): Vector {
+    return new Vector(Point.fromCoords(begin), Point.fromCoords(end));
+  }
+
+  info(name: string, parent: string, id: string) {
     const newId = `${id}_data`;
     const begin = this.begin.info('begin', newId, `${id}_begin`);
     const end = this.end.info('end', newId, `${id}_end`);
@@ -18,11 +27,11 @@ export default class Vector extends Element {
     return createAccordionItem(parent, name, body, id);
   }
 
-  inRectangle(rectangle) {
-    return this.begin.inRectangle(rectangle) || this.end.inRectangle();
+  inRectangle(rectangle: RectangleView) {
+    return this.begin.inRectangle(rectangle) || this.end.inRectangle(rectangle);
   }
 
-  draw(rectangle) {
+  draw(rectangle: RectangleView) {
     const path = new THREE.Path(
       [this.begin, this.end].map(
         (p) => new THREE.Vector2(p.x.valueOf(), p.y.valueOf()),
@@ -41,9 +50,9 @@ export default class Vector extends Element {
       widthFactor = 0.2;
     const dir = this.end.sub(this.begin);
     const dirOrth = Point.fromCoords([dir.y, dir.x.neg()]).multiplyScalar(
-      (headFactor * widthFactor) / 2,
+      new Fraction((headFactor * widthFactor) / 2),
     );
-    const c = this.begin.add(dir.multiplyScalar(1 - headFactor));
+    const c = this.begin.add(dir.multiplyScalar(new Fraction(1 - headFactor)));
     const p1 = c.add(dirOrth),
       p2 = c.sub(dirOrth);
     const shape = new THREE.Shape(

@@ -1,14 +1,22 @@
 import * as THREE from 'three';
 import Element from './Element';
+import Point from './Point';
+import RectangleView from '../Components/Canvas/RectangleView';
 import { createAccordion, createAccordionItem } from '../Utils/generators';
 
 export default class PolyLine extends Element {
-  constructor(obj) {
+  readonly vertices: Array<Point>;
+
+  private constructor(vertices: Array<Point>) {
     super('polyline');
-    this.vertices = obj.src;
+    this.vertices = vertices;
   }
 
-  info(name, parent, id) {
+  static fromPoints(points: Array<Point>): PolyLine {
+    return new PolyLine(points);
+  }
+
+  info(name: string, parent: string, id: string) {
     const newId = `${id}_data`;
     const vertices = this.vertices.map((el, ind) =>
       el.info(`vertex_${ind}`, newId, `${id}_${ind}`),
@@ -17,7 +25,7 @@ export default class PolyLine extends Element {
     return createAccordionItem(parent, name, body, id);
   }
 
-  inRectangle(rectangle) {
+  inRectangle(rectangle: RectangleView) {
     for (const vertex of this.vertices) {
       if (vertex.inRectangle(rectangle)) {
         return true;
@@ -26,7 +34,7 @@ export default class PolyLine extends Element {
     return false;
   }
 
-  draw(rectangle) {
+  draw(rectangle: RectangleView) {
     const path = new THREE.Path(
       [...this.vertices, this.vertices[0]].map(
         (v) => new THREE.Vector2(v.x.valueOf(), v.y.valueOf()),
