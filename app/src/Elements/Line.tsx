@@ -202,7 +202,7 @@ export default class Line extends Element {
     return v.abs().valueOf() / d;
   }
 
-  intersectWithLine(line: Line): Point | never {
+  intersectWithLine(line: Line): Point | undefined {
     const D = this.coefficients[0]
       .mul(line.coefficients[1])
       .sub(line.coefficients[0].mul(this.coefficients[1]));
@@ -215,6 +215,6 @@ export default class Line extends Element {
         .sub(line.coefficients[2].mul(this.coefficients[0]));
       return Point.fromCoords([Dx.div(D), Dy.div(D)]);
     }
-    return error("Can't find intersection with line");
+    return undefined;
   }
 }
