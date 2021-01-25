@@ -185,7 +185,7 @@ export default class Line extends Element {
     return new THREE.Line(geometry, material);
   }
 
-  getDistanceToPoint(p: Point) {
+  getDistanceToPoint(p: Point): number | undefined {
     if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
       return undefined;
     }
@@ -200,5 +200,21 @@ export default class Line extends Element {
       return 0;
     }
     return v.abs().valueOf() / d;
+  }
+
+  intersectWithLine(line: Line): Point | undefined {
+    const D = this.coefficients[0]
+      .mul(line.coefficients[1])
+      .sub(line.coefficients[0].mul(this.coefficients[1]));
+    if (!D.equals(0)) {
+      const Dx = this.coefficients[1]
+        .mul(line.coefficients[2])
+        .sub(line.coefficients[1].mul(this.coefficients[2]));
+      const Dy = this.coefficients[2]
+        .mul(line.coefficients[0])
+        .sub(line.coefficients[2].mul(this.coefficients[0]));
+      return Point.fromCoords([Dx.div(D), Dy.div(D)]);
+    }
+    return undefined;
   }
 }
