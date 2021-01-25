@@ -30,9 +30,9 @@ function processElement(elements, newData, value) {
   if (value instanceof Array) {
     newElement = value.map((el) => processElement(elements, newData, el));
   } else if (typeof value === 'boolean') {
-    newElement = new MyBoolean(value);
+    newElement = MyBoolean.fromBoolean(value);
   } else if (typeof value === 'number') {
-    newElement = new MyNumber(value);
+    newElement = MyNumber.fromNumber(value);
   } else if (value.type) {
     switch (value.type) {
       case 'line_coords':
@@ -41,30 +41,33 @@ function processElement(elements, newData, value) {
             value[key] = processElementRef(elements, newData, value[key]);
           }
         }
-        newElement = new Line(value);
+        newElement = Line.fromCoords(value.coords1, value.coords2);
         break;
       case 'line_side':
-        value.side = processElementRef(elements, newData, value.side); // TODO check that it is array of two points
-        newElement = new Line(value);
+        value.side = processElementRef(elements, newData, value.side);
+        newElement = Line.fromSide(value.side);
         break;
       case 'line_equation':
-        newElement = new Line(value);
+        newElement = Line.fromEquation(
+          value.coefficients,
+          value.direction || 'forward',
+        );
         break;
       case 'paints':
         value.input = processElementRef(elements, newData, value.input);
         value.output = processElementRef(elements, newData, value.output);
-        newElement = new Paints(value);
+        newElement = Paints.fromObjectsValues(value.input, value.output);
         break;
       case 'point':
-        newElement = new Point(value);
+        newElement = Point.fromCoords(value.coords);
         break;
       case 'polygon':
         value.src = processElementRef(elements, newData, value.src);
-        newElement = new Polygon(value);
+        newElement = Polygon.fromVertices(value.src);
         break;
       case 'polyline':
         value.src = processElementRef(elements, newData, value.src);
-        newElement = new PolyLine(value);
+        newElement = PolyLine.fromPoints(value.src);
         break;
       case 'segment_coords':
         for (const key of ['coords1', 'coords2']) {
@@ -72,11 +75,11 @@ function processElement(elements, newData, value) {
             value[key] = processElementRef(elements, newData, value[key]);
           }
         }
-        newElement = new Segment(value);
+        newElement = Segment.fromCoords(value.coords1, value.coords2);
         break;
       case 'segment_side':
-        value.side = processElementRef(elements, newData, value.side); // TODO check that it is array of two points
-        newElement = new Segment(value);
+        value.side = processElementRef(elements, newData, value.side);
+        newElement = Segment.fromSide(value.side);
         break;
       case 'vector':
         for (const key of ['begin', 'end']) {
@@ -84,7 +87,7 @@ function processElement(elements, newData, value) {
             value[key] = processElementRef(elements, newData, value[key]);
           }
         }
-        newElement = new Vector(value);
+        newElement = Vector.fromCoords(value.begin, value.end);
         break;
       default:
         throw new Error('Unsupported type'); // TODO delete this when all types will be described

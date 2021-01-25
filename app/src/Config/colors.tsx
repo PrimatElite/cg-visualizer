@@ -1,4 +1,8 @@
-const COLORS = {
+interface Colors {
+  [k: string]: number;
+}
+
+const COLORS: Colors = {
   line: 0xfaf,
   paints: 0xfffff,
   point: 0x000,
