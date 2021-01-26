@@ -9,12 +9,14 @@ export default class Segment extends Element {
   readonly p1: Point;
   readonly p2: Point;
   readonly length: number;
+  readonly isPoint: boolean;
 
   private constructor(p1: Point, p2: Point) {
     super('segment');
     this.p1 = p1;
     this.p2 = p2;
     this.length = this.p1.getDistanceToPoint(this.p2);
+    this.isPoint = this.p1.equals(this.p2);
   }
 
   static fromSide(side: [Point, Point]): Segment {
@@ -57,8 +59,8 @@ export default class Segment extends Element {
     return new THREE.Line(geometry, material);
   }
 
-  intersectWithPoint(point: Point): Point {
-    if (this.p1.equals(this.p2)) {
+  intersectWithPoint(point: Point): Point | undefined {
+    if (this.isPoint) {
       if (point.equals(this.p1)) {
         return point;
       }
@@ -73,10 +75,10 @@ export default class Segment extends Element {
         return point;
       }
     }
-    throw Error("Can't find intersection with point"); // TODO make beautiful error handler
+    return undefined;
   }
 
-  intersectWithSegment(segment: Segment): Point {
+  intersectWithSegment(segment: Segment): Point | undefined {
     const dir1 = this.p2.sub(this.p1),
       dir2 = segment.p1.sub(segment.p2),
       dir3 = segment.p1.sub(this.p1);
@@ -101,6 +103,6 @@ export default class Segment extends Element {
         return this.p1.add(dir1.multiplyScalar(t));
       }
     }
-    throw Error("Can't find intersection with segment"); // TODO make beautiful error handler
+    return undefined;
   }
 }
