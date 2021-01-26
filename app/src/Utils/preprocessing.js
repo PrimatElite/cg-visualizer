@@ -6,6 +6,7 @@ import Paints from '../Elements/Paints';
 import Point from '../Elements/Point';
 import Polygon from '../Elements/Polygon';
 import PolyLine from '../Elements/PolyLine';
+import Rectangle from '../Elements/Rectangle';
 import Segment from '../Elements/Segment';
 import Vector from '../Elements/Vector';
 import { getByRef } from './schema';
@@ -87,6 +88,11 @@ function processElement(elements, newData, value) {
       case 'polyline':
         value.src = processElementRef(elements, newData, value.src);
         newElement = PolyLine.fromPoints(value.src);
+        break;
+      case 'rectangle':
+        value.side = processElementRef(elements, newData, value.side);
+        value.points = processElementRef(elements, newData, value.points);
+        newElement = Rectangle.fromSidePoints(value.side, value.points);
         break;
       case 'segment_coords':
         for (const key of ['coords1', 'coords2']) {
