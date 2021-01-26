@@ -1,6 +1,8 @@
 import * as THREE from 'three';
+import Fraction from 'fraction.js';
 import Element from './Element';
 import Point, { Coord } from './Point';
+import Segment from './Segment';
 import RectangleView from '../Components/Canvas/RectangleView';
 import { createAccordion, createAccordionItem } from '../Utils/generators';
 import {
@@ -18,6 +20,7 @@ export default class Line extends Element {
   readonly p1: Point | undefined;
   readonly p2: Point | undefined;
   readonly direction: LineDirection;
+  readonly isUndefined: boolean;
 
   private constructor(
     coefficients: LineCoefficients,
@@ -30,6 +33,8 @@ export default class Line extends Element {
     this.direction = direction;
     this.p1 = p1;
     this.p2 = p2;
+    this.isUndefined =
+      this.coefficients[0].equals(0) && this.coefficients[1].equals(0);
   }
 
   static fromEquation(
@@ -67,7 +72,7 @@ export default class Line extends Element {
     const equation = createAccordionItem(
       newId,
       'equation',
-      `Equation: ${equationStr}`,
+      this.isUndefined ? 'Line is undefined' : `Equation: ${equationStr}`,
       `${id}_equation`,
     );
 
@@ -100,7 +105,7 @@ export default class Line extends Element {
   }
 
   inRectangle(rectangle: RectangleView) {
-    if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
+    if (this.isUndefined) {
       return false;
     }
     let point1 = this.p1,
@@ -147,7 +152,7 @@ export default class Line extends Element {
 
   draw(rectangle: RectangleView) {
     let point1, point2;
-    if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
+    if (this.isUndefined) {
       if (this.p1 && this.p2) {
         point1 = this.p1;
         point2 = this.p2;
@@ -185,21 +190,35 @@ export default class Line extends Element {
     return new THREE.Line(geometry, material);
   }
 
+  getLineValue(p: Point): Fraction {
+    return this.coefficients[0]
+      .mul(p.x)
+      .add(this.coefficients[1].mul(p.y))
+      .add(this.coefficients[2]);
+  }
+
   getDistanceToPoint(p: Point): number | undefined {
-    if (this.coefficients[0].equals(0) && this.coefficients[1].equals(0)) {
+    if (this.isUndefined) {
       return undefined;
     }
     const d = Math.sqrt(
       this.coefficients[0].pow(2).add(this.coefficients[1]).pow(2).valueOf(),
     );
-    const v = this.coefficients[0]
-      .mul(p.x)
-      .add(this.coefficients[1].mul(p.y))
-      .add(this.coefficients[2]);
+    const v = this.getLineValue(p);
     if (v.equals(0)) {
       return 0;
     }
     return v.abs().valueOf() / d;
+  }
+
+  intersectWithPoint(point: Point): Point | undefined {
+    if (this.isUndefined) {
+      return undefined;
+    }
+    if (this.getLineValue(point).equals(0)) {
+      return point;
+    }
+    return undefined;
   }
 
   intersectWithLine(line: Line): Point | undefined {
@@ -214,6 +233,22 @@ export default class Line extends Element {
         .mul(line.coefficients[0])
         .sub(line.coefficients[2].mul(this.coefficients[0]));
       return Point.fromCoords([Dx.div(D), Dy.div(D)]);
+    }
+    return undefined;
+  }
+
+  intersectWithSegment(segment: Segment): Point | undefined {
+    if (this.isUndefined) {
+      return undefined;
+    } else if (segment.isPoint) {
+      return this.intersectWithPoint(segment.p1);
+    } else {
+      const point = this.intersectWithLine(
+        Line.fromCoords(segment.p1, segment.p2),
+      );
+      if (point) {
+        return segment.intersectWithPoint(point);
+      }
     }
     return undefined;
   }
