@@ -49,6 +49,15 @@ export default class Line extends Element {
     return new Line(lineCoefficients, undefined, undefined, direction);
   }
 
+  static fromPointNormal(point: Point, normal: Point): Line {
+    const lineCoefficients: LineCoefficients = [
+      normal.x.neg(),
+      normal.y.neg(),
+      normal.x.mul(point.x).add(normal.y.mul(point.y)),
+    ];
+    return new Line(lineCoefficients, undefined, undefined, 'forward');
+  }
+
   static fromSide(side: [Point, Point]): Line {
     const coefficients: LineCoefficients = [
       side[1].y.sub(side[0].y),
@@ -77,6 +86,11 @@ export default class Line extends Element {
         this.coefficients[0].neg(),
       ]);
     }
+  }
+
+  getNormalPoint(): Point {
+    const dir = this.getDirectionPoint();
+    return Point.fromCoords([dir.y.neg(), dir.x]);
   }
 
   info(name: string, parent: string, id: string) {
