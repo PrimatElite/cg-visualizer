@@ -13,7 +13,7 @@ import {
   error,
 } from '../Utils/utils';
 
-type LineDirection = 'forward' | 'reverse';
+export type LineDirection = 'forward' | 'reverse';
 
 export default class Line extends Element {
   readonly coefficients: LineCoefficients;
@@ -39,7 +39,7 @@ export default class Line extends Element {
 
   static fromEquation(
     coefficients: [ExtendedNumber, ExtendedNumber, ExtendedNumber],
-    direction: LineDirection,
+    direction: LineDirection = 'forward',
   ): Line {
     const lineCoefficients: LineCoefficients = [
       processCoord(coefficients[0]),
@@ -65,6 +65,20 @@ export default class Line extends Element {
     ]);
   }
 
+  getDirectionPoint(): Point {
+    if (this.direction === 'forward') {
+      return Point.fromCoords([
+        this.coefficients[1].neg(),
+        this.coefficients[0],
+      ]);
+    } else {
+      return Point.fromCoords([
+        this.coefficients[1],
+        this.coefficients[0].neg(),
+      ]);
+    }
+  }
+
   info(name: string, parent: string, id: string) {
     const newId = `${id}_data`;
 
@@ -76,20 +90,11 @@ export default class Line extends Element {
       `${id}_equation`,
     );
 
-    let directionStr;
-    if (this.direction === 'forward') {
-      directionStr = `(${this.coefficients[1]
-        .neg()
-        .toFraction()}, ${this.coefficients[0].toFraction()})`;
-    } else {
-      directionStr = `(${this.coefficients[1].toFraction()}, ${this.coefficients[0]
-        .neg()
-        .toFraction()})`;
-    }
+    const dir = this.getDirectionPoint();
     const direction = createAccordionItem(
       newId,
       'direction',
-      `Direction: ${directionStr}`,
+      `Direction: (${dir.x.toFraction()}, ${dir.y.toFraction()})`,
       `${id}_direction`,
     );
 

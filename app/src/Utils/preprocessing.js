@@ -1,3 +1,4 @@
+import HalfPlane from '../Elements/HalfPlane';
 import Line from '../Elements/Line';
 import MyBoolean from '../Elements/Boolean';
 import MyNumber from '../Elements/Number';
@@ -35,6 +36,24 @@ function processElement(elements, newData, value) {
     newElement = MyNumber.fromNumber(value);
   } else if (value.type) {
     switch (value.type) {
+      case 'half-plane_coords':
+        for (const key of ['coords1', 'coords2']) {
+          if (isRef(value[key])) {
+            value[key] = processElementRef(elements, newData, value[key]);
+          }
+        }
+        newElement = HalfPlane.fromCoords(value.coords1, value.coords2);
+        break;
+      case 'half-plane_side':
+        value.side = processElementRef(elements, newData, value.side);
+        newElement = HalfPlane.fromSide(value.side);
+        break;
+      case 'half-plane_equation':
+        newElement = HalfPlane.fromEquation(
+          value.coefficients,
+          value.direction || 'forward',
+        );
+        break;
       case 'line_coords':
         for (const key of ['coords1', 'coords2']) {
           if (isRef(value[key])) {
