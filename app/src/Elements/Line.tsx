@@ -72,7 +72,7 @@ export default class Line extends Element {
     const equation = createAccordionItem(
       newId,
       'equation',
-      `Equation: ${equationStr}`,
+      this.isUndefined ? 'Line is undefined' : `Equation: ${equationStr}`,
       `${id}_equation`,
     );
 

@@ -34,8 +34,14 @@ function getLeftPartVariableLineEquation(
   variable: string,
 ) {
   if (coefficient.compare(0) < 0) {
+    if (coefficient.equals(-1)) {
+      return `-${variable}`;
+    }
     return `${coefficient.toFraction()}${variable}`;
   } else if (coefficient.compare(0) > 0) {
+    if (coefficient.equals(1)) {
+      return `+${variable}`;
+    }
     return `+${coefficient.toFraction()}${variable}`;
   } else {
     return '';
