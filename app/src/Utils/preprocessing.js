@@ -1,3 +1,4 @@
+import Graph from '../Elements/Graph';
 import HalfPlane from '../Elements/HalfPlane';
 import Line from '../Elements/Line';
 import MyBoolean from '../Elements/Boolean';
@@ -37,6 +38,16 @@ function processElement(elements, newData, value) {
     newElement = MyNumber.fromNumber(value);
   } else if (value.type) {
     switch (value.type) {
+      case 'graph':
+        value.vertices = value.vertices.map((v) => {
+          if (isRef(v)) {
+            return processElementRef(elements, newData, v);
+          } else {
+            return Point.fromCoords(v.coords);
+          }
+        });
+        newElement = Graph.fromVerticesEdges(value.vertices, value.edges);
+        break;
       case 'half-plane_coords':
         for (const key of ['coords1', 'coords2']) {
           if (isRef(value[key])) {
