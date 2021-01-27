@@ -22,7 +22,7 @@
         "type": "point"
       },
       {
-        "coords": [6, 1],
+        "coords": [-6, 1],
         "type": "point"
       }
     ],
