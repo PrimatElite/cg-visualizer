@@ -1,6 +1,7 @@
 import Graph from '../Elements/Graph';
 import HalfPlane from '../Elements/HalfPlane';
 import Line from '../Elements/Line';
+import LineIntersection from '../Elements/LineIntersection';
 import MyBoolean from '../Elements/Boolean';
 import MyNumber from '../Elements/Number';
 import Paints from '../Elements/Paints';
@@ -82,6 +83,15 @@ function processElement(elements, newData, value) {
         newElement = Line.fromEquation(
           value.coefficients,
           value.direction || 'forward',
+        );
+        break;
+      case 'line_intersection':
+        value.objects = value.objects.map((o) =>
+          processElementRef(elements, newData, o),
+        );
+        newElement = LineIntersection.fromObjectsType(
+          value.objects,
+          value.intersection_type || 'intersection',
         );
         break;
       case 'paints':
