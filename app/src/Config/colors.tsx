@@ -6,6 +6,7 @@ const COLORS: Colors = {
   graph: 0xfaf,
   'half-plane': 0x000,
   line: 0xfaf,
+  line_intersection: 0x000,
   paints: 0xfffff,
   point: 0x000,
   polygon: 0xfaf,
