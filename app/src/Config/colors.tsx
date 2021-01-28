@@ -3,6 +3,7 @@ interface Colors {
 }
 
 const COLORS: Colors = {
+  graph: 0xfaf,
   'half-plane': 0x000,
   line: 0xfaf,
   paints: 0xfffff,

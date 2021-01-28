@@ -90,6 +90,9 @@
     },
     {
       "$ref": "#/elements/line"
+    },
+    {
+      "$ref": "#/elements/stabbing_number"
     }
   ]
 }
