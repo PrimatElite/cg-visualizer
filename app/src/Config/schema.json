@@ -369,7 +369,8 @@
           "items": {
             "$comment": "Reference to element from list of half-planes",
             "$ref": "#/definitions/element_ref"
-          }
+          },
+          "minItems": 2
         },
         "intersection_type": {
           "enum": ["empty", "layer", "unbounded", "bounded"]
@@ -387,9 +388,10 @@
         "objects": {
           "type": "array",
           "items": {
-            "$comment": "Reference to element from list of segments, lines or vertices",
+            "$comment": "Reference to element from list of sides, segments, lines or points",
             "$ref": "#/definitions/element_ref"
-          }
+          },
+          "minItems": 2
         },
         "intersection_type": {
           "enum": ["empty", "contact", "intersection"],
@@ -410,7 +412,8 @@
           "items": {
             "$comment": "Reference to element from list of circles",
             "$ref": "#/definitions/element_ref"
-          }
+          },
+          "minItems": 2
         },
         "type": {
           "const": "circle_intersection"
@@ -427,7 +430,8 @@
           "items": {
             "$comment": "Polygon side - reference to element from list of vertices",
             "$ref": "#/definitions/element_ref"
-          }
+          },
+          "minItems": 2
         },
         "kernel_type": {
           "enum": ["empty", "bounded"]
@@ -464,8 +468,7 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/two_indices"
-          },
-          "minItems": 1
+          }
         },
         "type": {
           "const": "graph"
